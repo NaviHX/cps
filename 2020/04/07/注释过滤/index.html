@@ -162,24 +162,24 @@
             <article id="post-注释过滤" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       注释过滤
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>C语言的注释分为两种，第一种：在一行源代码中“//”后的内容为注释内容。第二种:“/<em>”与“</em>/”之间的内容为注释内容。第三种：程序中只出现了“/<em>”，没有“</em>/”与之对应，那么将“/<em>”后的全部内容都要过滤掉。注意，只要是注释内容，那么注释内容中的字符应该全部忽略，即不起任何的作用。例如“/*”与“</em>/”之间如果再有“//”，那么“//”不应起作用；如果“//”再有“/<em>”，那么“/<em>”也不应起作用。<br>你的任务是先打开一个名字为dict.dic的文本文件，该文件中前5行每行为1个整数，从第6行开始为5段C语言的源代码。那5个数字代表这5段源代码结束的行数，比如如果第一行的整数为20，第二行的整数为60，则表示从第6行到第20为第一段代码，从第21行到第60为第二段代码。然后根据输入要求将源代码中所有注释过滤掉。<br>在本过滤注释系统中，你可以忽略源文件中双引号导致“//”、“/</em>”、“</em>/”失去作用的情况，即只要“//”、“/<em>”、“</em>/”不是注释内容，在任何情况下都起作用。</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>C语言的注释分为两种，第一种：在一行源代码中“//”后的内容为注释内容。第二种:“/<em>”与“</em>/”之间的内容为注释内容。第三种：程序中只出现了“/<em>”，没有“</em>/”与之对应，那么将“/<em>”后的全部内容都要过滤掉。注意，只要是注释内容，那么注释内容中的字符应该全部忽略，即不起任何的作用。例如“/*”与“</em>/”之间如果再有“//”，那么“//”不应起作用；如果“//”再有“/<em>”，那么“/<em>”也不应起作用。<br>你的任务是先打开一个名字为dict.dic的文本文件，该文件中前5行每行为1个整数，从第6行开始为5段C语言的源代码。那5个数字代表这5段源代码结束的行数，比如如果第一行的整数为20，第二行的整数为60，则表示从第6行到第20为第一段代码，从第21行到第60为第二段代码。然后根据输入要求将源代码中所有注释过滤掉。<br>在本过滤注释系统中，你可以忽略源文件中双引号导致“//”、“/</em>”、“</em>/”失去作用的情况，即只要“//”、“/<em>”、“</em>/”不是注释内容，在任何情况下都起作用。</p>
 <a id="more"></a>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>只可能是1，2，3，4，5之一</p>
@@ -199,13 +199,13 @@
 <p>也可以利用自动机的思想解决这道题目<br>用一个状态值确定输入模式<br>实质上两种解法是相同的</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">skipToLine</span><span class="params">(FILE *fin, <span class="keyword">int</span> *from, <span class="keyword">int</span> to)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">commentFilter</span><span class="params">(FILE *fin, <span class="keyword">int</span> from, <span class="keyword">int</span> to)</span></span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE *fin = fopen(<span class="string">"dict.dic"</span>, <span class="string">"r"</span>);</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">line</span>[<span class="number">5</span>], nowLine = <span class="number">0</span>, i, n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">        <span class="built_in">fscanf</span>(fin, <span class="string">"%d"</span>, &amp;<span class="built_in">line</span>[i]); <span class="comment">//得到代码段信息</span></span><br><span class="line">    fgetc(fin);</span><br><span class="line">    nowLine = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">if</span> (n &gt;= <span class="number">2</span>)</span><br><span class="line">        skipToLine(fin, &amp;nowLine, <span class="built_in">line</span>[n - <span class="number">2</span>] + <span class="number">1</span>); <span class="comment">//跳至代码段开头</span></span><br><span class="line">    commentFilter(fin, nowLine, <span class="built_in">line</span>[n - <span class="number">1</span>]);       <span class="comment">//开始过滤</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">5</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">skipToLine</span><span class="params">(FILE *fin, <span class="keyword">int</span> *from, <span class="keyword">int</span> to)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (temp != EOF &amp;&amp; *from &lt; to)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp == <span class="string">'\n'</span>)</span><br><span class="line">            (*from)++;</span><br><span class="line">        <span class="keyword">if</span> (*from != to)</span><br><span class="line">            temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">commentFilter</span><span class="params">(FILE *fin, <span class="keyword">int</span> from, <span class="keyword">int</span> to)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> state = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    0:正常输出 </span></span><br><span class="line"><span class="comment">    1:检测到第一个/ </span></span><br><span class="line"><span class="comment">    2:检测到第二个/-&gt;进入单行注释模式 </span></span><br><span class="line"><span class="comment">    3:在1状态检测到*-&gt;进入多行注释模式 </span></span><br><span class="line"><span class="comment">    4.在3状态检测到*-&gt;准备结束多行注释</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (from &lt;= to &amp;&amp; temp!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (state == <span class="number">0</span>) <span class="comment">//正常输出模式</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">'/'</span>)</span><br><span class="line">                state = <span class="number">1</span>; <span class="comment">//检查注释</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%c"</span>, temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="number">1</span>) <span class="comment">//注释预备</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">'/'</span>)</span><br><span class="line">                state = <span class="number">2</span>; <span class="comment">//进入单行注释</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (temp == <span class="string">'*'</span>)</span><br><span class="line">                state = <span class="number">3</span>; <span class="comment">//进入多行注释</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"/%c"</span>, temp); <span class="comment">//进入注释失败,注意补回/</span></span><br><span class="line">                state = <span class="number">0</span>;           <span class="comment">//回到输出模式</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="number">2</span>) <span class="comment">//单行注释模式</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">'\n'</span>) <span class="comment">//单行注释遇到换行，回到正常输出</span></span><br><span class="line">            &#123;</span><br><span class="line">                state = <span class="number">0</span>;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"\n"</span>); <span class="comment">//注意换行</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="number">3</span>) <span class="comment">//多行输出模式</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">'*'</span>) <span class="comment">//注释准备结束</span></span><br><span class="line">                state = <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="number">4</span>) <span class="comment">//多行模式结束预备</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="string">'/'</span>) <span class="comment">//结束注释</span></span><br><span class="line">                state = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="comment">//继续注释</span></span><br><span class="line">                state = <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(temp==<span class="string">'\n'</span>)</span><br><span class="line">            from++;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -225,12 +225,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -280,13 +280,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/08/README/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -338,31 +338,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

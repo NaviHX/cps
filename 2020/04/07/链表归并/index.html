@@ -161,24 +161,24 @@
             <article id="post-链表归并" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       链表归并
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知有两个递增的正整数序列A和B，序列中元素个数未知，同一序列中不会有重复元素出现，有可能某个序列为空。现要求将序列B归并到序列A中，且归并后序列A的数据仍然按递增顺序排列。如果序列B中某些数据在序列A中也存在，则这些数据所在节点仍然留在序列B中，而不被归并到序列A中；否则这些数据所在节点将从序列B中删除，添加到序列A中。<br>要求：<br>建立两个单链表A、B用于存储两个正整数序列，然后按照题目的要求，将链表B中的元素归并到链表A中。在归并的过程中，不要释放B中的节点空间、然后建立新节点，而要改变指针的指向，使元素从B中删除并添加到A中。正整数序列按照递增顺序输入，用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。在程序结束前要释放链表A、B中的所有节点。</p>
+    <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知有两个递增的正整数序列A和B，序列中元素个数未知，同一序列中不会有重复元素出现，有可能某个序列为空。现要求将序列B归并到序列A中，且归并后序列A的数据仍然按递增顺序排列。如果序列B中某些数据在序列A中也存在，则这些数据所在节点仍然留在序列B中，而不被归并到序列A中；否则这些数据所在节点将从序列B中删除，添加到序列A中。<br>要求：<br>建立两个单链表A、B用于存储两个正整数序列，然后按照题目的要求，将链表B中的元素归并到链表A中。在归并的过程中，不要释放B中的节点空间、然后建立新节点，而要改变指针的指向，使元素从B中删除并添加到A中。正整数序列按照递增顺序输入，用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。在程序结束前要释放链表A、B中的所有节点。</p>
 <a id="more"></a>
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>依次输入两个递增的正整数序列A和B，序列元素的个数未知，但以输入“-1”结束，每个正整数序列占一行。</p>
 <p>sample input:</p>
@@ -191,13 +191,13 @@
 <p>Sample 1:<br>1 3 4 5 6 7 -1<br>2 3 6 8 9 10 11-1<br>Sample 2:<br>-1<br>-1</p>
 </blockquote>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;         <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> *<span class="title">nxt</span>;</span> <span class="comment">//指针与</span></span><br><span class="line">&#125; node;               <span class="comment">//重命名结构体</span></span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span>;                        <span class="comment">//创建一个带空节点头的链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeList</span><span class="params">(node *<span class="built_in">list</span>, node *listAdd)</span></span>; <span class="comment">//链表归并</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(node *head)</span></span>;                <span class="comment">//打印链表</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listIsEmpty</span><span class="params">(node *head)</span></span>;               <span class="comment">//检查链表除链首外是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroyList</span><span class="params">(node *head)</span></span>;              <span class="comment">//释放空间</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *listA = createList(), *listB = createList();</span><br><span class="line">    mergeList(listA, listB);</span><br><span class="line">    <span class="keyword">if</span> (!listIsEmpty(listA))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The new list A:"</span>);</span><br><span class="line">        printList(listA);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"There is no item in A list.\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!listIsEmpty(listB))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The new list B:"</span>);</span><br><span class="line">        printList(listB);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"There is no item in B list.\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    destroyList(listA);</span><br><span class="line">    destroyList(listB);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    node *head = <span class="literal">NULL</span>, *tail = <span class="literal">NULL</span>;</span><br><span class="line">    tail = head = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    head-&gt;data = <span class="number">0</span>; <span class="comment">//无意义的值</span></span><br><span class="line">    head-&gt;nxt = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num); num != <span class="number">-1</span>; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num))</span><br><span class="line">    &#123;</span><br><span class="line">        tail-&gt;nxt = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">        tail = tail-&gt;nxt;</span><br><span class="line">        tail-&gt;data = num;</span><br><span class="line">        tail-&gt;nxt = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    head = head-&gt;nxt;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, head-&gt;data);</span><br><span class="line">        head = head-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeList</span><span class="params">(node *<span class="built_in">list</span>, node *listAdd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *ptr = <span class="built_in">list</span>, *ptrAdd = listAdd-&gt;nxt, *preAdd = listAdd;</span><br><span class="line">    <span class="keyword">while</span> (ptrAdd != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (ptr-&gt;data == ptrAdd-&gt;data) <span class="comment">//恰好遇见相等的值</span></span><br><span class="line">        &#123;</span><br><span class="line">            ptrAdd = ptrAdd-&gt;nxt; <span class="comment">//则跳过当前节点</span></span><br><span class="line">            preAdd = preAdd-&gt;nxt; <span class="comment">//前驱与当前指针均往后移</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ptrAdd == <span class="literal">NULL</span>) <span class="comment">//检查是否跳到链表尾部</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (ptr-&gt;nxt == <span class="literal">NULL</span> || ptr-&gt;nxt-&gt;data &gt; ptrAdd-&gt;data) <span class="comment">//插入的条件为:1.到达链表尾部</span></span><br><span class="line">        &#123;                                                      <span class="comment">//2.满足升序条件</span></span><br><span class="line">            preAdd-&gt;nxt = ptrAdd-&gt;nxt;</span><br><span class="line">            ptrAdd-&gt;nxt = ptr-&gt;nxt;</span><br><span class="line">            ptr-&gt;nxt = ptrAdd;</span><br><span class="line">            ptrAdd = preAdd-&gt;nxt;</span><br><span class="line">        &#125;</span><br><span class="line">        ptr = ptr-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listIsEmpty</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (head-&gt;nxt == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroyList</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *temp=head;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        head = head-&gt;nxt;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        temp = head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -213,12 +213,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -268,13 +268,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -326,31 +326,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

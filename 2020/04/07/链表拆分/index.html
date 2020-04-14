@@ -161,24 +161,24 @@
             <article id="post-链表拆分" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       链表拆分
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知有一个乱序的字符序列L，序列中的字符可能是英文字母、数字字符或其它字符，字符的个数未知，每个字符之间用空格分开。字符序列用“-1”作为输入结束标志，这里你要把-1当做一个字符串对待，并且不算作字符序列中的元素。如下即为一个合法的字符序列：“a c 3 b a d 6 , &amp; j m 8 7 2 V -1”。你的任务是将这个字符序列拆分为三个独立的序列A、B和C，其中序列A存放序列L中的字母，序列B存放序列L中的数字，序列C存放序列L中的其他字符，然后，将序列A、B和C分别按照ASCII码的大小关系进行升序排序。最终序列L将变为空序列。<br>要求：<br>建立四个单链表，分别存储序列L、A、B、C中的元素。字符序列的输入用“-1”作为结束标志。建立链表L时，建议使用scanf(“%s”,s);来读取字符序列中的字符，即把单独的字符看做一个字符串读取。当L建立后，你要按照问题描述中所述，将L拆分为A、B、C三个链表，然后对每个链表都进行排序，这部分的操作都应该是对指针进行修改，而不是删除节点与建立新节点。在程序结束前要释放链表A、B、C中的所有节点。</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知有一个乱序的字符序列L，序列中的字符可能是英文字母、数字字符或其它字符，字符的个数未知，每个字符之间用空格分开。字符序列用“-1”作为输入结束标志，这里你要把-1当做一个字符串对待，并且不算作字符序列中的元素。如下即为一个合法的字符序列：“a c 3 b a d 6 , &amp; j m 8 7 2 V -1”。你的任务是将这个字符序列拆分为三个独立的序列A、B和C，其中序列A存放序列L中的字母，序列B存放序列L中的数字，序列C存放序列L中的其他字符，然后，将序列A、B和C分别按照ASCII码的大小关系进行升序排序。最终序列L将变为空序列。<br>要求：<br>建立四个单链表，分别存储序列L、A、B、C中的元素。字符序列的输入用“-1”作为结束标志。建立链表L时，建议使用scanf(“%s”,s);来读取字符序列中的字符，即把单独的字符看做一个字符串读取。当L建立后，你要按照问题描述中所述，将L拆分为A、B、C三个链表，然后对每个链表都进行排序，这部分的操作都应该是对指针进行修改，而不是删除节点与建立新节点。在程序结束前要释放链表A、B、C中的所有节点。</p>
 <a id="more"></a>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>一个乱序的字符序列，序列元素的个数未知，以输入“-1”结束，输入“-1”前可能没有其它元素，每个字符序列占一行。</p>
@@ -193,13 +193,13 @@
 </blockquote>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">char</span> data;        <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> *<span class="title">nxt</span>;</span> <span class="comment">//指针域</span></span><br><span class="line">&#125; node;</span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span>;                      <span class="comment">//创建一个空链表头</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addList</span><span class="params">(node *head, <span class="keyword">char</span> ch)</span></span>;       <span class="comment">//向链表加入一个值</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertList</span><span class="params">(node *head, node *temp)</span></span>; <span class="comment">//向链表插入一个节点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(node *head)</span></span>;              <span class="comment">//打印链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(node *head)</span></span>;             <span class="comment">//对链表进行冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroyList</span><span class="params">(node *head)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">501</span>];</span><br><span class="line">    <span class="keyword">int</span> i, len;</span><br><span class="line">    node *<span class="built_in">list</span> = createList(), *listA = createList(), *listB = createList(), *listC = createList();</span><br><span class="line">    node *ptr, *temp;</span><br><span class="line">    gets(s); <span class="comment">//获取字符串</span></span><br><span class="line">    len = <span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len - <span class="number">2</span>; i++) <span class="comment">//将字符串加入到链表中</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s[i] != <span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            addList(<span class="built_in">list</span>, s[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    temp = <span class="built_in">list</span>-&gt;nxt;</span><br><span class="line">    <span class="keyword">while</span> (temp != <span class="literal">NULL</span>) <span class="comment">//筛选链表中的各字符并加入相应链表中</span></span><br><span class="line">    &#123;</span><br><span class="line">        ptr = temp;</span><br><span class="line">        temp = temp-&gt;nxt;</span><br><span class="line">        <span class="keyword">if</span> ((ptr-&gt;data &gt;= <span class="string">'a'</span> &amp;&amp; ptr-&gt;data &lt;= <span class="string">'z'</span>) || (ptr-&gt;data &gt;= <span class="string">'A'</span> &amp;&amp; ptr-&gt;data &lt;= <span class="string">'Z'</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            insertList(listA, ptr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (ptr-&gt;data &gt;= <span class="string">'0'</span> &amp;&amp; ptr-&gt;data &lt;= <span class="string">'9'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            insertList(listB, ptr);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            insertList(listC, ptr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    bubbleSort(listA); <span class="comment">//对各链表进行排序</span></span><br><span class="line">    bubbleSort(listB);</span><br><span class="line">    bubbleSort(listC);</span><br><span class="line">    <span class="keyword">if</span> (listA-&gt;nxt == <span class="literal">NULL</span>) <span class="comment">//输出</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"There is no item in A list.\n"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The list A is: "</span>);</span><br><span class="line">        printList(listA);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (listB-&gt;nxt == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"There is no item in B list.\n"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The list B is: "</span>);</span><br><span class="line">        printList(listB);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (listC-&gt;nxt == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"There is no item in C list.\n"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The list C is: "</span>);</span><br><span class="line">        printList(listC);</span><br><span class="line">    &#125;</span><br><span class="line">    destroyList(listA);</span><br><span class="line">    destroyList(listB);</span><br><span class="line">    destroyList(listC);</span><br><span class="line">    destroyList(<span class="built_in">list</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *head;</span><br><span class="line">    head = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    head-&gt;data = EOF; <span class="comment">//无意义的值</span></span><br><span class="line">    head-&gt;nxt = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addList</span><span class="params">(node *head, <span class="keyword">char</span> ch)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *temp = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">    temp-&gt;data = ch;</span><br><span class="line">    temp-&gt;nxt = head-&gt;nxt;</span><br><span class="line">    head-&gt;nxt = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertList</span><span class="params">(node *head, node *temp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    temp-&gt;nxt = head-&gt;nxt;</span><br><span class="line">    head-&gt;nxt = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    head = head-&gt;nxt;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c"</span>, head-&gt;data);</span><br><span class="line">        <span class="keyword">if</span> (head-&gt;nxt != <span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">        head = head-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(node *head)</span> <span class="comment">//冒泡排序，适用于有头节点的链表，否则第一个元素将无法参与排序</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *pre, *ptr, *tail; <span class="comment">//pre:当前遍历节点的前驱节点 ptr:当前遍历节点 tail:遍历终止节点</span></span><br><span class="line">    tail = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (head-&gt;nxt != tail)</span><br><span class="line">    &#123;</span><br><span class="line">        pre = head;</span><br><span class="line">        ptr = head-&gt;nxt;</span><br><span class="line">        <span class="keyword">while</span> (ptr-&gt;nxt != tail)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (ptr-&gt;data &gt; ptr-&gt;nxt-&gt;data) <span class="comment">//若不满足递增条件</span></span><br><span class="line">            &#123;</span><br><span class="line">                pre-&gt;nxt = ptr-&gt;nxt; <span class="comment">//则进行交换操作</span></span><br><span class="line">                ptr-&gt;nxt = pre-&gt;nxt-&gt;nxt;</span><br><span class="line">                pre-&gt;nxt-&gt;nxt = ptr;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ptr = ptr-&gt;nxt;</span><br><span class="line">            pre = pre-&gt;nxt;</span><br><span class="line">        &#125;</span><br><span class="line">        tail = ptr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">destroyList</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *temp = head;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        head = head-&gt;nxt;</span><br><span class="line">        <span class="built_in">free</span>(temp);</span><br><span class="line">        temp = head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -215,12 +215,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -270,13 +270,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -328,31 +328,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

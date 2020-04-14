@@ -162,24 +162,24 @@
             <article id="post-和谐词库" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       和谐词库
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.174Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>互联网中存在许多的不和谐词汇，在我们浏览互联网的时候，搜索引擎经常会出现提示信息“根据相关法律法规和政策，部分搜索结果未予显示”。小王同学也想制作一个自己的屏蔽词库，这样他就可以将自己不喜欢的词汇从文件中换成别的字符了。屏蔽词库是一个ASCII码文件，这个文件中只含有单词，每个单词占一行，每个单词中只可能有大小写字母与空格。题目中和谐词库的文件名为dict.dic。（屏蔽词库中每个词汇长度小于10，屏蔽词汇个数不超过10.）<br>你的任务是将输入中的所有和谐词库中的词语全部替换成“!@#$%^&amp;<em>”（按住键盘shift和数字1至8），然后输出。这里要注意，如果一个词语中包含屏蔽词汇，那么只将屏蔽词汇替换，例如“hehasAAA”被处理后将得到“he!@#$%^&amp;</em>AAA”，注意屏蔽词汇区分大小写，即aaa与AAA是两个不同的单词，为了使问题简化，屏蔽词汇中不会出现互相包含的情况，如“xabcx”与“abc”不会同时出现在同一个屏蔽词库中。由于小王同学很不擅长文件操作，所以他希望你能帮他制作这个屏蔽词汇程序。</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>互联网中存在许多的不和谐词汇，在我们浏览互联网的时候，搜索引擎经常会出现提示信息“根据相关法律法规和政策，部分搜索结果未予显示”。小王同学也想制作一个自己的屏蔽词库，这样他就可以将自己不喜欢的词汇从文件中换成别的字符了。屏蔽词库是一个ASCII码文件，这个文件中只含有单词，每个单词占一行，每个单词中只可能有大小写字母与空格。题目中和谐词库的文件名为dict.dic。（屏蔽词库中每个词汇长度小于10，屏蔽词汇个数不超过10.）<br>你的任务是将输入中的所有和谐词库中的词语全部替换成“!@#$%^&amp;<em>”（按住键盘shift和数字1至8），然后输出。这里要注意，如果一个词语中包含屏蔽词汇，那么只将屏蔽词汇替换，例如“hehasAAA”被处理后将得到“he!@#$%^&amp;</em>AAA”，注意屏蔽词汇区分大小写，即aaa与AAA是两个不同的单词，为了使问题简化，屏蔽词汇中不会出现互相包含的情况，如“xabcx”与“abc”不会同时出现在同一个屏蔽词库中。由于小王同学很不擅长文件操作，所以他希望你能帮他制作这个屏蔽词汇程序。</p>
 <a id="more"></a>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>若干长度小于100的字符串。</p>
@@ -199,13 +199,13 @@
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>熟练掌握字符串操作</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> harmonyWord[<span class="number">11</span>][<span class="number">11</span>];<span class="comment">//敏感词</span></span><br><span class="line">    <span class="keyword">char</span> *safeWord = <span class="string">"!@#$%^&amp;*"</span>;<span class="comment">//用于替换的词</span></span><br><span class="line">    <span class="keyword">char</span> <span class="built_in">text</span>[<span class="number">101</span>];<span class="comment">//保存段落</span></span><br><span class="line">    <span class="keyword">int</span> total = <span class="number">0</span>, loc, textLen, i = <span class="number">0</span>, flag;</span><br><span class="line">    FILE *fin = fopen(<span class="string">"dict.dic"</span>, <span class="string">"r"</span>);</span><br><span class="line">    <span class="keyword">while</span> (!feof(fin))</span><br><span class="line">    &#123;</span><br><span class="line">        fgets(harmonyWord[total], <span class="number">10</span>, fin);</span><br><span class="line">        <span class="keyword">if</span> (harmonyWord[total][<span class="built_in">strlen</span>(harmonyWord[total]) - <span class="number">1</span>] == <span class="string">'\n'</span>)</span><br><span class="line">            harmonyWord[total][<span class="built_in">strlen</span>(harmonyWord[total]) - <span class="number">1</span>] = <span class="string">'\0'</span>; <span class="comment">//去掉末尾的换行符</span></span><br><span class="line">        total++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (gets(<span class="built_in">text</span>) != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        textLen = <span class="built_in">strlen</span>(<span class="built_in">text</span>);</span><br><span class="line">        <span class="keyword">for</span> (loc = <span class="number">0</span>; loc &lt; textLen; loc++)</span><br><span class="line">        &#123;</span><br><span class="line">            flag = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; total &amp;&amp; flag == <span class="number">0</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (loc + <span class="built_in">strlen</span>(harmonyWord[i]) &lt;= textLen)<span class="comment">//防止超长</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="built_in">strncmp</span>(<span class="built_in">text</span> + loc, harmonyWord[i], <span class="built_in">strlen</span>(harmonyWord[i])) == <span class="number">0</span>)<span class="comment">//判断是否相同</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        flag = <span class="number">1</span>;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">"%s"</span>, safeWord);</span><br><span class="line">                        loc += <span class="built_in">strlen</span>(harmonyWord[i]) - <span class="number">1</span>;<span class="comment">//跳过当前词语</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag == <span class="number">0</span>)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">"%c"</span>, <span class="built_in">text</span>[loc]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);<span class="comment">//注意换行</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -225,12 +225,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -280,13 +280,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -338,31 +338,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

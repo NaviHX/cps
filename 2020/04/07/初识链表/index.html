@@ -161,24 +161,24 @@
             <article id="post-初识链表" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       初识链表
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个正整数序列，个数未知，但至少有一个元素，你的任务是建立一个单链表，并使用该链表存储这个正整数序列，然后统计这个序列中元素的最大值与最小值，计算序列全部元素之和。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个正整数序列，个数未知，但至少有一个元素，你的任务是建立一个单链表，并使用该链表存储这个正整数序列，然后统计这个序列中元素的最大值与最小值，计算序列全部元素之和。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。</p>
 <a id="more"></a>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>一个正整数序列，正整数序列元素的个数未知，但以输入“-1”结束，输入“-1”前至少输入一个正整数。序列中的元素范围在1—999999999之间。</p>
@@ -193,13 +193,13 @@
 </blockquote>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NODE</span></span></span><br><span class="line"><span class="class">&#123;</span>                     <span class="comment">//定义链表节点结构</span></span><br><span class="line">    <span class="keyword">int</span> data;         <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> *<span class="title">nxt</span>;</span> <span class="comment">//指针域</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> <span class="title">node</span>;</span> <span class="comment">//结构体重新命名</span></span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span>;        <span class="comment">//创建链表函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">freeList</span><span class="params">(node *head)</span></span>; <span class="comment">//释放链表内存</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(node *head)</span></span>;    <span class="comment">//链表元素求和</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMax</span><span class="params">(node *head)</span></span>;    <span class="comment">//寻找链表元素最大值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">(node *head)</span></span>;    <span class="comment">//寻找链表元素最小值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *head = createL();                                                   <span class="comment">//创建链表并且得到链表头指针</span></span><br><span class="line">    <span class="keyword">int</span> sum = getSum(head);                                                   <span class="comment">//得到总和</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">max</span> = getMax(head);                                                   <span class="comment">//得到最大值</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">min</span> = getMin(head);                                                   <span class="comment">//得到最大值</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"The maximum,minmum and the total are:%d %d %d\n"</span>, <span class="built_in">max</span>, <span class="built_in">min</span>, sum); <span class="comment">//输出结果</span></span><br><span class="line">    freeList(head);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">node *<span class="title">createList</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    node *headPtr = <span class="literal">NULL</span>, *tailPtr = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num) &amp;&amp; num != <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (headPtr == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            tailPtr = headPtr = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">            headPtr-&gt;data = num;</span><br><span class="line">            headPtr-&gt;nxt = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            tailPtr-&gt;nxt = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(node));</span><br><span class="line">            tailPtr-&gt;nxt-&gt;data = num;</span><br><span class="line">            tailPtr = tailPtr-&gt;nxt;</span><br><span class="line">            tailPtr-&gt;nxt = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> headPtr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSum</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    node *currentPtr = head;</span><br><span class="line">    <span class="keyword">while</span> (currentPtr != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += currentPtr-&gt;data; <span class="comment">//累加每一个节点的数据</span></span><br><span class="line">        currentPtr = currentPtr-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMax</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *currentPtr = head;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">max</span> = currentPtr-&gt;data;</span><br><span class="line">    <span class="keyword">while</span> (currentPtr != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (currentPtr-&gt;data &gt; <span class="built_in">max</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">max</span> = currentPtr-&gt;data; <span class="comment">//如果当前节点数据更大，则更新max的值</span></span><br><span class="line">        &#125;</span><br><span class="line">        currentPtr = currentPtr-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">max</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getMin</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *currentPtr = head;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">min</span> = currentPtr-&gt;data;</span><br><span class="line">    <span class="keyword">while</span> (currentPtr != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (currentPtr-&gt;data &lt; <span class="built_in">min</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">min</span> = currentPtr-&gt;data; <span class="comment">//如果当前节点数据更小，则更新min的值</span></span><br><span class="line">        &#125;</span><br><span class="line">        currentPtr = currentPtr-&gt;nxt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">min</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">freeList</span><span class="params">(node *head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    node *currentPtr = head;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        head = head-&gt;nxt;</span><br><span class="line">        <span class="built_in">free</span>(currentPtr);</span><br><span class="line">        currentPtr = head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -215,12 +215,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -270,13 +270,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -328,31 +328,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

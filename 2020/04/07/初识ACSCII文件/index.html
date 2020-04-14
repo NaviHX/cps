@@ -161,24 +161,24 @@
             <article id="post-初识ACSCII文件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       初识ASCII文件
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.172Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。<br>要求：<br>1.统计出这四类字符在该文件中的数量。<br>2.统计出该文件的行数、行最大长度、行最小长度。这里要注意，虽然文件的换行符确实为一个字符，ASCII码为10，但在统计行长度时，文件中的换行符并不统计在内。<br>3.输出具体的大小写字母的统计信息，每行一个字母。<br>4.处理完成后，关闭文件。<br>内容提示：在本题对文件的操作内容中，会用到三个新的C语言文件操作函数，一种新的打开文件的方式，如下：<br>1.FILE *fp=fopen(“file.txt”,”r”);//fp即为文件指针，”file.txt”为待打开的文件名，此时应与该程序在一个目录下，”r”为以只读方式打开ASCII码文件。<br>2.int ch=fgetc(fp);//从fp指向的文件中读取一个字节（字符），存入变量ch内。<br>3.fclose(fp);//关闭fp指向的文件。</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。<br>要求：<br>1.统计出这四类字符在该文件中的数量。<br>2.统计出该文件的行数、行最大长度、行最小长度。这里要注意，虽然文件的换行符确实为一个字符，ASCII码为10，但在统计行长度时，文件中的换行符并不统计在内。<br>3.输出具体的大小写字母的统计信息，每行一个字母。<br>4.处理完成后，关闭文件。<br>内容提示：在本题对文件的操作内容中，会用到三个新的C语言文件操作函数，一种新的打开文件的方式，如下：<br>1.FILE *fp=fopen(“file.txt”,”r”);//fp即为文件指针，”file.txt”为待打开的文件名，此时应与该程序在一个目录下，”r”为以只读方式打开ASCII码文件。<br>2.int ch=fgetc(fp);//从fp指向的文件中读取一个字节（字符），存入变量ch内。<br>3.fclose(fp);//关闭fp指向的文件。</p>
 <a id="more"></a>
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>只可能是1，2，3三个整数之一，其输出分别对应输出中的Task1，Task2，Task3。</p>
@@ -203,13 +203,13 @@
 </blockquote>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a, b) a &gt; b ? a : b</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN(a, b) a &lt; b ? a : b</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(FILE *fin, <span class="keyword">int</span> task)</span></span>; <span class="comment">//创建一个文件识别任务，根据任务的数字确定执行的方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask1</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask2</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask3</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务3</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE *fin = fopen(<span class="string">"dict.dic"</span>, <span class="string">"r"</span>);</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    getTask(fin, n); <span class="comment">//创建任务</span></span><br><span class="line">    fclose(fin);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(FILE *fin, <span class="keyword">int</span> task)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (task == <span class="number">1</span>) <span class="comment">//任务分类</span></span><br><span class="line">        completeTask1(fin);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (task == <span class="number">2</span>)</span><br><span class="line">        completeTask2(fin);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (task == <span class="number">3</span>)</span><br><span class="line">        completeTask3(fin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask1</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    <span class="keyword">int</span> count[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">//对四种类型的字符进行分别计数</span></span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= <span class="string">'A'</span> &amp;&amp; temp &lt;= <span class="string">'Z'</span>)</span><br><span class="line">            count[<span class="number">0</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &gt;= <span class="string">'a'</span> &amp;&amp; temp &lt;= <span class="string">'z'</span>)</span><br><span class="line">            count[<span class="number">1</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &lt;= <span class="string">'9'</span> &amp;&amp; temp &gt;= <span class="string">'0'</span>)</span><br><span class="line">            count[<span class="number">2</span>]++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            count[<span class="number">3</span>]++;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125; <span class="keyword">while</span> (temp != EOF);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task1:\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"capital: %d\n"</span>, count[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"lowercase: %d\n"</span>, count[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"digit: %d\n"</span>, count[<span class="number">2</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"others: %d\n"</span>, count[<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask2</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lineCount = <span class="number">0</span>, charCount = <span class="number">0</span>; <span class="comment">//分别为行数，某一行的字数</span></span><br><span class="line">    <span class="keyword">int</span> maxLine = <span class="number">0</span>, minLine = <span class="number">0</span>;     <span class="comment">//最长行与最短行的字数</span></span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (temp != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp != <span class="string">'\n'</span>)</span><br><span class="line">            charCount++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            lineCount++;</span><br><span class="line">            maxLine = MAX(maxLine, charCount); <span class="comment">//最长行可以直接比较</span></span><br><span class="line">            <span class="keyword">if</span> (minLine == <span class="number">0</span>)                  <span class="comment">//判断最短行有无初始值</span></span><br><span class="line">                minLine = charCount;           <span class="comment">//无初始值则赋值</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                minLine = MIN(minLine, charCount); <span class="comment">//否则作比较</span></span><br><span class="line">            charCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">    lineCount++; <span class="comment">//最后一行无换行符，仍需要进一步处理</span></span><br><span class="line">    maxLine = MAX(maxLine, charCount);</span><br><span class="line">    <span class="keyword">if</span> (minLine == <span class="number">0</span>)</span><br><span class="line">        minLine = charCount;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        minLine = MIN(minLine, charCount);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task2:\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"line: %d\n"</span>, lineCount);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d characters in max line.\n"</span>, maxLine);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d characters in min line.\n"</span>, minLine);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask3</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> capitalCount[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;, lowercaseCount[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;, i; <span class="comment">//分别对大小写字母计数</span></span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (temp != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= <span class="string">'A'</span> &amp;&amp; temp &lt;= <span class="string">'Z'</span>)</span><br><span class="line">            capitalCount[temp - <span class="string">'A'</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &gt;= <span class="string">'a'</span> &amp;&amp; temp &lt;= <span class="string">'z'</span>)</span><br><span class="line">            lowercaseCount[temp - <span class="string">'a'</span>]++;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task3:\nCAPITAL:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c:%d\n"</span>, i + <span class="string">'A'</span>, capitalCount[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"LOWERCASE:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c:%d\n"</span>, i + <span class="string">'a'</span>, lowercaseCount[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -225,12 +225,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -280,13 +280,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -338,31 +338,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>

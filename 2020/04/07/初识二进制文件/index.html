@@ -161,24 +161,24 @@
             <article id="post-初识二进制文件" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
+      <header class=" article-header">
+  
   
     <h1 class="article-title" itemprop="name">
       初识二进制文件
     </h1>
   
 
-        
-        <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" class="archive-article-date">
+  
+  <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
 </a>
-        
-      </header>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>常用的数据类型有字符型(char 型)、短整型(short 型)、整型(int 型)、长整型(long 型)、拓展长整型(long long 型)、单精度浮点型(float 型)、双精度浮点型(double 型)。问题围绕着数据类型与二进制文件展开。现有一个二进制文件，文件名为dict.dic，生成这个文件的C语言代码大概是这样的：<br>变量如下：<br>    char a,aa[5];//注意这里数组aa为正常使用的字符串，所以会包含字符’\0’，它不需要输出<br>    short b,bb[5];<br>    int c,cc[5];<br>    long d,dd[5];<br>    long long e,ee[5];<br>    float g,gg[5];<br>    double h,hh[5];<br>    int i ;</p>
+    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>常用的数据类型有字符型(char 型)、短整型(short 型)、整型(int 型)、长整型(long 型)、拓展长整型(long long 型)、单精度浮点型(float 型)、双精度浮点型(double 型)。问题围绕着数据类型与二进制文件展开。现有一个二进制文件，文件名为dict.dic，生成这个文件的C语言代码大概是这样的：<br>变量如下：<br>    char a,aa[5];//注意这里数组aa为正常使用的字符串，所以会包含字符’\0’，它不需要输出<br>    short b,bb[5];<br>    int c,cc[5];<br>    long d,dd[5];<br>    long long e,ee[5];<br>    float g,gg[5];<br>    double h,hh[5];<br>    int i ;</p>
 <a id="more"></a>
 <p>写入的代码段是这样：<br>    fwrite(&amp;a,sizeof(a),1,fp);<br>    fwrite(&amp;b,sizeof(b),1,fp);<br>    fwrite(&amp;c,sizeof(c),1,fp);<br>    fwrite(&amp;d,sizeof(d),1,fp);<br>    fwrite(&amp;e,sizeof(e),1,fp);<br>    fwrite(&amp;g,sizeof(g),1,fp);<br>    fwrite(&amp;h,sizeof(h),1,fp);<br>    fwrite(aa,sizeof(a),5,fp);<br>    fwrite(bb,sizeof(b),5,fp);<br>    fwrite(cc,sizeof(c),5,fp);<br>    fwrite(dd,sizeof(d),5,fp);<br>    fwrite(ee,sizeof(e),5,fp);<br>    fwrite(gg,sizeof(g),5,fp);<br>    fwrite(hh,sizeof(h),5,fp);</p>
 <p>这个代码段被连续执行了5次。当然每次写入的数据是不同的。</p>
@@ -196,13 +196,13 @@
 </blockquote>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    FILE *fin = fopen(<span class="string">"dict.dic"</span>, <span class="string">"rb"</span>);</span><br><span class="line">    <span class="keyword">char</span> a, aa[<span class="number">5</span>];</span><br><span class="line">    short b, bb[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">int</span> c, cc[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">long</span> d, dd[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> e, ee[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">float</span> g, gg[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">double</span> h, hh[<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fread(&amp;a, <span class="keyword">sizeof</span>(a), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;b, <span class="keyword">sizeof</span>(b), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;c, <span class="keyword">sizeof</span>(c), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;d, <span class="keyword">sizeof</span>(d), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;e, <span class="keyword">sizeof</span>(e), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;g, <span class="keyword">sizeof</span>(g), <span class="number">1</span>, fin);</span><br><span class="line">        fread(&amp;h, <span class="keyword">sizeof</span>(h), <span class="number">1</span>, fin);</span><br><span class="line">        fread(aa, <span class="keyword">sizeof</span>(a), <span class="number">5</span>, fin);</span><br><span class="line">        fread(bb, <span class="keyword">sizeof</span>(b), <span class="number">5</span>, fin);</span><br><span class="line">        fread(cc, <span class="keyword">sizeof</span>(c), <span class="number">5</span>, fin);</span><br><span class="line">        fread(dd, <span class="keyword">sizeof</span>(d), <span class="number">5</span>, fin);</span><br><span class="line">        fread(ee, <span class="keyword">sizeof</span>(e), <span class="number">5</span>, fin);</span><br><span class="line">        fread(gg, <span class="keyword">sizeof</span>(g), <span class="number">5</span>, fin);</span><br><span class="line">        fread(hh, <span class="keyword">sizeof</span>(h), <span class="number">5</span>, fin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%c\n"</span>, a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%hd\n"</span>, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%ld\n"</span>, d);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, e);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%f\n"</span>, g);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lf\n"</span>, h);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, aa);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%hd"</span>, bb[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, cc[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%ld"</span>, dd[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld"</span>, ee[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%f"</span>, gg[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lf"</span>, hh[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&lt;<span class="number">4</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    fclose(fin);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
+    
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -218,12 +218,12 @@
 		</ul>
 	</div>
 
-      
+    
 
-      
+    
 
-      
-        
+    
+    
 <div class="share-btn share-icons tooltip-left">
   <div class="tooltip tooltip-east">
     <span class="tooltip-item">
@@ -273,13 +273,13 @@
 </div>
 
 <div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
 
-  
+
 <nav id="article-nav">
   
     <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
@@ -331,31 +331,32 @@
 
 
 
-  
-  
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
+      if (typeof LivereTower === 'function') { return; }
 
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://yoursite.com/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/",
-  owner: 'NaviHX',
-  repo: 'comments',
-  oauth: {
-    client_id: 'e1c9059887a731f33495',
-    client_secret: '5fc7d539685bc67541525adfe6f09f23abbc9522',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>
