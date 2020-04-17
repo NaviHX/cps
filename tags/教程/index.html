@@ -6,20 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>初识ASCII文件 | Navi&#39;s Blog</title>
+  <title>Tag: 教程 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="题目描述已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。要求：1.统计出这四类字符在该文件中的数量。2.统计出该文件的行数、行最大长">
-<meta property="og:type" content="article">
-<meta property="og:title" content="初识ASCII文件">
-<meta property="og:url" content="http://yoursite.com/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Navi&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
-<meta property="og:description" content="题目描述已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。要求：1.统计出这四类字符在该文件中的数量。2.统计出该文件的行数、行最大长">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-04-07T12:31:49.172Z">
-<meta property="article:modified_time" content="2020-04-07T12:31:21.347Z">
 <meta property="article:author" content="Navi">
-<meta property="article:tag" content="Code">
-<meta property="article:tag" content="文件">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -158,212 +152,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-初识ACSCII文件" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class=" article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+  	<time datetime="2020-04-17T10:37:37.107Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
+</a>
+        </div>
+    	 
   
-  
-    <h1 class="article-title" itemprop="name">
-      初识ASCII文件
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/">Hexo博客VPS部署教程</a>
     </h1>
   
 
-  
-  <a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.172Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。<br>要求：<br>1.统计出这四类字符在该文件中的数量。<br>2.统计出该文件的行数、行最大长度、行最小长度。这里要注意，虽然文件的换行符确实为一个字符，ASCII码为10，但在统计行长度时，文件中的换行符并不统计在内。<br>3.输出具体的大小写字母的统计信息，每行一个字母。<br>4.处理完成后，关闭文件。<br>内容提示：在本题对文件的操作内容中，会用到三个新的C语言文件操作函数，一种新的打开文件的方式，如下：<br>1.FILE *fp=fopen(“file.txt”,”r”);//fp即为文件指针，”file.txt”为待打开的文件名，此时应与该程序在一个目录下，”r”为以只读方式打开ASCII码文件。<br>2.int ch=fgetc(fp);//从fp指向的文件中读取一个字节（字符），存入变量ch内。<br>3.fclose(fp);//关闭fp指向的文件。</p>
-<a id="more"></a>
-
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>只可能是1，2，3三个整数之一，其输出分别对应输出中的Task1，Task2，Task3。</p>
-<p>sample input:</p>
-<blockquote>
-<p>1</p>
-</blockquote>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>如果dict.dic文件内容如下：</p>
-<blockquote>
-<p>abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>~!@#$%^&amp;*()_+`1234567890- =][‘;/.,&lt;&gt;?”:{}|</p>
-</blockquote>
-<p>则三个任务的输出分别如下： （注意：Task1、2、3等也需要输出）</p>
-<p>sample out</p>
-<blockquote>
-<p>Task1:<br>capital: 26<br>lowercase: 26<br>digit: 10<br>others: 35</p>
-</blockquote>
-<blockquote>
-<p>Task2:<br>line: 3<br>43 characters in max line.<br>26 characters in min line.</p>
-</blockquote>
-<blockquote>
-<p>Task3:<br>CAPITAL:<br>A:1<br>B:1<br>C:1<br>D:1<br>E:1<br>F:1<br>G:1<br>H:1<br>I:1<br>J:1<br>K:1<br>L:1<br>M:1<br>N:1<br>O:1<br>P:1<br>Q:1<br>R:1<br>S:1<br>T:1<br>U:1<br>V:1<br>W:1<br>X:1<br>Y:1<br>Z:1<br>LOWERCASE:<br>a:1<br>b:1<br>c:1<br>d:1<br>e:1<br>f:1<br>g:1<br>h:1<br>i:1<br>j:1<br>k:1<br>l:1<br>m:1<br>n:1<br>o:1<br>p:1<br>q:1<br>r:1<br>s:1<br>t:1<br>u:1<br>v:1<br>w:1<br>x:1<br>y:1<br>z:1</p>
-</blockquote>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a, b) a &gt; b ? a : b</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN(a, b) a &lt; b ? a : b</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(FILE *fin, <span class="keyword">int</span> task)</span></span>; <span class="comment">//创建一个文件识别任务，根据任务的数字确定执行的方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask1</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask2</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务2</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask3</span><span class="params">(FILE *fin)</span></span>;     <span class="comment">//完成任务3</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE *fin = fopen(<span class="string">"dict.dic"</span>, <span class="string">"r"</span>);</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    getTask(fin, n); <span class="comment">//创建任务</span></span><br><span class="line">    fclose(fin);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(FILE *fin, <span class="keyword">int</span> task)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (task == <span class="number">1</span>) <span class="comment">//任务分类</span></span><br><span class="line">        completeTask1(fin);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (task == <span class="number">2</span>)</span><br><span class="line">        completeTask2(fin);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (task == <span class="number">3</span>)</span><br><span class="line">        completeTask3(fin);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask1</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    <span class="keyword">int</span> count[<span class="number">4</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">//对四种类型的字符进行分别计数</span></span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= <span class="string">'A'</span> &amp;&amp; temp &lt;= <span class="string">'Z'</span>)</span><br><span class="line">            count[<span class="number">0</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &gt;= <span class="string">'a'</span> &amp;&amp; temp &lt;= <span class="string">'z'</span>)</span><br><span class="line">            count[<span class="number">1</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &lt;= <span class="string">'9'</span> &amp;&amp; temp &gt;= <span class="string">'0'</span>)</span><br><span class="line">            count[<span class="number">2</span>]++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            count[<span class="number">3</span>]++;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125; <span class="keyword">while</span> (temp != EOF);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task1:\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"capital: %d\n"</span>, count[<span class="number">0</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"lowercase: %d\n"</span>, count[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"digit: %d\n"</span>, count[<span class="number">2</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"others: %d\n"</span>, count[<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask2</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lineCount = <span class="number">0</span>, charCount = <span class="number">0</span>; <span class="comment">//分别为行数，某一行的字数</span></span><br><span class="line">    <span class="keyword">int</span> maxLine = <span class="number">0</span>, minLine = <span class="number">0</span>;     <span class="comment">//最长行与最短行的字数</span></span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (temp != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp != <span class="string">'\n'</span>)</span><br><span class="line">            charCount++;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            lineCount++;</span><br><span class="line">            maxLine = MAX(maxLine, charCount); <span class="comment">//最长行可以直接比较</span></span><br><span class="line">            <span class="keyword">if</span> (minLine == <span class="number">0</span>)                  <span class="comment">//判断最短行有无初始值</span></span><br><span class="line">                minLine = charCount;           <span class="comment">//无初始值则赋值</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                minLine = MIN(minLine, charCount); <span class="comment">//否则作比较</span></span><br><span class="line">            charCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">    lineCount++; <span class="comment">//最后一行无换行符，仍需要进一步处理</span></span><br><span class="line">    maxLine = MAX(maxLine, charCount);</span><br><span class="line">    <span class="keyword">if</span> (minLine == <span class="number">0</span>)</span><br><span class="line">        minLine = charCount;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        minLine = MIN(minLine, charCount);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task2:\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"line: %d\n"</span>, lineCount);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d characters in max line.\n"</span>, maxLine);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d characters in min line.\n"</span>, minLine);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">completeTask3</span><span class="params">(FILE *fin)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> capitalCount[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;, lowercaseCount[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;, i; <span class="comment">//分别对大小写字母计数</span></span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    temp = fgetc(fin);</span><br><span class="line">    <span class="keyword">while</span> (temp != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= <span class="string">'A'</span> &amp;&amp; temp &lt;= <span class="string">'Z'</span>)</span><br><span class="line">            capitalCount[temp - <span class="string">'A'</span>]++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (temp &gt;= <span class="string">'a'</span> &amp;&amp; temp &lt;= <span class="string">'z'</span>)</span><br><span class="line">            lowercaseCount[temp - <span class="string">'a'</span>]++;</span><br><span class="line">        temp = fgetc(fin);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Task3:\nCAPITAL:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c:%d\n"</span>, i + <span class="string">'A'</span>, capitalCount[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"LOWERCASE:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c:%d\n"</span>, i + <span class="string">'a'</span>, lowercaseCount[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
         		</li>
       		
 		</ul>
 	</div>
 
-    
+          
 
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-<nav id="article-nav">
-  
-    <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          初识二进制文件
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/04/07/p2697/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">P2697 宝石串</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
 
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-number">1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入"><span class="toc-number">2.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输出"><span class="toc-number">3.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">4.</span> <span class="toc-text">Solution</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-<!-- 来必力City版安装代码 -->
-<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
-  <script type="text/javascript">
-    (function (d, s) {
-      var j, e = d.getElementsByTagName(s)[0];
-
-      if (typeof LivereTower === 'function') { return; }
-
-      j = d.createElement(s);
-      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-      j.async = true;
-
-      e.parentNode.insertBefore(j, e);
-    })(document, 'script');
-  </script>
-  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
-</div>
-<!-- City版安装代码已完成 -->
-
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -386,9 +228,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
