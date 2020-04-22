@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 文件 | Navi&#39;s Blog</title>
+  <title>c语言 Windows 多线程学习笔记 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/%E6%96%87%E4%BB%B6/index.html">
+  <meta name="description" content="需要用到的头文件 windows.hprocess.h  创建一个线程调用_beginthreadex()函数，返回一个句柄HANDLE 参数说明void *security安全属性，NULL为默认安全属性 unsigned stack_size指定线程堆栈大小，0表示与创建该线程的堆栈大小相同 unsigned (* start_address) (void *)一个函数指针，参数为void*，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c语言 Windows 多线程学习笔记">
+<meta property="og:url" content="http://yoursite.com/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="需要用到的头文件 windows.hprocess.h  创建一个线程调用_beginthreadex()函数，返回一个句柄HANDLE 参数说明void *security安全属性，NULL为默认安全属性 unsigned stack_size指定线程堆栈大小，0表示与创建该线程的堆栈大小相同 unsigned (* start_address) (void *)一个函数指针，参数为void*，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-22T06:48:42.356Z">
+<meta property="article:modified_time" content="2020-04-22T08:02:17.277Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="Code">
+<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -154,36 +160,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-多线程学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/">注释过滤</a>
+    <h1 class="article-title" itemprop="name">
+      c语言 Windows 多线程学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+  
+  <a href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-04-22T06:48:42.356Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-22</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="需要用到的头文件"><a href="#需要用到的头文件" class="headerlink" title="需要用到的头文件"></a>需要用到的头文件</h2><blockquote>
+<p>windows.h<br>process.h</p>
+</blockquote>
+<h2 id="创建一个线程"><a href="#创建一个线程" class="headerlink" title="创建一个线程"></a>创建一个线程</h2><p>调用<code>_beginthreadex()</code>函数，返回一个句柄<code>HANDLE</code></p>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="void-security"><a href="#void-security" class="headerlink" title="void *security"></a>void *security</h4><p>安全属性，NULL为默认安全属性</p>
+<h4 id="unsigned-stack-size"><a href="#unsigned-stack-size" class="headerlink" title="unsigned stack_size"></a>unsigned stack_size</h4><p>指定线程堆栈大小，0表示与创建该线程的堆栈大小相同</p>
+<h4 id="unsigned-start-address-void"><a href="#unsigned-start-address-void" class="headerlink" title="unsigned (* start_address) (void *)"></a>unsigned (* start_address) (void *)</h4><p>一个函数指针，参数为void*，指定线程函数的地址</p>
+<h4 id="void-arglist"><a href="#void-arglist" class="headerlink" title="void *arglist"></a>void *arglist</h4><p>传递给线程函数的参数指针</p>
+<h4 id="unsigned-initflag"><a href="#unsigned-initflag" class="headerlink" title="unsigned initflag"></a>unsigned initflag</h4><p>线程的初始状态，0表示立即执行，CREATE_SUSPEND表示挂起</p>
+<h4 id="unsigned-thrdaddr"><a href="#unsigned-thrdaddr" class="headerlink" title="unsigned *thrdaddr"></a>unsigned *thrdaddr</h4><p>线程的ID，NULL表示匿名</p>
+<h2 id="创建互斥对象"><a href="#创建互斥对象" class="headerlink" title="创建互斥对象"></a>创建互斥对象</h2><p>调用<code>createMutex()</code>即可，返回一个句柄</p>
+<h3 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="LPSECURITY-ATTRIBUTES-lpMutexAttributes"><a href="#LPSECURITY-ATTRIBUTES-lpMutexAttributes" class="headerlink" title="LPSECURITY_ATTRIBUTES lpMutexAttributes"></a>LPSECURITY_ATTRIBUTES lpMutexAttributes</h4><p>安全属性，同上</p>
+<h4 id="BOOL-binitialOwner"><a href="#BOOL-binitialOwner" class="headerlink" title="BOOL binitialOwner"></a>BOOL binitialOwner</h4><p>互斥对象初始所有权，该值为真表示由创建该对象的线程所有</p>
+<h4 id="LPCTSTR-lpName"><a href="#LPCTSTR-lpName" class="headerlink" title="LPCTSTR lpName"></a>LPCTSTR lpName</h4><p>互斥对象的名称，NULL为匿名</p>
+<h2 id="释放互斥对象"><a href="#释放互斥对象" class="headerlink" title="释放互斥对象"></a>释放互斥对象</h2><p>调用<code>releaseMutex(HANDLE hMutex)</code>即可</p>
+<h2 id="等待线程或者对象"><a href="#等待线程或者对象" class="headerlink" title="等待线程或者对象"></a>等待线程或者对象</h2><p><code>DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds)</code></p>
+<h3 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="HANDLE-hHandle"><a href="#HANDLE-hHandle" class="headerlink" title="HANDLE hHandle"></a>HANDLE hHandle</h4><p>等待的句柄，当该对象处于有信号状态的时候该函数返回</p>
+<h4 id="DWORD-dwMilliseconds"><a href="#DWORD-dwMilliseconds" class="headerlink" title="DWORD dwMilliseconds"></a>DWORD dwMilliseconds</h4><p>等待的时间，0为立即返回，INFINITE表示直到对象有信号才返回</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>模拟双窗口卖票</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;process.h&gt; </span></span></span><br><span class="line">HANDLE hMutex;</span><br><span class="line"><span class="keyword">int</span> tickets=<span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun1Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun2Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    HANDLE hThread1, hThread2;</span><br><span class="line">    hMutex=CreateMutex (<span class="literal">NULL</span>, FALSE, <span class="literal">NULL</span>);</span><br><span class="line">    hThread1=(HANDLE)_beginthreadex(<span class="literal">NULL</span>,<span class="number">0</span>,Fun1Proc,<span class="literal">NULL</span>,<span class="number">0</span>,<span class="literal">NULL</span>);   </span><br><span class="line">    hThread2=(HANDLE)_beginthreadex(<span class="literal">NULL</span>,<span class="number">0</span>,Fun2Proc,<span class="literal">NULL</span>,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br><span class="line">    WaitForSingleObject(hThread1, INFINITE); 	</span><br><span class="line">    CloseHandle(hThread1); </span><br><span class="line">    WaitForSingleObject(hThread2, INFINITE); 	</span><br><span class="line">    CloseHandle(hThread2); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun1Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(tickets&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		WaitForSingleObject (hMutex, INFINITE); </span><br><span class="line">		<span class="keyword">if</span> (tickets&gt;<span class="number">0</span>)</span><br><span class="line">		      <span class="built_in">printf</span> (<span class="string">"thread1 sell ticket : %d\n"</span>, tickets--); </span><br><span class="line">		ReleaseMutex (hMutex); </span><br><span class="line">	&#125;</span><br><span class="line">    _endthreadex(<span class="number">0</span>);	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun2Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(tickets&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		WaitForSingleObject (hMutex, INFINITE); </span><br><span class="line">		<span class="keyword">if</span> (tickets&gt;<span class="number">0</span>)</span><br><span class="line">		      <span class="built_in">printf</span> (<span class="string">"thread2 sell ticket : %d\n"</span>, tickets--); </span><br><span class="line">		ReleaseMutex (hMutex); </span><br><span class="line">	&#125;</span><br><span class="line">     _endthreadex(<span class="number">0</span>);	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -193,159 +217,142 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动机</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.174Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
+  
+    <a href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo博客VPS部署教程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">和谐词库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#需要用到的头文件"><span class="toc-number">1.</span> <span class="toc-text">需要用到的头文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个线程"><span class="toc-number">2.</span> <span class="toc-text">创建一个线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明"><span class="toc-number">2.1.</span> <span class="toc-text">参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#void-security"><span class="toc-number">2.1.1.</span> <span class="toc-text">void *security</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#unsigned-stack-size"><span class="toc-number">2.1.2.</span> <span class="toc-text">unsigned stack_size</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#unsigned-start-address-void"><span class="toc-number">2.1.3.</span> <span class="toc-text">unsigned (* start_address) (void *)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#void-arglist"><span class="toc-number">2.1.4.</span> <span class="toc-text">void *arglist</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#unsigned-initflag"><span class="toc-number">2.1.5.</span> <span class="toc-text">unsigned initflag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#unsigned-thrdaddr"><span class="toc-number">2.1.6.</span> <span class="toc-text">unsigned *thrdaddr</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建互斥对象"><span class="toc-number">3.</span> <span class="toc-text">创建互斥对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明-1"><span class="toc-number">3.1.</span> <span class="toc-text">参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LPSECURITY-ATTRIBUTES-lpMutexAttributes"><span class="toc-number">3.1.1.</span> <span class="toc-text">LPSECURITY_ATTRIBUTES lpMutexAttributes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BOOL-binitialOwner"><span class="toc-number">3.1.2.</span> <span class="toc-text">BOOL binitialOwner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LPCTSTR-lpName"><span class="toc-number">3.1.3.</span> <span class="toc-text">LPCTSTR lpName</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#释放互斥对象"><span class="toc-number">4.</span> <span class="toc-text">释放互斥对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#等待线程或者对象"><span class="toc-number">5.</span> <span class="toc-text">等待线程或者对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明-2"><span class="toc-number">5.1.</span> <span class="toc-text">参数说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HANDLE-hHandle"><span class="toc-number">5.1.1.</span> <span class="toc-text">HANDLE hHandle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DWORD-dwMilliseconds"><span class="toc-number">5.1.2.</span> <span class="toc-text">DWORD dwMilliseconds</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">6.</span> <span class="toc-text">示例</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">初识二进制文件</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.172Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/">初识ASCII文件</a>
-    </h1>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      if (typeof LivereTower === 'function') { return; }
 
-          
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-    
+
+
+
+
+
+
+
 
 
           </div>
@@ -368,9 +375,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
