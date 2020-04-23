@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://114.55.99.188:8888/images/2020/04/11/Screenshot_20200411_145602.jpg">
 <meta property="og:image" content="http://114.55.99.188:8888/images/2020/04/11/Screenshot_20200411_145959.jpg">
 <meta property="article:published_time" content="2020-04-09T12:08:27.239Z">
-<meta property="article:modified_time" content="2020-04-15T12:52:53.630Z">
+<meta property="article:modified_time" content="2020-04-23T13:55:33.794Z">
 <meta property="article:author" content="Navi">
 <meta property="article:tag" content="开发">
 <meta property="article:tag" content="瞎搞">
@@ -243,11 +243,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/NaviHX/QuneBot.git</span><br><span class="line">screen -R server</span><br><span class="line"><span class="built_in">cd</span> ./QuneBot</span><br><span class="line">python server.py</span><br></pre></td></tr></table></figure>
 
 <p>部署完成</p>
-<h2 id="开发进度"><a href="#开发进度" class="headerlink" title="开发进度"></a>开发进度</h2><blockquote>
-<p>没有删除线的为已完成进度</p>
-</blockquote>
-<p>接受好友请求<br>远程登录<br>消息应答<br>数据库连接<br>数据库操作<br>用户注册<br>消息处理</p>
-<p><del>发送表情</del><br><del>插件化开发接口</del></p>
+<p>需要注意的是，第一次部署时需要输入用于管理的密码</p>
+<h2 id="关于后台管理"><a href="#关于后台管理" class="headerlink" title="关于后台管理"></a>关于后台管理</h2><p>访问部署机器人的服务器地址，输入第一次启动时输入的密码即可<br>现在支持的功能<br>1.查看用户<br>2.群发消息<br>3.查看配置信息</p>
+<h2 id="开发进度"><a href="#开发进度" class="headerlink" title="开发进度"></a>开发进度</h2><p>已经完成的功能：<br>接受好友请求<br>远程登录<br>消息应答<br>数据库连接<br>数据库操作<br>用户注册<br>消息处理<br>后台管理<br>后台群发消息</p>
 <p>彩蛋：口吐芬芳</p>
 
     
@@ -374,7 +372,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实现"><span class="toc-number">1.</span> <span class="toc-text">如何实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#流程"><span class="toc-number">1.1.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理图"><span class="toc-number">1.2.</span> <span class="toc-text">原理图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何与Qune谈笑风生"><span class="toc-number">2.</span> <span class="toc-text">如何与Qune谈笑风生</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册"><span class="toc-number">2.1.</span> <span class="toc-text">注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自我介绍"><span class="toc-number">2.2.</span> <span class="toc-text">自我介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扔骰子"><span class="toc-number">2.3.</span> <span class="toc-text">扔骰子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#彩蛋：祖安文科状元模式"><span class="toc-number">2.4.</span> <span class="toc-text">彩蛋：祖安文科状元模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何部署"><span class="toc-number">3.</span> <span class="toc-text">如何部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发进度"><span class="toc-number">4.</span> <span class="toc-text">开发进度</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何实现"><span class="toc-number">1.</span> <span class="toc-text">如何实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#流程"><span class="toc-number">1.1.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原理图"><span class="toc-number">1.2.</span> <span class="toc-text">原理图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何与Qune谈笑风生"><span class="toc-number">2.</span> <span class="toc-text">如何与Qune谈笑风生</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册"><span class="toc-number">2.1.</span> <span class="toc-text">注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自我介绍"><span class="toc-number">2.2.</span> <span class="toc-text">自我介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扔骰子"><span class="toc-number">2.3.</span> <span class="toc-text">扔骰子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#彩蛋：祖安文科状元模式"><span class="toc-number">2.4.</span> <span class="toc-text">彩蛋：祖安文科状元模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何部署"><span class="toc-number">3.</span> <span class="toc-text">如何部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于后台管理"><span class="toc-number">4.</span> <span class="toc-text">关于后台管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发进度"><span class="toc-number">5.</span> <span class="toc-text">开发进度</span></a></li></ol>
                     </div>
                 </span>
             </div>
