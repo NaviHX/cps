@@ -161,6 +161,109 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CPU模拟" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
+  
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/28/CPU%E6%A8%A1%E6%8B%9F/">大作业 &lt;CPU模拟&gt; 文档</a>
+    </h1>
+  
+
+  
+  <a href="/2020/05/28/CPU%E6%A8%A1%E6%8B%9F/" class="archive-article-date">
+  	<time datetime="2020-05-28T12:23:17.543Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>历时一个学期这项大作业终于完工了，虽然这个作业的要求乍一看似乎挺难的，但是理解之后还是比较容易实现的<br>完成这项大作业之后感觉自己的能力又得到了进一步的提升，以前对于c语言生疏的地方得到了强化（￣︶￣）↗　</p>
+<h2 id="作业要求"><a href="#作业要求" class="headerlink" title="作业要求"></a>作业要求</h2><p>完成一个c语言的CPU模拟器</p>
+<p>实际上之前的<a href="https://navihx.github.io/2020/04/08/README/" target="_blank" rel="noopener">一篇博客中</a>已经写到过了，但是作业后期又添加了几条新的用于多线程的指令，所以我在这里把指令集重新贴一遍</p>
+<h3 id="第一版指令集"><a href="#第一版指令集" class="headerlink" title="第一版指令集"></a>第一版指令集</h3><p><img src="http://114.55.99.188:8888/images/2020/04/04/TIM20200404115234.png" alt="TIM20200404115234.png"><br><img src="http://114.55.99.188:8888/images/2020/04/04/TIM20200404115251.png" alt="TIM20200404115251.png"><br><img src="http://114.55.99.188:8888/images/2020/04/04/TIM20200404115305.png" alt="TIM20200404115305.png"></p>
+<h3 id="第二版添加的指令集"><a href="#第二版添加的指令集" class="headerlink" title="第二版添加的指令集"></a>第二版添加的指令集</h3><p><img src="http://114.55.99.188:8888/images/2020/05/28/TIM20200528203251.png" alt="TIM20200528203251.png"></p>
+<h2 id="开发过程中遇到的问题"><a href="#开发过程中遇到的问题" class="headerlink" title="开发过程中遇到的问题"></a>开发过程中遇到的问题</h2><h3 id="内存读取问题"><a href="#内存读取问题" class="headerlink" title="内存读取问题"></a>内存读取问题</h3><p>在给出的指令序列文件中，所有信息都是二进制的，而我们在实际过程中会遇到很多负数，直接存储二进制会给进制转换带来一些麻烦，编码量会有提升。所以我想到读取后立即把数据转化为十进制存储的方法</p>
+<p>这就涉及到一个问题，存到内存中的数字如何读取呢？</p>
+<p>对于只有一个字节的数据结构来说，直接读取是没有问题的。但是对于多个字节的数据，这就涉及到了数据在内存中存储方式的问题，就是要注意到大尾端和小尾端的区别</p>
+<blockquote>
+<p>对于同一个数据，不同存储方式，其在内存中的存储顺序不同<br>以二进制数 0000 0001 0000 0010 为例<br>大尾端： 0000 0001 0000 0010<br>小尾端： 0000 0010 0000 0001</p>
+</blockquote>
+<p>在我的方案中，读取到的指令序列是按顺序放入模拟的内存中的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">loadCommand</span><span class="params">(BYTE *memory, FILE *fin)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> top = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (feof(fin) == <span class="number">0</span>)</span><br><span class="line">        memory[top++] = loadByte(fin); <span class="comment">//读取8个bit</span></span><br><span class="line">    <span class="keyword">return</span> top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而我的PC是按小尾端存储的，所以在读取的时候需要将内存先行反转后再读取</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BYTE order[<span class="number">2</span>]; <span class="comment">//类似的读取方式</span></span><br><span class="line">order[<span class="number">0</span>] = memory[core-&gt;PC + <span class="number">1</span>];</span><br><span class="line">order[<span class="number">1</span>] = memory[core-&gt;PC];</span><br><span class="line">core-&gt;orderRegister = (short)*((short *)order);</span><br></pre></td></tr></table></figure>
+
+<p>在直接向内存放入一个多字节数据的场合，不需要反转，因为这本身就是按照自身存储方式存储的</p>
+<h3 id="模块化开发"><a href="#模块化开发" class="headerlink" title="模块化开发"></a>模块化开发</h3><p>以前开发的程序以单源文件的程序为主，这次还是我第一次编写多源文件的c工程<br>为了完成项目，学习了基本的利用cmake构建项目的方式，感觉受益匪浅。</p>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h3><p>采用了git作为版本控制的工具，学习了一些git的基本操作，顺带学习了一些关于SSH的知识</p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>学习笔记参见我一个月前的<a href="https://navihx.github.io/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener">一篇博客</a></p>
+<p>关于互斥对象的地方产生了一些问题</p>
+<p>在这个项目当中，需要我们将某一块内存锁定，从而解决线程互斥的问题<br>起初的想法是，对于每一块需要进行锁定的内存分别建立一个互斥对象和对应的句柄数组，在需要锁定的时候直接调用即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//朴素的想法类似于这样</span></span><br><span class="line"></span><br><span class="line">HANDLE memoryLock[MAX_SIZE];</span><br><span class="line"></span><br><span class="line"><span class="comment">//建立互斥对象</span></span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(...)</span><br><span class="line">    &#123;</span><br><span class="line">        memoryLock[i]=CreateMutex(...);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//锁定的时候直接wait相应的句柄即可</span></span><br><span class="line">...</span><br><span class="line">&#123;</span><br><span class="line">    WaitForSingleObject(...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是感觉这种做法不够优雅，难道内存有多大，我就要申请多少个互斥对象吗？我们不能根据内存的锁定情况来动态地创建互斥对象吗？</p>
+<p>答案是可以的<br>注意到<code>CreateMutex()</code>函数的最后一个参数，互斥对象的名称。<br>当前如果存在某一个名称的互斥对象，创建同名的对象就不会建立新的互斥对象，而是返回一个相同的句柄(有那么一点反射的的感觉)。我们可以利用这一点来动态地创建互斥对象。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LOCK</span><span class="params">(cpu *core, ... , short imme)</span> <span class="comment">//锁定</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *loc = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * <span class="number">16</span>);</span><br><span class="line">    <span class="built_in">sprintf</span>(loc, <span class="string">"%d"</span>, imme); <span class="comment">//操作地址先转成字符串</span></span><br><span class="line">    HANDLE lock = CreateMutex(<span class="literal">NULL</span>, FALSE, loc); <span class="comment">//创建互斥对象，如果存在则返回相同的句柄</span></span><br><span class="line">    WaitForSingleObject(lock, INFINITE); <span class="comment">//等待信号</span></span><br><span class="line">    CloseHandle(lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RELEASE</span><span class="params">(cpu *core, ... , short imme)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *loc = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>) * <span class="number">16</span>);</span><br><span class="line">    <span class="built_in">sprintf</span>(loc, <span class="string">"%d"</span>, imme);</span><br><span class="line">    HANDLE lock = CreateMutex(<span class="literal">NULL</span>, FALSE, loc); <span class="comment">//同理</span></span><br><span class="line">    ReleaseMutex(lock);</span><br><span class="line">    CloseHandle(lock);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以简单地实现内存锁了</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>做完这个大作业感觉自己又变强了许多（并没有(●’◡’●)）<br>希望自己能在计算机的这条道路上继续走下去吧，遇到再多困难也不要怕，微笑着面对它，奥利给！&lt;(￣︶￣)↗[GO!]&gt;</p>
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/05/28/CPU%E6%A8%A1%E6%8B%9F/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-pdf文件信息筛选" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -859,89 +962,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/04/08/README/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-注释过滤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/">注释过滤</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>C语言的注释分为两种，第一种：在一行源代码中“//”后的内容为注释内容。第二种:“/<em>”与“</em>/”之间的内容为注释内容。第三种：程序中只出现了“/<em>”，没有“</em>/”与之对应，那么将“/<em>”后的全部内容都要过滤掉。注意，只要是注释内容，那么注释内容中的字符应该全部忽略，即不起任何的作用。例如“/*”与“</em>/”之间如果再有“//”，那么“//”不应起作用；如果“//”再有“/<em>”，那么“/<em>”也不应起作用。<br>你的任务是先打开一个名字为dict.dic的文本文件，该文件中前5行每行为1个整数，从第6行开始为5段C语言的源代码。那5个数字代表这5段源代码结束的行数，比如如果第一行的整数为20，第二行的整数为60，则表示从第6行到第20为第一段代码，从第21行到第60为第二段代码。然后根据输入要求将源代码中所有注释过滤掉。<br>在本过滤注释系统中，你可以忽略源文件中双引号导致“//”、“/</em>”、“</em>/”失去作用的情况，即只要“//”、“/<em>”、“</em>/”不是注释内容，在任何情况下都起作用。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动机</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/">展开全文 >></a>
     </p>
     
 
