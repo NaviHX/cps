@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/7 | Navi&#39;s Blog</title>
+  <title>NeSimulator Step&lt;0x02&gt; 核心 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/07/index.html">
+  <meta name="description" content="6502 CPU的指令集和寄存器信息可以 看这里在这里就不赘述了（其实是懒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NeSimulator Step&lt;0x02&gt; 核心">
+<meta property="og:url" content="http://yoursite.com/2020/07/04/NES2/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="6502 CPU的指令集和寄存器信息可以 看这里在这里就不赘述了（其实是懒">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-04T02:12:40.312Z">
+<meta property="article:modified_time" content="2020-07-05T11:37:53.896Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -160,36 +165,82 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-NES2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/04/NES2/" class="archive-article-date">
+    <h1 class="article-title" itemprop="name">
+      NeSimulator Step&lt;0x02&gt; 核心
+    </h1>
+  
+
+  
+  <a href="/2020/07/04/NES2/" class="archive-article-date">
   	<time datetime="2020-07-04T02:12:40.312Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-04</time>
 </a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/04/NES2/">NeSimulator Step&lt;0x02&gt; 核心</a>
-    </h1>
+  </header>
   
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>6502 CPU的指令集和寄存器信息可以 <a href="https://wusiyu.me/6502-cpu%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%e6%8c%87%e4%bb%a4%e9%9b%86/" target="_blank" rel="noopener">看这里</a><br>在这里就不赘述了（其实是懒</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//寄存器</span></span><br><span class="line">Address r_PC; <span class="comment">//计数器</span></span><br><span class="line">Byte r_SP;    <span class="comment">//栈指针</span></span><br><span class="line">Byte r_A;     <span class="comment">//累加器</span></span><br><span class="line">Byte r_X;     <span class="comment">//变址寄存器X</span></span><br><span class="line">Byte r_Y;     <span class="comment">//变址寄存器Y</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//状态寄存器</span></span><br><span class="line"><span class="comment">//分开为多个成员，便于访问</span></span><br><span class="line"><span class="comment">//真实硬件只占一个字节</span></span><br><span class="line"><span class="keyword">bool</span> f_C;</span><br><span class="line"><span class="keyword">bool</span> f_Z;</span><br><span class="line"><span class="keyword">bool</span> f_I;</span><br><span class="line"><span class="keyword">bool</span> f_D;</span><br><span class="line"><span class="comment">//bool f_B;</span></span><br><span class="line"><span class="keyword">bool</span> f_V;</span><br><span class="line"><span class="keyword">bool</span> f_N;</span><br><span class="line"><span class="comment">//这里少了一个f_B，遇到‘BRK’指令时，该位被设置</span></span><br><span class="line"><span class="comment">//在遇到BRK后在手动置1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="指令集实现"><a href="#指令集实现" class="headerlink" title="指令集实现"></a>指令集实现</h2><p>6502有256条指令，逐条实现可能会脑溢血</p>
+<h3 id="反汇编？"><a href="#反汇编？" class="headerlink" title="反汇编？"></a>反汇编？</h3><p>先把机器码转成汇编码是可行的，但是再识别汇编码去执行，感觉工作量反而增大了，不如直接在机器码上面整活</p>
+<h3 id="指令分类"><a href="#指令分类" class="headerlink" title="指令分类"></a>指令分类</h3><p>先把指令分类，便于后面编写</p>
+<p>1.隐含寻址的指令：操作数地址隐藏在指令中，包括寄存器等<br>2.分支/跳转指令：CCXT TTTT，CC：条件类型  X：取真或取假  T TTTT：必须为1 0000，跳转指令的标志<br>3.第一类指令：OOOA AATT，OOO：操作类型  A AA：寻址模式  TT：必须为 01 //这里的第一类单纯是因为TT值的缘故，如果后文提到x类指令，以每行开头的数字编号为准<br>4.第二类指令：同上，但是TT必须为10<br>5.零类指令：同上，TT为00</p>
+<p>如何在读取指令后取选择相应的分类呢？<br>利用<code>||</code>的短路，逐次判断分类，如果指令已经执行，就可以短路，不再判断后面的分类</p>
+<p>其中因为隐含寻址指令都是特殊的，没有一个具体的构成情况，为了防止这些指令被纳入到其他分类中，所以要放在最前面</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (CycleLength &amp;&amp; (executeImplied(opcode) || executeBranch(opcode) ||</span><br><span class="line">                    executeType1(opcode) || executeType2(opcode) || executeType0(opcode)))</span><br></pre></td></tr></table></figure>
+
+<h3 id="寻址模式"><a href="#寻址模式" class="headerlink" title="寻址模式"></a>寻址模式</h3><p>在这里记录一下各个寻址模式，有点儿难记</p>
+<p>Indexed Indirect X 间接X变址</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Byte zero_addr = r_X + m_bus.<span class="built_in">read</span>(r_PC++);</span><br><span class="line">location = m_bus.<span class="built_in">read</span>(zero_addr &amp; <span class="number">0xff</span>) | m_bus.<span class="built_in">read</span>((zero_addr + <span class="number">1</span>) &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Zero Page 零页<br>高字节为0的地址在零页里，这样可以直接节约一个字节</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location = m_bus.<span class="built_in">read</span>(r_PC++);<span class="comment">//这个是单字节读取</span></span><br></pre></td></tr></table></figure>
+
+<p>Immediate 立即寻址<br>当前位置就是地址</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location = r_PC++;</span><br></pre></td></tr></table></figure>
+
+<p>Absolute 绝对寻址<br>当前位置的值是地址</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">location = readAddress(r_PC);<span class="comment">//双字节读取</span></span><br><span class="line">r_PC += <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Indirect Y 间接Y<br>先零页寻址找到地址0，这个地址的值经过Y变址得到最后的地址</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Byte zero_addr = m_bus.<span class="built_in">read</span>(r_PC++);</span><br><span class="line">location = m_bus.<span class="built_in">read</span>(zero_addr &amp; <span class="number">0xff</span>) | m_bus.<span class="built_in">read</span>((zero_addr + <span class="number">1</span>) &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>;</span><br><span class="line"><span class="keyword">if</span> (op != STA)</span><br><span class="line">    setPageCrossed(location, location + r_Y);<span class="comment">//注意跨页消耗的周期</span></span><br><span class="line">location += r_Y;</span><br></pre></td></tr></table></figure>
+
+<p>Indexed X </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location = (m_bus.<span class="built_in">read</span>(r_PC++) + r_X) &amp; <span class="number">0xff</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Absolute X/Y</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location = readAddress(r_PC);</span><br><span class="line">r_PC += <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span> (op != STA)</span><br><span class="line">    setPageCrossed(location, location + r_X);</span><br><span class="line">location += r_X</span><br><span class="line"><span class="comment">//亦可换成Y</span></span><br></pre></td></tr></table></figure>
+
+<p>在执行3，4，5类指令时，可以先根据寻址模式取得地址，再进行后续操作，减少编码<br>具体指令的实现就不在这里赘述了</p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><p>中断分为三种</p>
+<p>1.IRQ<br>2.BRK<br>3.NMI</p>
+<p>需要注意，当标志寄存器的中断禁止位为1时，IRQ不会中断</p>
+<p>中断发生后，需要将当前的PC和状态寄存器值压栈<br>然后根据不同的中断类型将PC置于相应的向量处（6502把这些地址叫做向量vector）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> NMIVector = <span class="number">0xfffa</span>;<span class="comment">//NMI</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> ResetVector = <span class="number">0xfffc</span>;<span class="comment">//用于重置的向量，提前写在这里</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> IRQVector = <span class="number">0xfffe</span>;<span class="comment">//IRQ和BRK</span></span><br></pre></td></tr></table></figure>
+
+<p>注意一下BRK的硬件BUG<br>中断消耗7个周期</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CPU::interrupt</span><span class="params">(InterruptType type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (f_I &amp;&amp; type != BRK_ &amp;&amp; type != NMI) <span class="comment">//fI表示禁止中断</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (type == BRK_) <span class="comment">//硬件BUG</span></span><br><span class="line">        r_PC++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//计数器压栈</span></span><br><span class="line">    pushStack(r_PC &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    pushStack(r_PC);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//状态压栈</span></span><br><span class="line">    Byte flags = f_N &lt;&lt; <span class="number">7</span> |</span><br><span class="line">                 f_V &lt;&lt; <span class="number">6</span> |</span><br><span class="line">                 <span class="number">1</span> &lt;&lt; <span class="number">5</span> |              <span class="comment">//unused bit, supposed to be always 1</span></span><br><span class="line">                 (type == BRK_) &lt;&lt; <span class="number">4</span> | <span class="comment">//B flag set if BRK</span></span><br><span class="line">                 f_D &lt;&lt; <span class="number">3</span> |</span><br><span class="line">                 f_I &lt;&lt; <span class="number">2</span> |</span><br><span class="line">                 f_Z &lt;&lt; <span class="number">1</span> |</span><br><span class="line">                 f_C;</span><br><span class="line">    pushStack(flags); <span class="comment">//这里需要合成一字节</span></span><br><span class="line"></span><br><span class="line">    f_I = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (type)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> IRQ:</span><br><span class="line">    <span class="keyword">case</span> BRK_:</span><br><span class="line">        r_PC = readAddress(IRQVector);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> NMI:</span><br><span class="line">        r_PC = readAddress(NMIVector);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_skipCycles += <span class="number">7</span>;<span class="comment">//消耗周期</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重置CPU"><a href="#重置CPU" class="headerlink" title="重置CPU"></a>重置CPU</h2><p>中断的翻版（并不是<br>重置所有寄存器，栈指针回到栈底</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CPU::reset</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    reset(readAddress(ResetVector));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">CPU::reset</span><span class="params">(Address addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_skipCycles = m_cycles = <span class="number">0</span>;</span><br><span class="line">    r_A = r_X = r_Y = <span class="number">0</span>;</span><br><span class="line">    f_I = <span class="literal">true</span>;</span><br><span class="line">    f_C = f_D = f_N = f_V = f_Z = <span class="literal">false</span>;</span><br><span class="line">    r_PC = addr;</span><br><span class="line">    r_SP = <span class="number">0xfd</span>; <span class="comment">//栈底</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -201,95 +252,85 @@
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/NES1/" class="archive-article-date">
-  	<time datetime="2020-07-03T06:41:25.397Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
+  
+    <a href="/2020/07/03/NES1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NeSimulator Step&lt;0x01&gt; 高速公路</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/NES1/">NeSimulator Step&lt;0x01&gt; 高速公路</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#寄存器"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指令集实现"><span class="toc-number">2.</span> <span class="toc-text">指令集实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#反汇编？"><span class="toc-number">2.1.</span> <span class="toc-text">反汇编？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令分类"><span class="toc-number">2.2.</span> <span class="toc-text">指令分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻址模式"><span class="toc-number">2.3.</span> <span class="toc-text">寻址模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中断"><span class="toc-number">3.</span> <span class="toc-text">中断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重置CPU"><span class="toc-number">4.</span> <span class="toc-text">重置CPU</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/NeSimulator/" class="archive-article-date">
-  	<time datetime="2020-07-03T03:01:16.151Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/NeSimulator/">NeSimulator Step&lt;0x00&gt; 盘古开天地</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-    
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -312,8 +353,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
