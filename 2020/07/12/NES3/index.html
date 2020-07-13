@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Navi&#39;s Blog</title>
+  <title>NeSimulator Step&lt;0x03&gt; 模拟外设 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/page/2/index.html">
+  <meta name="description" content="玩游戏怎么能没有手柄和显示器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NeSimulator Step&lt;0x03&gt; 模拟外设">
+<meta property="og:url" content="http://yoursite.com/2020/07/12/NES3/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="玩游戏怎么能没有手柄和显示器">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-12T05:44:28.336Z">
+<meta property="article:modified_time" content="2020-07-13T03:42:44.432Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -160,116 +165,111 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-NES3" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-04-22T06:48:42.356Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">c语言 Windows 多线程学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      NeSimulator Step&lt;0x03&gt; 模拟外设
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
+  
+  <a href="/2020/07/12/NES3/" class="archive-article-date">
+  	<time datetime="2020-07-12T05:44:28.336Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-12</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>玩游戏怎么能没有手柄和显示器</p>
+<a id="more"></a>
 
-          
+<h2 id="从配置文件中读取按键绑定"><a href="#从配置文件中读取按键绑定" class="headerlink" title="从配置文件中读取按键绑定"></a>从配置文件中读取按键绑定</h2><p>完成从配置文件中读取按键映射的工作</p>
+<h3 id="配置文件语法"><a href="#配置文件语法" class="headerlink" title="配置文件语法"></a>配置文件语法</h3><p>因为只是简单的按键映射，不会有太复杂的语法</p>
+<blockquote>
+<p>1.设置玩家按键前必须有[Playerx],x是玩家编号<br>e.g.<br>[Player1]<br>xxx = xxx</p>
+</blockquote>
+<blockquote>
+<p>2.等号前面是手柄的按键，等号后是对应的键盘按键<br>e.g.<br>A = J<br>B = K<br>Select = Enter</p>
+</blockquote>
+<blockquote>
+<p>3.文本空格不会干扰解析<br>e.g.<br>()()()()A     =     J<br>和<br>A = J<br>的效果是相同的</p>
+</blockquote>
+<h3 id="按键列表"><a href="#按键列表" class="headerlink" title="按键列表"></a>按键列表</h3><p>在这里列出所有会用到的按键</p>
+<p>key中按键的位置整数值正好是SFML中对应按键的值，方便之后进行类型转换</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> buttons[] = &#123;</span><br><span class="line">    <span class="string">"A"</span>,</span><br><span class="line">    <span class="string">"B"</span>,</span><br><span class="line">    <span class="string">"Select"</span>,</span><br><span class="line">    <span class="string">"Start"</span>,</span><br><span class="line">    <span class="string">"Up"</span>,</span><br><span class="line">    <span class="string">"Down"</span>,</span><br><span class="line">    <span class="string">"Left"</span>,</span><br><span class="line">    <span class="string">"Right"</span>&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> keys[] = &#123;</span><br><span class="line">    <span class="string">"A"</span>,</span><br><span class="line">    <span class="string">"B"</span>,</span><br><span class="line">    <span class="string">"C"</span>,</span><br><span class="line">    <span class="string">"D"</span>,</span><br><span class="line">    <span class="string">"E"</span>,</span><br><span class="line">    <span class="string">"F"</span>,</span><br><span class="line">    <span class="string">"G"</span>,</span><br><span class="line">    <span class="string">"H"</span>,</span><br><span class="line">    <span class="string">"I"</span>,</span><br><span class="line">    <span class="string">"J"</span>,</span><br><span class="line">    <span class="string">"K"</span>,</span><br><span class="line">    <span class="string">"L"</span>,</span><br><span class="line">    <span class="string">"M"</span>,</span><br><span class="line">    <span class="string">"N"</span>,</span><br><span class="line">    <span class="string">"O"</span>,</span><br><span class="line">    <span class="string">"P"</span>,</span><br><span class="line">    <span class="string">"Q"</span>,</span><br><span class="line">    <span class="string">"R"</span>,</span><br><span class="line">    <span class="string">"S"</span>,</span><br><span class="line">    <span class="string">"T"</span>,</span><br><span class="line">    <span class="string">"U"</span>,</span><br><span class="line">    <span class="string">"V"</span>,</span><br><span class="line">    <span class="string">"W"</span>,</span><br><span class="line">    <span class="string">"X"</span>,</span><br><span class="line">    <span class="string">"Y"</span>,</span><br><span class="line">    <span class="string">"Z"</span>,</span><br><span class="line">    <span class="string">"Num0"</span>,</span><br><span class="line">    <span class="string">"Num1"</span>,</span><br><span class="line">    <span class="string">"Num2"</span>,</span><br><span class="line">    <span class="string">"Num3"</span>,</span><br><span class="line">    <span class="string">"Num4"</span>,</span><br><span class="line">    <span class="string">"Num5"</span>,</span><br><span class="line">    <span class="string">"Num6"</span>,</span><br><span class="line">    <span class="string">"Num7"</span>,</span><br><span class="line">    <span class="string">"Num8"</span>,</span><br><span class="line">    <span class="string">"Num9"</span>,</span><br><span class="line">    <span class="string">"Escape"</span>,</span><br><span class="line">    <span class="string">"LControl"</span>,</span><br><span class="line">    <span class="string">"LShift"</span>,</span><br><span class="line">    <span class="string">"LAlt"</span>,</span><br><span class="line">    <span class="string">"LSystem"</span>,</span><br><span class="line">    <span class="string">"RControl"</span>,</span><br><span class="line">    <span class="string">"RShift"</span>,</span><br><span class="line">    <span class="string">"RAlt"</span>,</span><br><span class="line">    <span class="string">"RSystem"</span>,</span><br><span class="line">    <span class="string">"Menu"</span>,</span><br><span class="line">    <span class="string">"LBracket"</span>,</span><br><span class="line">    <span class="string">"RBracket"</span>,</span><br><span class="line">    <span class="string">"SemiColon"</span>,</span><br><span class="line">    <span class="string">"Comma"</span>,</span><br><span class="line">    <span class="string">"Period"</span>,</span><br><span class="line">    <span class="string">"Quote"</span>,</span><br><span class="line">    <span class="string">"Slash"</span>,</span><br><span class="line">    <span class="string">"BackSlash"</span>,</span><br><span class="line">    <span class="string">"Tilde"</span>,</span><br><span class="line">    <span class="string">"Equal"</span>,</span><br><span class="line">    <span class="string">"Dash"</span>,</span><br><span class="line">    <span class="string">"Space"</span>,</span><br><span class="line">    <span class="string">"Return"</span>,</span><br><span class="line">    <span class="string">"BackSpace"</span>,</span><br><span class="line">    <span class="string">"Tab"</span>,</span><br><span class="line">    <span class="string">"PageUp"</span>,</span><br><span class="line">    <span class="string">"PageDown"</span>,</span><br><span class="line">    <span class="string">"End"</span>,</span><br><span class="line">    <span class="string">"Home"</span>,</span><br><span class="line">    <span class="string">"Insert"</span>,</span><br><span class="line">    <span class="string">"Delete"</span>,</span><br><span class="line">    <span class="string">"Add"</span>,</span><br><span class="line">    <span class="string">"Subtract"</span>,</span><br><span class="line">    <span class="string">"Multiply"</span>,</span><br><span class="line">    <span class="string">"Divide"</span>,</span><br><span class="line">    <span class="string">"Left"</span>,</span><br><span class="line">    <span class="string">"Right"</span>,</span><br><span class="line">    <span class="string">"Up"</span>,</span><br><span class="line">    <span class="string">"Down"</span>,</span><br><span class="line">    <span class="string">"Numpad0"</span>,</span><br><span class="line">    <span class="string">"Numpad1"</span>,</span><br><span class="line">    <span class="string">"Numpad2"</span>,</span><br><span class="line">    <span class="string">"Numpad3"</span>,</span><br><span class="line">    <span class="string">"Numpad4"</span>,</span><br><span class="line">    <span class="string">"Numpad5"</span>,</span><br><span class="line">    <span class="string">"Numpad6"</span>,</span><br><span class="line">    <span class="string">"Numpad7"</span>,</span><br><span class="line">    <span class="string">"Numpad8"</span>,</span><br><span class="line">    <span class="string">"Numpad9"</span>,</span><br><span class="line">    <span class="string">"F1"</span>,</span><br><span class="line">    <span class="string">"F2"</span>,</span><br><span class="line">    <span class="string">"F3"</span>,</span><br><span class="line">    <span class="string">"F4"</span>,</span><br><span class="line">    <span class="string">"F5"</span>,</span><br><span class="line">    <span class="string">"F6"</span>,</span><br><span class="line">    <span class="string">"F7"</span>,</span><br><span class="line">    <span class="string">"F8"</span>,</span><br><span class="line">    <span class="string">"F9"</span>,</span><br><span class="line">    <span class="string">"F10"</span>,</span><br><span class="line">    <span class="string">"F11"</span>,</span><br><span class="line">    <span class="string">"F12"</span>,</span><br><span class="line">    <span class="string">"F13"</span>,</span><br><span class="line">    <span class="string">"F14"</span>,</span><br><span class="line">    <span class="string">"F15"</span>,</span><br><span class="line">    <span class="string">"Pause"</span>&#125;;</span><br></pre></td></tr></table></figure>
 
+<h3 id="实现parser"><a href="#实现parser" class="headerlink" title="实现parser"></a>实现parser</h3><p>因为规则3的存在，所以需要去掉行首和行尾的空格，这个很快就能实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">ltrim</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">s</span><span class="params">(str)</span></span>;</span><br><span class="line">    s.erase(s.<span class="built_in">begin</span>(), <span class="built_in">std</span>::find_if_not&lt;<span class="keyword">decltype</span>(s.<span class="built_in">begin</span>()), <span class="keyword">int</span>(<span class="keyword">int</span>)&gt;(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>(), <span class="built_in">std</span>::<span class="built_in">isspace</span>));</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">rtrim</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">s</span><span class="params">(str)</span></span>;</span><br><span class="line">    s.erase(<span class="built_in">std</span>::find_if_not&lt;<span class="keyword">decltype</span>(s.rbegin()), <span class="keyword">int</span>(<span class="keyword">int</span>)&gt;(s.rbegin(), s.rend(), <span class="built_in">std</span>::<span class="built_in">isspace</span>).base(), s.<span class="built_in">end</span>());</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>剩下的实现就很简单了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">parserControllerConf</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> filepath, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt; &amp;p1, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt; &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">std</span>::ifstream <span class="title">file</span><span class="params">(filepath)</span></span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> <span class="built_in">line</span>;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> line_count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">std</span>::getline(file,<span class="built_in">line</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">line</span> = rtrim(ltrim(<span class="built_in">line</span>));</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">line</span>.empty() || <span class="built_in">line</span>[<span class="number">0</span>]==<span class="string">'#'</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">line</span> == <span class="string">"[Player1]"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            state = Player1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">line</span> == <span class="string">"[Player2]"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            state = Player2;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(state==Player1 || state==Player2)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//分割两部分</span></span><br><span class="line">            <span class="keyword">auto</span> divider = <span class="built_in">line</span>.<span class="built_in">find</span>(<span class="string">'='</span>);</span><br><span class="line">            <span class="comment">//找到对应的位置</span></span><br><span class="line">            <span class="keyword">auto</span> button_it = <span class="built_in">std</span>::<span class="built_in">find</span>(<span class="built_in">std</span>::<span class="built_in">begin</span>(buttons), <span class="built_in">std</span>::<span class="built_in">end</span>(buttons), ltrim(rtrim(<span class="built_in">line</span>.substr(<span class="number">0</span>, divider))));</span><br><span class="line">            <span class="keyword">auto</span> key_it = <span class="built_in">std</span>::<span class="built_in">find</span>(<span class="built_in">std</span>::<span class="built_in">begin</span>(keys), <span class="built_in">std</span>::<span class="built_in">end</span>(keys), ltrim(rtrim(<span class="built_in">line</span>.substr(divider + <span class="number">1</span>))));</span><br><span class="line">            <span class="keyword">if</span>(button_it==<span class="built_in">std</span>::<span class="built_in">end</span>(buttons) || key_it==<span class="built_in">std</span>::<span class="built_in">end</span>(keys))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//报错：未找到按键</span></span><br><span class="line">                LOG(Error) &lt;&lt; <span class="string">"Invalid key in configuration file at Line "</span> &lt;&lt; line_count &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">auto</span> i = <span class="built_in">std</span>::distance(<span class="built_in">std</span>::<span class="built_in">begin</span>(buttons), button_it);</span><br><span class="line">            <span class="keyword">auto</span> key = <span class="built_in">std</span>::distance(<span class="built_in">std</span>::<span class="built_in">begin</span>(keys), key_it);</span><br><span class="line">            <span class="comment">//因为按键顺序遵循buttons中的排列，所以这里直接用i的值来决定</span></span><br><span class="line">            (state == Player1 ? p1 : p2)[i] == <span class="keyword">static_cast</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt;(key);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//报错：语法错误</span></span><br><span class="line">            LOG(Error) &lt;&lt; <span class="string">"Invalid key in configuration file at Line "</span> &lt;&lt; line_count &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        line_count++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模拟控制器Controller"><a href="#模拟控制器Controller" class="headerlink" title="模拟控制器Controller"></a>模拟控制器Controller</h2><p>进入正题，开始实现模拟手柄</p>
+<h3 id="成员与方法"><a href="#成员与方法" class="headerlink" title="成员与方法"></a>成员与方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Controller();</span><br><span class="line">    <span class="keyword">enum</span> Buttons</span><br><span class="line">    &#123;</span><br><span class="line">        A,</span><br><span class="line">        B,</span><br><span class="line">        Select,</span><br><span class="line">        Start,</span><br><span class="line">        Up,</span><br><span class="line">        Down,</span><br><span class="line">        Left,</span><br><span class="line">        Right,</span><br><span class="line">        TotalButtons,<span class="comment">//最后一个用来记录总数</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//模拟选通的情况</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">strobe</span><span class="params">(Byte b)</span></span>;</span><br><span class="line">    <span class="comment">//读取按键</span></span><br><span class="line">    <span class="function">Byte <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//设置按键绑定</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setKeyBindings</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt;&amp; keys)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//是否为选通状态</span></span><br><span class="line">    <span class="keyword">bool</span> m_strobe;</span><br><span class="line">    <span class="comment">//读取道德按键状态</span></span><br><span class="line">    <span class="comment">//刚好8个键，所以就用了uint</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> m_keyStates;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt; m_keyBindings;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>构造函数需要提前把keystates置零</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Controller::Controller():m_keyStates(<span class="number">0</span>),m_keyBindings(TotalButtons)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之前在读入配置文件时，得到了两个vector，直接传递给成员即可</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Controller::setKeyBindings</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt;&amp; keys)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_keyBindings = keys;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当处于选通状态时，检查按键是否被按下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Controller::strobe</span><span class="params">(Byte b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//检查选通状态</span></span><br><span class="line">    m_strobe = (b &amp; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(!m_strobe)</span><br><span class="line">    &#123;</span><br><span class="line">        m_keyStates = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> shift = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> button = A; button &lt; TotalButtons;button++)</span><br><span class="line">        &#123;</span><br><span class="line">            m_keyStates |= (sf::<span class="built_in">Keyboard</span>::isKeyPressed(m_keyBindings[<span class="keyword">static_cast</span>&lt;Buttons&gt;(button)]) &lt;&lt; shift);</span><br><span class="line">            shift++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取按键状态</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Byte <span class="title">Controller::read</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Byte ret;</span><br><span class="line">    <span class="keyword">if</span>(m_strobe)</span><br><span class="line">    &#123;</span><br><span class="line">        ret = sf::<span class="built_in">Keyboard</span>::isKeyPressed(m_keyBindings[A]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//实际上只读取了最后一位</span></span><br><span class="line">        <span class="comment">//循环读取八次就可以的到每个按键的状态，由CPU执行，不用我们处理</span></span><br><span class="line">        ret = m_keyStates &amp; <span class="number">1</span>;</span><br><span class="line">        m_keyStates &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret | <span class="number">0x40</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模拟显示器VirtualScreen"><a href="#模拟显示器VirtualScreen" class="headerlink" title="模拟显示器VirtualScreen"></a>模拟显示器VirtualScreen</h2><p>为PPU渲染提供接口</p>
+<h3 id="成员与方法-1"><a href="#成员与方法-1" class="headerlink" title="成员与方法"></a>成员与方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//初始化窗口</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">create</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">width</span>, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">height</span>, <span class="keyword">float</span> pixel_size, sf::Color color)</span></span>;</span><br><span class="line">    <span class="comment">//设置虚拟像素的颜色</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setPixel</span><span class="params">(<span class="built_in">std</span>::<span class="keyword">size_t</span> x, <span class="built_in">std</span>::<span class="keyword">size_t</span> y, sf::Color color)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">//绘制</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">(sf::RenderTarget &amp;target, sf::RenderStates states)</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//屏幕大小，是一个2维向量</span></span><br><span class="line">    sf::Vector2u m_screenSize;</span><br><span class="line">    <span class="comment">//虚拟像素大小</span></span><br><span class="line">    <span class="keyword">float</span> m_pixelSize;</span><br><span class="line">    <span class="comment">//用一个数组来保存顶点</span></span><br><span class="line">    sf::VertexArray m_vertices;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>初始化窗口<br>确定虚拟像素的大小，屏幕大小<br>确定顶点个数：每一个虚拟像素中有6个顶点，做成两个三角形</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">VirtualScreen::create</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">width</span>, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">height</span>, <span class="keyword">float</span> pixel_size, sf::Color color)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_vertices.resize(<span class="built_in">width</span> * <span class="built_in">height</span> * <span class="number">6</span>);</span><br><span class="line">    m_screenSize = &#123;<span class="built_in">width</span>, <span class="built_in">height</span>&#125;;</span><br><span class="line">    m_vertices.setPrimitiveType(sf::Triangles);</span><br><span class="line">    m_pixelSize = pixel_size;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">std</span>::<span class="keyword">size_t</span> x = <span class="number">0</span>; x &lt; <span class="built_in">width</span>; x++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">std</span>::<span class="keyword">size_t</span> y = <span class="number">0</span>; y &lt; <span class="built_in">height</span>; y++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//一个像素点有六个顶点，所以*6</span></span><br><span class="line">            <span class="keyword">auto</span> i = (x * m_screenSize.y + y) * <span class="number">6</span>;</span><br><span class="line">            sf::Vector2f coor2d = &#123;x * m_pixelSize, y * m_pixelSize&#125;;</span><br><span class="line"></span><br><span class="line">            m_vertices[i].<span class="built_in">position</span> = coor2d;</span><br><span class="line">            m_vertices[i].color = color;</span><br><span class="line"></span><br><span class="line">            m_vertices[i + <span class="number">1</span>].<span class="built_in">position</span> = coor2d + sf::Vector2f(m_pixelSize, <span class="number">0</span>);</span><br><span class="line">            m_vertices[i + <span class="number">1</span>].color = color;</span><br><span class="line"></span><br><span class="line">            m_vertices[i + <span class="number">2</span>].<span class="built_in">position</span> = coor2d + sf::Vector2f(m_pixelSize, m_pixelSize);</span><br><span class="line">            m_vertices[i + <span class="number">2</span>].color = color;</span><br><span class="line"></span><br><span class="line">            m_vertices[i + <span class="number">3</span>].<span class="built_in">position</span> = coor2d + sf::Vector2f&#123;m_pixelSize, m_pixelSize&#125;;</span><br><span class="line">            m_vertices[i + <span class="number">3</span>].color = color;</span><br><span class="line"></span><br><span class="line">            m_vertices[i + <span class="number">4</span>].<span class="built_in">position</span> = coor2d + sf::Vector2f&#123;<span class="number">0</span>, m_pixelSize&#125;;</span><br><span class="line">            m_vertices[i + <span class="number">4</span>].color = color;</span><br><span class="line"></span><br><span class="line">            m_vertices[i + <span class="number">5</span>].<span class="built_in">position</span> = coor2d;</span><br><span class="line">            m_vertices[i + <span class="number">5</span>].color = color;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>setPixel方法可以直接复用上面的代码<br>但是需要先确定修改像素的顶点的索引值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = (x * m_screenSize.y + y) * <span class="number">6</span>;</span><br><span class="line"><span class="comment">//确保没有越界</span></span><br><span class="line"><span class="keyword">if</span>(i&gt;m_vertices.getVertexCount())</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">m_vertices[i].color = color;</span><br><span class="line">m_vertices[i + <span class="number">1</span>].color = color;</span><br><span class="line">m_vertices[i + <span class="number">2</span>].color = color;</span><br><span class="line">m_vertices[i + <span class="number">3</span>].color = color;</span><br><span class="line">m_vertices[i + <span class="number">4</span>].color = color;</span><br><span class="line">m_vertices[i + <span class="number">5</span>].color = color;</span><br></pre></td></tr></table></figure>
+
+<p>draw<br>调用SFML的接口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">VirtualScreen::draw</span><span class="params">(sf::RenderTarget &amp;target, sf::RenderStates states)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    target.draw(m_vertices, states);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:;" class="page-reward-btn tooltip-top">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </a>
+    </div>
+    
   </div>
-</article>
-  
+  <div class="article-info article-info-index">
     
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-  	<time datetime="2020-04-17T10:37:37.107Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/">Hexo博客VPS部署教程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/09/QQBot%E5%BC%80%E5%8F%91/" class="archive-article-date">
-  	<time datetime="2020-04-09T12:08:27.239Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/09/QQBot%E5%BC%80%E5%8F%91/">基于酷Q HTTP + Flask 的Bot：QuneBot</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -277,329 +277,89 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">瞎搞</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/README/" class="archive-article-date">
-  	<time datetime="2020-04-08T08:58:09.828Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
+  
+    <a href="/2020/07/04/NES2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NeSimulator Step&lt;0x02&gt; 核心</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/08/README/">冯氏CPU模拟器</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#从配置文件中读取按键绑定"><span class="toc-number">1.</span> <span class="toc-text">从配置文件中读取按键绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件语法"><span class="toc-number">1.1.</span> <span class="toc-text">配置文件语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#按键列表"><span class="toc-number">1.2.</span> <span class="toc-text">按键列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现parser"><span class="toc-number">1.3.</span> <span class="toc-text">实现parser</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模拟控制器Controller"><span class="toc-number">2.</span> <span class="toc-text">模拟控制器Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成员与方法"><span class="toc-number">2.1.</span> <span class="toc-text">成员与方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模拟显示器VirtualScreen"><span class="toc-number">3.</span> <span class="toc-text">模拟显示器VirtualScreen</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成员与方法-1"><span class="toc-number">3.1.</span> <span class="toc-text">成员与方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">3.2.</span> <span class="toc-text">实现</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/">注释过滤</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动机</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/">链表匹配</a>
-    </h1>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      if (typeof LivereTower === 'function') { return; }
 
-          
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/">链表排序</a>
-    </h1>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.183Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/">链表交换</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/">链表归并</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/">链表拆分</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2020/page/3/">3</a><a class="extend next" rel="next" href="/archives/2020/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -622,8 +382,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

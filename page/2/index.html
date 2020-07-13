@@ -162,6 +162,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-多线程学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
+  
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">c语言 Windows 多线程学习笔记</a>
+    </h1>
+  
+
+  
+  <a href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2020-04-22T06:48:42.356Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-22</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <a id="more"></a>
+
+<h2 id="需要用到的头文件"><a href="#需要用到的头文件" class="headerlink" title="需要用到的头文件"></a>需要用到的头文件</h2><blockquote>
+<p>windows.h<br>process.h</p>
+</blockquote>
+<h2 id="创建一个线程"><a href="#创建一个线程" class="headerlink" title="创建一个线程"></a>创建一个线程</h2><p>调用<code>_beginthreadex()</code>函数，返回一个句柄<code>HANDLE</code></p>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="void-security"><a href="#void-security" class="headerlink" title="void *security"></a>void *security</h4><p>安全属性，NULL为默认安全属性</p>
+<h4 id="unsigned-stack-size"><a href="#unsigned-stack-size" class="headerlink" title="unsigned stack_size"></a>unsigned stack_size</h4><p>指定线程堆栈大小，0表示与创建该线程的堆栈大小相同</p>
+<h4 id="unsigned-start-address-void"><a href="#unsigned-start-address-void" class="headerlink" title="unsigned (* start_address) (void *)"></a>unsigned (* start_address) (void *)</h4><p>一个函数指针，参数为void*，指定线程函数的地址</p>
+<h4 id="void-arglist"><a href="#void-arglist" class="headerlink" title="void *arglist"></a>void *arglist</h4><p>传递给线程函数的参数指针</p>
+<h4 id="unsigned-initflag"><a href="#unsigned-initflag" class="headerlink" title="unsigned initflag"></a>unsigned initflag</h4><p>线程的初始状态，0表示立即执行，CREATE_SUSPEND表示挂起</p>
+<h4 id="unsigned-thrdaddr"><a href="#unsigned-thrdaddr" class="headerlink" title="unsigned *thrdaddr"></a>unsigned *thrdaddr</h4><p>线程的ID，NULL表示匿名</p>
+<h2 id="创建互斥对象"><a href="#创建互斥对象" class="headerlink" title="创建互斥对象"></a>创建互斥对象</h2><p>调用<code>createMutex()</code>即可，返回一个句柄</p>
+<h3 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="LPSECURITY-ATTRIBUTES-lpMutexAttributes"><a href="#LPSECURITY-ATTRIBUTES-lpMutexAttributes" class="headerlink" title="LPSECURITY_ATTRIBUTES lpMutexAttributes"></a>LPSECURITY_ATTRIBUTES lpMutexAttributes</h4><p>安全属性，同上</p>
+<h4 id="BOOL-binitialOwner"><a href="#BOOL-binitialOwner" class="headerlink" title="BOOL binitialOwner"></a>BOOL binitialOwner</h4><p>互斥对象初始所有权，该值为真表示由创建该对象的线程所有</p>
+<h4 id="LPCTSTR-lpName"><a href="#LPCTSTR-lpName" class="headerlink" title="LPCTSTR lpName"></a>LPCTSTR lpName</h4><p>互斥对象的名称，NULL为匿名</p>
+<h2 id="释放互斥对象"><a href="#释放互斥对象" class="headerlink" title="释放互斥对象"></a>释放互斥对象</h2><p>调用<code>releaseMutex(HANDLE hMutex)</code>即可</p>
+<h2 id="等待线程或者对象"><a href="#等待线程或者对象" class="headerlink" title="等待线程或者对象"></a>等待线程或者对象</h2><p><code>DWORD WaitForSingleObject(HANDLE hHandle, DWORD dwMilliseconds)</code></p>
+<h3 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h3><h4 id="HANDLE-hHandle"><a href="#HANDLE-hHandle" class="headerlink" title="HANDLE hHandle"></a>HANDLE hHandle</h4><p>等待的句柄，当该对象处于有信号状态的时候该函数返回</p>
+<h4 id="DWORD-dwMilliseconds"><a href="#DWORD-dwMilliseconds" class="headerlink" title="DWORD dwMilliseconds"></a>DWORD dwMilliseconds</h4><p>等待的时间，0为立即返回，INFINITE表示直到对象有信号才返回</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>模拟双窗口卖票</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta"># <span class="meta-keyword">include</span> <span class="meta-string">&lt;process.h&gt; </span></span></span><br><span class="line">HANDLE hMutex;</span><br><span class="line"><span class="keyword">int</span> tickets=<span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun1Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun2Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    HANDLE hThread1, hThread2;</span><br><span class="line">    hMutex=CreateMutex (<span class="literal">NULL</span>, FALSE, <span class="literal">NULL</span>);</span><br><span class="line">    hThread1=(HANDLE)_beginthreadex(<span class="literal">NULL</span>,<span class="number">0</span>,Fun1Proc,<span class="literal">NULL</span>,<span class="number">0</span>,<span class="literal">NULL</span>);   </span><br><span class="line">    hThread2=(HANDLE)_beginthreadex(<span class="literal">NULL</span>,<span class="number">0</span>,Fun2Proc,<span class="literal">NULL</span>,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br><span class="line">    WaitForSingleObject(hThread1, INFINITE); 	</span><br><span class="line">    CloseHandle(hThread1); </span><br><span class="line">    WaitForSingleObject(hThread2, INFINITE); 	</span><br><span class="line">    CloseHandle(hThread2); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun1Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(tickets&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		WaitForSingleObject (hMutex, INFINITE); </span><br><span class="line">		<span class="keyword">if</span> (tickets&gt;<span class="number">0</span>)</span><br><span class="line">		      <span class="built_in">printf</span> (<span class="string">"thread1 sell ticket : %d\n"</span>, tickets--); </span><br><span class="line">		ReleaseMutex (hMutex); </span><br><span class="line">	&#125;</span><br><span class="line">    _endthreadex(<span class="number">0</span>);	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> __stdcall <span class="title">Fun2Proc</span> <span class="params">(<span class="keyword">void</span>* pArguments)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(tickets&gt;<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		WaitForSingleObject (hMutex, INFINITE); </span><br><span class="line">		<span class="keyword">if</span> (tickets&gt;<span class="number">0</span>)</span><br><span class="line">		      <span class="built_in">printf</span> (<span class="string">"thread2 sell ticket : %d\n"</span>, tickets--); </span><br><span class="line">		ReleaseMutex (hMutex); </span><br><span class="line">	&#125;</span><br><span class="line">     _endthreadex(<span class="number">0</span>);	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-博客部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -846,89 +944,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-和谐词库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">和谐词库</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.174Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>互联网中存在许多的不和谐词汇，在我们浏览互联网的时候，搜索引擎经常会出现提示信息“根据相关法律法规和政策，部分搜索结果未予显示”。小王同学也想制作一个自己的屏蔽词库，这样他就可以将自己不喜欢的词汇从文件中换成别的字符了。屏蔽词库是一个ASCII码文件，这个文件中只含有单词，每个单词占一行，每个单词中只可能有大小写字母与空格。题目中和谐词库的文件名为dict.dic。（屏蔽词库中每个词汇长度小于10，屏蔽词汇个数不超过10.）<br>你的任务是将输入中的所有和谐词库中的词语全部替换成“!@#$%^&amp;<em>”（按住键盘shift和数字1至8），然后输出。这里要注意，如果一个词语中包含屏蔽词汇，那么只将屏蔽词汇替换，例如“hehasAAA”被处理后将得到“he!@#$%^&amp;</em>AAA”，注意屏蔽词汇区分大小写，即aaa与AAA是两个不同的单词，为了使问题简化，屏蔽词汇中不会出现互相包含的情况，如“xabcx”与“abc”不会同时出现在同一个屏蔽词库中。由于小王同学很不擅长文件操作，所以他希望你能帮他制作这个屏蔽词汇程序。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">展开全文 >></a>
     </p>
     
 
