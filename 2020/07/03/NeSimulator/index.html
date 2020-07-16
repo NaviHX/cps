@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>NeSimulator Step&lt;0x00&gt; 盘古开天地 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写在前面之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务虽然写作simulator，实际上叫emulator应该更贴切一点 使用语言: C++预计时间: 暑假报废(开局一个gcc，代码全靠编 UI、控制、音效方面可能会用到SFML(毕竟低技术力大学生">
+  <meta name="description" content="目录Step&lt;0x00&gt; 盘古开天地Step&lt;0x01&gt; 高速公路Step&lt;0x02&gt; 核心Step&lt;0x03&gt; 模拟外设Step&lt;0x04&gt; 图形处理器Step&lt;0x05&gt; Mapper介绍和最后组装 写在前面之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务虽然写作simulator，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NeSimulator Step&lt;0x00&gt; 盘古开天地">
 <meta property="og:url" content="http://yoursite.com/2020/07/03/NeSimulator/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
-<meta property="og:description" content="写在前面之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务虽然写作simulator，实际上叫emulator应该更贴切一点 使用语言: C++预计时间: 暑假报废(开局一个gcc，代码全靠编 UI、控制、音效方面可能会用到SFML(毕竟低技术力大学生">
+<meta property="og:description" content="目录Step&lt;0x00&gt; 盘古开天地Step&lt;0x01&gt; 高速公路Step&lt;0x02&gt; 核心Step&lt;0x03&gt; 模拟外设Step&lt;0x04&gt; 图形处理器Step&lt;0x05&gt; Mapper介绍和最后组装 写在前面之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务虽然写作simulator，">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://114.55.99.188:8888/images/2020/07/02/NESimulator.png">
 <meta property="article:published_time" content="2020-07-03T03:01:16.151Z">
-<meta property="article:modified_time" content="2020-07-03T06:21:42.713Z">
+<meta property="article:modified_time" content="2020-07-16T13:28:27.917Z">
 <meta property="article:author" content="Navi">
 <meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
@@ -187,7 +187,8 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务<br>虽然写作simulator，实际上叫emulator应该更贴切一点</p>
+    <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://navihx.github.io/2020/07/03/NeSimulator/" target="_blank" rel="noopener">Step&lt;0x00&gt; 盘古开天地</a><br><a href="https://navihx.github.io/2020/07/03/NES1/" target="_blank" rel="noopener">Step&lt;0x01&gt; 高速公路</a><br><a href="https://navihx.github.io/2020/07/04/NES2/" target="_blank" rel="noopener">Step&lt;0x02&gt; 核心</a><br><a href="https://navihx.github.io/2020/07/12/NES3/" target="_blank" rel="noopener">Step&lt;0x03&gt; 模拟外设</a><br><a href="https://navihx.github.io/2020/07/14/NES4/" target="_blank" rel="noopener">Step&lt;0x04&gt; 图形处理器</a><br><a href="https://navihx.github.io/2020/07/14/NES5/" target="_blank" rel="noopener">Step&lt;0x05&gt; Mapper介绍和最后组装</a></p>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务<br>虽然写作simulator，实际上叫emulator应该更贴切一点</p>
 <p>使用语言: C++<br>预计时间: 暑假报废<br>(开局一个gcc，代码全靠编</p>
 <p>UI、控制、音效方面可能会用到SFML<br>(毕竟低技术力大学生</p>
 <a id="more"></a>
@@ -313,7 +314,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#REF"><span class="toc-number">1.1.</span> <span class="toc-text">REF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">2.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#硬件"><span class="toc-number">2.1.</span> <span class="toc-text">硬件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#已知的硬件bug"><span class="toc-number">2.2.</span> <span class="toc-text">已知的硬件bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">2.3.</span> <span class="toc-text">架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开工：神说要读卡带，于是就创造了卡带和程序猿"><span class="toc-number">3.</span> <span class="toc-text">开工：神说要读卡带，于是就创造了卡带和程序猿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查文件"><span class="toc-number">3.1.</span> <span class="toc-text">检查文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查卡带中提供的信息"><span class="toc-number">3.2.</span> <span class="toc-text">检查卡带中提供的信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PRG-ROM-CHR-ROM大小"><span class="toc-number">3.2.1.</span> <span class="toc-text">PRG-ROM,CHR-ROM大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制信息"><span class="toc-number">3.2.2.</span> <span class="toc-text">控制信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分配内存并读取"><span class="toc-number">3.3.</span> <span class="toc-text">分配内存并读取</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-number">2.</span> <span class="toc-text">写在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#REF"><span class="toc-number">2.1.</span> <span class="toc-text">REF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">3.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#硬件"><span class="toc-number">3.1.</span> <span class="toc-text">硬件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#已知的硬件bug"><span class="toc-number">3.2.</span> <span class="toc-text">已知的硬件bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#架构"><span class="toc-number">3.3.</span> <span class="toc-text">架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开工：神说要读卡带，于是就创造了卡带和程序猿"><span class="toc-number">4.</span> <span class="toc-text">开工：神说要读卡带，于是就创造了卡带和程序猿</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#检查文件"><span class="toc-number">4.1.</span> <span class="toc-text">检查文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查卡带中提供的信息"><span class="toc-number">4.2.</span> <span class="toc-text">检查卡带中提供的信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PRG-ROM-CHR-ROM大小"><span class="toc-number">4.2.1.</span> <span class="toc-text">PRG-ROM,CHR-ROM大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#控制信息"><span class="toc-number">4.2.2.</span> <span class="toc-text">控制信息</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分配内存并读取"><span class="toc-number">4.3.</span> <span class="toc-text">分配内存并读取</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>

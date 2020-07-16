@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | Navi&#39;s Blog</title>
+  <title>NeSimulator Step&lt;0x05&gt; Mapper介绍和最后组装 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/page/3/index.html">
+  <meta name="description" content="最后一步啦！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NeSimulator Step&lt;0x05&gt; Mapper介绍和最后组装">
+<meta property="og:url" content="http://yoursite.com/2020/07/16/NES5/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="最后一步啦！">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-16T07:48:31.758Z">
+<meta property="article:modified_time" content="2020-07-16T13:29:21.028Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -160,408 +165,174 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-NES5" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/">链表归并</a>
+    <h1 class="article-title" itemprop="name">
+      NeSimulator Step&lt;0x05&gt; Mapper介绍和最后组装
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+  
+  <a href="/2020/07/16/NES5/" class="archive-article-date">
+  	<time datetime="2020-07-16T07:48:31.758Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>最后一步啦！</p>
+<a id="more"></a>
+
+<h2 id="Mapper"><a href="#Mapper" class="headerlink" title="Mapper"></a>Mapper</h2><p>Mapper是NES游戏厂商为了突破机能限制所做的扩展方案，实体卡带上都会有一个mapper控制芯片</p>
+<p>mapper可以做些什么呢？<br>它可以扩展程序内存，CHR内存（看了上一篇的读者一定不会对这个名词陌生吧）<br>切换Bank<br>音频处理<br>屏幕分割实现电影效果（感觉好高端）<br>……</p>
+<p>NES的mapper方案已经高达256种，显然我们是没法全部实现的，这里只做简单介绍</p>
+<h3 id="mapper长啥样"><a href="#mapper长啥样" class="headerlink" title="mapper长啥样"></a>mapper长啥样</h3><p>基础的mapper</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mapper</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment">//已实现的mapper类型</span></span><br><span class="line">        <span class="comment">//可以自己添加</span></span><br><span class="line">        <span class="keyword">enum</span> Type</span><br><span class="line">        &#123;</span><br><span class="line">            NROM  = <span class="number">0</span>,</span><br><span class="line">            SxROM = <span class="number">1</span>,</span><br><span class="line">            UxROM = <span class="number">2</span>,</span><br><span class="line">            CNROM = <span class="number">3</span>,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        Mapper(Cartridge&amp; cart, Type t) : m_cartridge(cart), m_type(t) &#123;&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//读写PRG-ROM</span></span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">writePRG</span> <span class="params">(Address addr, Byte value)</span> </span>= <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> Byte <span class="title">readPRG</span> <span class="params">(Address addr)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//DMA</span></span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">const</span> Byte* <span class="title">getPagePtr</span> <span class="params">(Address addr)</span> </span>= <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">//读写CHR-ROM</span></span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> Byte <span class="title">readCHR</span> <span class="params">(Address addr)</span> </span>= <span class="number">0</span>;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">writeCHR</span> <span class="params">(Address addr, Byte value)</span> </span>= <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Name Table镜像</span></span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> NameTableMirroring <span class="title">getNameTableMirroring</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//检查是否拥有扩展RAM</span></span><br><span class="line">        <span class="function"><span class="keyword">bool</span> <span class="keyword">inline</span> <span class="title">hasExtendedRAM</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> m_cartridge.hasExtendedRAM();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建mapper</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Mapper&gt; <span class="title">createMapper</span> <span class="params">(Type <span class="keyword">mapper_t</span>, Cartridge&amp; cart, <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">void</span>)&gt; mirroring_cb)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">        Cartridge&amp; m_cartridge;</span><br><span class="line">        Type m_type;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>不同mapper直接继承完事</p>
+<h2 id="组装：Emulator"><a href="#组装：Emulator" class="headerlink" title="组装：Emulator"></a>组装：Emulator</h2><p>开始把之前做好的各部分组装在一起</p>
+<h3 id="成员与方法"><a href="#成员与方法" class="headerlink" title="成员与方法"></a>成员与方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> TimePoint = <span class="built_in">std</span>::chrono::high_resolution_clock::time_point;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> NESVideoWidth = ScanlineVisibleDots; <span class="comment">//x</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> NESVideoHeight = VisibleScanlines; <span class="comment">//y</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emulator</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Emulator();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//运行</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> rom_path)</span></span>;</span><br><span class="line">    <span class="comment">//设置窗口大小</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setVideoWidth</span><span class="params">(<span class="keyword">int</span> <span class="built_in">width</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setVideoHeight</span><span class="params">(<span class="keyword">int</span> <span class="built_in">height</span>)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setVideoScale</span><span class="params">(<span class="keyword">float</span> scale)</span></span>;</span><br><span class="line">    <span class="comment">//设置键位绑定</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setKeys</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt;&amp; p1, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt;&amp; p2)</span></span>;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DMA</span><span class="params">(Byte page)</span></span>;</span><br><span class="line"></span><br><span class="line">    MainBus m_bus;</span><br><span class="line">    PictureBus m_pictureBus;</span><br><span class="line">    CPU m_cpu;</span><br><span class="line">    PPU m_ppu;</span><br><span class="line">    Cartridge m_cartridge;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Mapper&gt; m_mapper;</span><br><span class="line"></span><br><span class="line">    Controller m_controller1, m_controller2;</span><br><span class="line"></span><br><span class="line">    sf::RenderWindow m_window;</span><br><span class="line">    VirtualScreen m_emulatorScreen;</span><br><span class="line">    <span class="keyword">float</span> m_screenScale;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//周期计时</span></span><br><span class="line">    TimePoint m_cycleTimer;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::chrono::high_resolution_clock::duration m_elapsedTime;</span><br><span class="line">    <span class="built_in">std</span>::chrono::nanoseconds m_cpuCycleDuration;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>一些函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::DMA</span><span class="params">(Byte page)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_cpu.skipDMACycles();</span><br><span class="line">    <span class="keyword">auto</span> page_ptr = m_bus.getPagePtr(page);</span><br><span class="line">    m_ppu.doDMA(page_ptr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::setVideoHeight</span><span class="params">(<span class="keyword">int</span> <span class="built_in">height</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_screenScale = <span class="built_in">height</span> / <span class="keyword">float</span>(NESVideoHeight);</span><br><span class="line">    LOG(Info) &lt;&lt; <span class="string">"Scale: "</span> &lt;&lt; m_screenScale &lt;&lt; <span class="string">" set. Screen: "</span></span><br><span class="line">              &lt;&lt; <span class="keyword">int</span>(NESVideoWidth * m_screenScale) &lt;&lt; <span class="string">"x"</span> &lt;&lt; <span class="keyword">int</span>(NESVideoHeight * m_screenScale) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::setVideoWidth</span><span class="params">(<span class="keyword">int</span> <span class="built_in">width</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_screenScale = <span class="built_in">width</span> / <span class="keyword">float</span>(NESVideoWidth);</span><br><span class="line">    LOG(Info) &lt;&lt; <span class="string">"Scale: "</span> &lt;&lt; m_screenScale &lt;&lt; <span class="string">" set. Screen: "</span></span><br><span class="line">              &lt;&lt; <span class="keyword">int</span>(NESVideoWidth * m_screenScale) &lt;&lt; <span class="string">"x"</span> &lt;&lt; <span class="keyword">int</span>(NESVideoHeight * m_screenScale) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::setVideoScale</span><span class="params">(<span class="keyword">float</span> scale)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_screenScale = scale;</span><br><span class="line">    LOG(Info) &lt;&lt; <span class="string">"Scale: "</span> &lt;&lt; m_screenScale &lt;&lt; <span class="string">" set. Screen: "</span></span><br><span class="line">              &lt;&lt; <span class="keyword">int</span>(NESVideoWidth * m_screenScale) &lt;&lt; <span class="string">"x"</span> &lt;&lt; <span class="keyword">int</span>(NESVideoHeight * m_screenScale) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::setKeys</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt; &amp;p1, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::<span class="built_in">Keyboard</span>::Key&gt; &amp;p2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_controller1.setKeyBindings(p1);</span><br><span class="line">    m_controller2.setKeyBindings(p2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>初始化Emulator</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造函数</span></span><br><span class="line">Emulator::Emulator() : m_cpu(m_bus),</span><br><span class="line">                       m_ppu(m_pictureBus, m_emulatorScreen),</span><br><span class="line">                       m_screenScale(<span class="number">2.f</span>),</span><br><span class="line">                       m_cycleTimer(),</span><br><span class="line">                       m_cpuCycleDuration(<span class="built_in">std</span>::chrono::nanoseconds(<span class="number">559</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//设置回调函数</span></span><br><span class="line">    <span class="comment">//用lambda偷个懒</span></span><br><span class="line">    <span class="keyword">if</span> (!m_bus.setReadCallback(PPUSTATUS, [&amp;](<span class="keyword">void</span>) &#123; <span class="keyword">return</span> m_ppu.getStatus(); &#125;) ||</span><br><span class="line">        !m_bus.setReadCallback(PPUDATA, [&amp;](<span class="keyword">void</span>) &#123; <span class="keyword">return</span> m_ppu.getData(); &#125;) ||</span><br><span class="line">        !m_bus.setReadCallback(JOY1, [&amp;](<span class="keyword">void</span>) &#123; <span class="keyword">return</span> m_controller1.<span class="built_in">read</span>(); &#125;) ||</span><br><span class="line">        !m_bus.setReadCallback(JOY2, [&amp;](<span class="keyword">void</span>) &#123; <span class="keyword">return</span> m_controller2.<span class="built_in">read</span>(); &#125;) ||</span><br><span class="line">        !m_bus.setReadCallback(OAMDATA, [&amp;](<span class="keyword">void</span>) &#123; <span class="keyword">return</span> m_ppu.getOAMData(); &#125;))</span><br><span class="line">    &#123;</span><br><span class="line">        LOG(Error) &lt;&lt; <span class="string">"Critical error: Failed to set I/O callbacks"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//同上</span></span><br><span class="line">    <span class="keyword">if</span> (!m_bus.setWriteCallback(PPUCTRL, [&amp;](Byte b) &#123; m_ppu.control(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(PPUMASK, [&amp;](Byte b) &#123; m_ppu.setMask(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(OAMADDR, [&amp;](Byte b) &#123; m_ppu.setOAMAddress(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(PPUADDR, [&amp;](Byte b) &#123; m_ppu.setDataAddress(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(PPUSCROL, [&amp;](Byte b) &#123; m_ppu.setScroll(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(PPUDATA, [&amp;](Byte b) &#123; m_ppu.setData(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(OAMDMA, [&amp;](Byte b) &#123; DMA(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(JOY1, [&amp;](Byte b) &#123;m_controller1.strobe(b); m_controller2.strobe(b); &#125;) ||</span><br><span class="line">        !m_bus.setWriteCallback(OAMDATA, [&amp;](Byte b) &#123; m_ppu.setOAMData(b); &#125;))</span><br><span class="line">    &#123;</span><br><span class="line">        LOG(Error) &lt;&lt; <span class="string">"Critical error: Failed to set I/O callbacks"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_ppu.setInterruptCallback([&amp;]() &#123; m_cpu.interrupt(CPU::NMI); &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Emulator::run</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> rom_path)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//从path载入文件</span></span><br><span class="line">    <span class="keyword">if</span> (!m_cartridge.loadFromFile(rom_path))</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    m_mapper = Mapper::createMapper(<span class="keyword">static_cast</span>&lt;Mapper::Type&gt;(m_cartridge.getMapper()),</span><br><span class="line">                                    m_cartridge,</span><br><span class="line">                                    [&amp;]() &#123; m_pictureBus.updateMirroring(); &#125;);</span><br><span class="line">    <span class="keyword">if</span> (!m_mapper)</span><br><span class="line">    &#123;</span><br><span class="line">        LOG(Error) &lt;&lt; <span class="string">"Creating Mapper failed. Probably unsupported."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为总线提供mapper的信息</span></span><br><span class="line">    <span class="comment">//mainbus主要是查看是否有扩展内存</span></span><br><span class="line">    <span class="comment">//picturebus查看镜像方式</span></span><br><span class="line">    <span class="keyword">if</span> (!m_bus.setMapper(m_mapper.<span class="built_in">get</span>()) ||</span><br><span class="line">        !m_pictureBus.setMapper(m_mapper.<span class="built_in">get</span>()))</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//重置cpu和ppu</span></span><br><span class="line">    m_cpu.reset();</span><br><span class="line">    m_ppu.reset();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建窗口</span></span><br><span class="line">    m_window.create(sf::VideoMode(NESVideoWidth * m_screenScale, NESVideoHeight * m_screenScale),</span><br><span class="line">                    rom_path+<span class="string">"  NESimulator"</span>, sf::Style::Titlebar | sf::Style::Close);</span><br><span class="line">    m_window.setVerticalSyncEnabled(<span class="literal">true</span>);</span><br><span class="line">    m_emulatorScreen.create(NESVideoWidth, NESVideoHeight, m_screenScale, sf::Color::White);<span class="comment">//虚拟窗口</span></span><br><span class="line"></span><br><span class="line">    m_cycleTimer = <span class="built_in">std</span>::chrono::high_resolution_clock::now();</span><br><span class="line">    m_elapsedTime = m_cycleTimer - m_cycleTimer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理键盘事件</span></span><br><span class="line">    sf::Event event;</span><br><span class="line">    <span class="keyword">bool</span> focus = <span class="literal">true</span>, pause = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">while</span> (m_window.isOpen())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (m_window.pollEvent(event))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//退出程序</span></span><br><span class="line">            <span class="keyword">if</span> (event.type == sf::Event::Closed ||</span><br><span class="line">                (event.type == sf::Event::KeyPressed &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::Escape))</span><br><span class="line">            &#123;</span><br><span class="line">                m_window.<span class="built_in">close</span>();</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//聚焦窗口</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.type == sf::Event::GainedFocus)</span><br><span class="line">            &#123;</span><br><span class="line">                focus = <span class="literal">true</span>;</span><br><span class="line">                m_cycleTimer = <span class="built_in">std</span>::chrono::high_resolution_clock::now();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//失去聚焦</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.type == sf::Event::LostFocus)</span><br><span class="line">                focus = <span class="literal">false</span>;</span><br><span class="line">            <span class="comment">//F2暂停</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (event.type == sf::Event::KeyPressed &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::F2)</span><br><span class="line">            &#123;</span><br><span class="line">                pause = !pause;</span><br><span class="line">                <span class="keyword">if</span> (!pause)</span><br><span class="line">                    m_cycleTimer = <span class="built_in">std</span>::chrono::high_resolution_clock::now();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//F3继续</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (pause &amp;&amp; event.type == sf::Event::KeyReleased &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::F3)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">29781</span>; ++i) <span class="comment">//Around one frame</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//PPU</span></span><br><span class="line">                    m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                    m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                    m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                    <span class="comment">//CPU</span></span><br><span class="line">                    m_cpu.<span class="built_in">step</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//调试用</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (focus &amp;&amp; event.type == sf::Event::KeyReleased &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::F4)</span><br><span class="line">            &#123;</span><br><span class="line">                Log::<span class="built_in">get</span>().setLevel(Info);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (focus &amp;&amp; event.type == sf::Event::KeyReleased &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::F5)</span><br><span class="line">            &#123;</span><br><span class="line">                Log::<span class="built_in">get</span>().setLevel(InfoVerbose);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (focus &amp;&amp; event.type == sf::Event::KeyReleased &amp;&amp; event.key.code == sf::<span class="built_in">Keyboard</span>::F6)</span><br><span class="line">            &#123;</span><br><span class="line">                Log::<span class="built_in">get</span>().setLevel(CpuTrace);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//还记得之前的JOY1，JOY2寄存器吗？</span></span><br><span class="line">            <span class="comment">//手柄操作已经交给CPU处理了</span></span><br><span class="line">            <span class="comment">//这里就不用管了</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (focus &amp;&amp; !pause)</span><br><span class="line">        &#123;</span><br><span class="line">            m_elapsedTime += <span class="built_in">std</span>::chrono::high_resolution_clock::now() - m_cycleTimer;</span><br><span class="line">            m_cycleTimer = <span class="built_in">std</span>::chrono::high_resolution_clock::now();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (m_elapsedTime &gt; m_cpuCycleDuration)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//PPU</span></span><br><span class="line">                m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                m_ppu.<span class="built_in">step</span>();</span><br><span class="line">                <span class="comment">//CPU</span></span><br><span class="line">                m_cpu.<span class="built_in">step</span>();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//计算运行时间</span></span><br><span class="line">                m_elapsedTime -= <span class="built_in">std</span>::chrono::duration_cast&lt;<span class="built_in">std</span>::chrono::system_clock::duration&gt;(m_cpuCycleDuration);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//渲染</span></span><br><span class="line">            m_window.draw(m_emulatorScreen);</span><br><span class="line">            m_window.<span class="built_in">display</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            sf::sleep(sf::milliseconds(<span class="number">1000</span> / <span class="number">60</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="main：命令行参数处理"><a href="#main：命令行参数处理" class="headerlink" title="main：命令行参数处理"></a>main：命令行参数处理</h2><p>主要是设置窗口大小，这里略去</p>
+<h2 id="大功告成"><a href="#大功告成" class="headerlink" title="大功告成"></a>大功告成</h2><p>提前一个半月解决战斗</p>
+<p>+500 EXP<br>c++ Level又提高了（并没有<br>假期时间减少了（确信</p>
+<p>达成成就：第一次完成系列博客（因为以前的都咕咕咕了</p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:;" class="page-reward-btn tooltip-top">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
+  
+    <a href="/2020/07/14/NES4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NeSimulator Step&lt;0x04&gt; 图形处理器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/">链表拆分</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mapper"><span class="toc-number">1.</span> <span class="toc-text">Mapper</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mapper长啥样"><span class="toc-number">1.1.</span> <span class="toc-text">mapper长啥样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组装：Emulator"><span class="toc-number">2.</span> <span class="toc-text">组装：Emulator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#成员与方法"><span class="toc-number">2.1.</span> <span class="toc-text">成员与方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#main：命令行参数处理"><span class="toc-number">3.</span> <span class="toc-text">main：命令行参数处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大功告成"><span class="toc-number">4.</span> <span class="toc-text">大功告成</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.174Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">和谐词库</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/">初识链表</a>
-    </h1>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      if (typeof LivereTower === 'function') { return; }
 
-          
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">初识二进制文件</a>
-    </h1>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.172Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/">初识ASCII文件</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/p2697/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.171Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/p2697/">P2697 宝石串</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">暴力</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/p1690/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.170Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/p1690/">P1690 贪婪的Copy</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">最短路算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/P1280/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.169Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/P1280/">P1280 尼克的任务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">动态规划</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
-  
 
 
           </div>
@@ -584,8 +355,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
