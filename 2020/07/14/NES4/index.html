@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Navi&#39;s Blog</title>
+  <title>NeSimulator Step&lt;0x04&gt; 图形处理器 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="这一部分有亿点难顶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NeSimulator Step&lt;0x04&gt; 图形处理器">
+<meta property="og:url" content="http://yoursite.com/2020/07/14/NES4/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="这一部分有亿点难顶">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://picb.zhimg.com/80/v2-fc36ef783125b108588b9622df2f1fcb_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-afe5cff6b3c88cb9d797b03d8b75fe61_720w.jpg">
+<meta property="article:published_time" content="2020-07-14T03:43:15.251Z">
+<meta property="article:modified_time" content="2020-07-16T07:39:05.960Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="开发">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://picb.zhimg.com/80/v2-fc36ef783125b108588b9622df2f1fcb_720w.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
   
@@ -160,36 +168,207 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-NES4" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/30/%E8%B6%85%E8%B4%A8%E9%87%8F%E5%85%89%E7%82%B9%E7%94%9F%E6%88%90%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2020-04-30T13:14:38.881Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/30/%E8%B6%85%E8%B4%A8%E9%87%8F%E5%85%89%E7%82%B9%E7%94%9F%E6%88%90%E5%99%A8/">超 质 量 光 点 生 成 器</a>
+    <h1 class="article-title" itemprop="name">
+      NeSimulator Step&lt;0x04&gt; 图形处理器
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+  
+  <a href="/2020/07/14/NES4/" class="archive-article-date">
+  	<time datetime="2020-07-14T03:43:15.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>这一部分有亿点难顶</p>
+<a id="more"></a>
+
+<h2 id="图形总线"><a href="#图形总线" class="headerlink" title="图形总线"></a>图形总线</h2><p>按照惯例先实现模拟总线</p>
+<p>PPU内存布局<br>(因为服务器到期的缘故就没有办法放图片了)</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>大小</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x0000-0x0fff</td>
+<td>0x1000</td>
+<td>CHR-ROM 1</td>
+</tr>
+<tr>
+<td>0x1000-0x1fff</td>
+<td>0x1000</td>
+<td>CHR-ROM 2</td>
+</tr>
+<tr>
+<td>0x2000-0x23ff</td>
+<td>0x0400</td>
+<td>NAME TABLE 0</td>
+</tr>
+<tr>
+<td>0x2400-0x27ff</td>
+<td>0x0400</td>
+<td>NAME TABLE 1</td>
+</tr>
+<tr>
+<td>0x2800-0x2bff</td>
+<td>0x0400</td>
+<td>NAME TABLE 2</td>
+</tr>
+<tr>
+<td>0x2c00-0x2fff</td>
+<td>0x0400</td>
+<td>NAME TABLE 3</td>
+</tr>
+<tr>
+<td>0x3000-0x3eff</td>
+<td>0x0eff</td>
+<td>0x2000-0x2eff MIRRORED</td>
+</tr>
+<tr>
+<td>0x3f00-0x3f1f</td>
+<td>0x0020</td>
+<td>PALETTE</td>
+</tr>
+<tr>
+<td>0x3f20-0x3fff</td>
+<td>0x00e0</td>
+<td>PALETTE MIRRORED</td>
+</tr>
+</tbody></table>
+<p>按照这个布局实现就行了<br>注意CHRROM需要通过mapper读取</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//RAM和调色盘都是Vector</span></span><br><span class="line">PictureBus::PictureBus() :</span><br><span class="line">    m_RAM(<span class="number">0x800</span>),</span><br><span class="line">    m_palette(<span class="number">0x20</span>),</span><br><span class="line">    m_mapper(<span class="literal">nullptr</span>)</span><br><span class="line">&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Byte <span class="title">PictureBus::read</span><span class="params">(Address addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//CHR-ROM</span></span><br><span class="line">    <span class="keyword">if</span> (addr &lt; <span class="number">0x2000</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> m_mapper-&gt;readCHR(addr);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//NAME TABLE</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x3eff</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//先解决镜像问题</span></span><br><span class="line">        <span class="comment">//没有解决镜像似乎也是可以运行一些游戏的</span></span><br><span class="line">        addr = (addr &amp; <span class="number">0x0fff</span>) + <span class="number">0x2000</span>;</span><br><span class="line">        <span class="keyword">auto</span> index = addr &amp; <span class="number">0x3ff</span>;</span><br><span class="line">        <span class="keyword">if</span> (addr &lt; <span class="number">0x2400</span>)      <span class="comment">//NT0</span></span><br><span class="line">            <span class="keyword">return</span> m_RAM[NameTable0 + index];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x2800</span>) <span class="comment">//NT1</span></span><br><span class="line">            <span class="keyword">return</span> m_RAM[NameTable1 + index];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x2c00</span>) <span class="comment">//NT2</span></span><br><span class="line">            <span class="keyword">return</span> m_RAM[NameTable2 + index];</span><br><span class="line">        <span class="keyword">else</span>                    <span class="comment">//NT3</span></span><br><span class="line">            <span class="keyword">return</span> m_RAM[NameTable3 + index];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//PALETTE</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x3fff</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> m_palette[addr &amp; <span class="number">0x1f</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Byte <span class="title">PictureBus::readPalette</span><span class="params">(Byte paletteAddr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m_palette[paletteAddr];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PictureBus::write</span><span class="params">(Address addr, Byte value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (addr &lt; <span class="number">0x2000</span>)<span class="comment">//读取图样表</span></span><br><span class="line">    &#123;</span><br><span class="line">        m_mapper-&gt;writeCHR(addr, value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x3eff</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">auto</span> index = addr &amp; <span class="number">0x3ff</span>;<span class="comment">//名称表中相应的位置</span></span><br><span class="line">        <span class="keyword">if</span> (addr &lt; <span class="number">0x2400</span>)      <span class="comment">//NT0</span></span><br><span class="line">            m_RAM[NameTable0 + index] = value;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x2800</span>) <span class="comment">//NT1</span></span><br><span class="line">            m_RAM[NameTable1 + index] = value;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x2c00</span>) <span class="comment">//NT2</span></span><br><span class="line">            m_RAM[NameTable2 + index] = value;</span><br><span class="line">        <span class="keyword">else</span>                    <span class="comment">//NT3</span></span><br><span class="line">            m_RAM[NameTable3 + index] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (addr &lt; <span class="number">0x3fff</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (addr == <span class="number">0x3f10</span>)</span><br><span class="line">            m_palette[<span class="number">0</span>] = value;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            m_palette[addr &amp; <span class="number">0x1f</span>] = value;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//根据mapper信息处理NAME TABLE的位置</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PictureBus::updateMirroring</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (m_mapper-&gt;getNameTableMirroring())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> Horizontal:</span><br><span class="line">            NameTable0 = NameTable1 = <span class="number">0</span>;</span><br><span class="line">            NameTable2 = NameTable3 = <span class="number">0x400</span>;</span><br><span class="line">            LOG(InfoVerbose) &lt;&lt; <span class="string">"Horizontal Name Table mirroring set. (Vertical Scrolling)"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> Vertical:</span><br><span class="line">            NameTable0 = NameTable2 = <span class="number">0</span>;</span><br><span class="line">            NameTable1 = NameTable3 = <span class="number">0x400</span>;</span><br><span class="line">            LOG(InfoVerbose) &lt;&lt; <span class="string">"Vertical Name Table mirroring set. (Horizontal Scrolling)"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> OneScreenLower:</span><br><span class="line">            NameTable0 = NameTable1 = NameTable2 = NameTable3 = <span class="number">0</span>;</span><br><span class="line">            LOG(InfoVerbose) &lt;&lt; <span class="string">"Single Screen mirroring set with lower bank."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> OneScreenHigher:</span><br><span class="line">            NameTable0 = NameTable1 = NameTable2 = NameTable3 = <span class="number">0x400</span>;</span><br><span class="line">            LOG(InfoVerbose) &lt;&lt; <span class="string">"Single Screen mirroring set with higher bank."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            NameTable0 = NameTable1 = NameTable2 = NameTable3 = <span class="number">0</span>;</span><br><span class="line">            LOG(Error) &lt;&lt; <span class="string">"Unsupported Name Table mirroring : "</span> &lt;&lt; m_mapper-&gt;getNameTableMirroring() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">PictureBus::setMapper</span><span class="params">(Mapper *mapper)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!mapper)</span><br><span class="line">    &#123;</span><br><span class="line">        LOG(Error) &lt;&lt; <span class="string">"Mapper argument is nullptr"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_mapper = mapper;</span><br><span class="line">    updateMirroring();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>调色盘颜色集 #不是调色盘<br>这些是用来渲染的</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">std</span>::<span class="keyword">uint32_t</span> colors[] = &#123;</span><br><span class="line">            <span class="number">0x666666ff</span>, <span class="number">0x002a88ff</span>, <span class="number">0x1412a7ff</span>, <span class="number">0x3b00a4ff</span>, <span class="number">0x5c007eff</span>, <span class="number">0x6e0040ff</span>, <span class="number">0x6c0600ff</span>, <span class="number">0x561d00ff</span>,</span><br><span class="line">            <span class="number">0x333500ff</span>, <span class="number">0x0b4800ff</span>, <span class="number">0x005200ff</span>, <span class="number">0x004f08ff</span>, <span class="number">0x00404dff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>,</span><br><span class="line">            <span class="number">0xadadadff</span>, <span class="number">0x155fd9ff</span>, <span class="number">0x4240ffff</span>, <span class="number">0x7527feff</span>, <span class="number">0xa01accff</span>, <span class="number">0xb71e7bff</span>, <span class="number">0xb53120ff</span>, <span class="number">0x994e00ff</span>,</span><br><span class="line">            <span class="number">0x6b6d00ff</span>, <span class="number">0x388700ff</span>, <span class="number">0x0c9300ff</span>, <span class="number">0x008f32ff</span>, <span class="number">0x007c8dff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>,</span><br><span class="line">            <span class="number">0xfffeffff</span>, <span class="number">0x64b0ffff</span>, <span class="number">0x9290ffff</span>, <span class="number">0xc676ffff</span>, <span class="number">0xf36affff</span>, <span class="number">0xfe6eccff</span>, <span class="number">0xfe8170ff</span>, <span class="number">0xea9e22ff</span>,</span><br><span class="line">            <span class="number">0xbcbe00ff</span>, <span class="number">0x88d800ff</span>, <span class="number">0x5ce430ff</span>, <span class="number">0x45e082ff</span>, <span class="number">0x48cddeff</span>, <span class="number">0x4f4f4fff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>,</span><br><span class="line">            <span class="number">0xfffeffff</span>, <span class="number">0xc0dfffff</span>, <span class="number">0xd3d2ffff</span>, <span class="number">0xe8c8ffff</span>, <span class="number">0xfbc2ffff</span>, <span class="number">0xfec4eaff</span>, <span class="number">0xfeccc5ff</span>, <span class="number">0xf7d8a5ff</span>,</span><br><span class="line">            <span class="number">0xe4e594ff</span>, <span class="number">0xcfef96ff</span>, <span class="number">0xbdf4abff</span>, <span class="number">0xb3f3ccff</span>, <span class="number">0xb5ebf2ff</span>, <span class="number">0xb8b8b8ff</span>, <span class="number">0x000000ff</span>, <span class="number">0x000000ff</span>,</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图形处理器PPU"><a href="#图形处理器PPU" class="headerlink" title="图形处理器PPU"></a>图形处理器PPU</h2><h3 id="放松一下，看会儿视频"><a href="#放松一下，看会儿视频" class="headerlink" title="放松一下，看会儿视频"></a>放松一下，看会儿视频</h3><p><a href="https://www.bilibili.com/video/av21969824" target="_blank" rel="noopener">慢镜头下的电视工作原理科普（CRT/LED/OLED)</a></p>
+<iframe src="//player.bilibili.com/player.html?aid=21969824&bvid=BV1fW411K7ik&cid=36293781&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<h3 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h3><blockquote>
+<p>虽然不是很懂，但是这里班门弄斧一下</p>
+</blockquote>
+<p>HBlank<br>水平空白，电子枪扫描一行后返回到一侧时，电子枪会关闭（否则刚才扫描好的内容又会被隐去）</p>
+<p>VBlank<br>垂直空白，当电子枪扫描完一帧后，又会回到扫描开始处</p>
+<p>游戏机的情况<br>根据Wiki上查到的资料，扫描分为以下几个阶段</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>行数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pre-render</td>
+<td>-1 - 261</td>
+</tr>
+<tr>
+<td>render</td>
+<td>0 - 239</td>
+</tr>
+<tr>
+<td>post-render</td>
+<td>240</td>
+</tr>
+<tr>
+<td>VBlank</td>
+<td>241 - 260</td>
+</tr>
+</tbody></table>
+<p>据此可以定义一些常量</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> FrameEndScanline = <span class="number">261</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> VisibleScanlines = <span class="number">240</span>;</span><br></pre></td></tr></table></figure>
+<p>一行内的情况</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ScanlineCycleLength = <span class="number">341</span>;<span class="comment">//总长度</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ScanlineEndCycle = <span class="number">340</span>;<span class="comment">//结束的位置</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ScanlineVisibleDots = <span class="number">256</span>;<span class="comment">//一行可见的点</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>索引颜色<br>调色盘是32字节的数据，其中背景用掉16字节，精灵用掉16字节，也就是说，只用一个4位的数据就可以做调色盘的索引了<br>当索引后两位为零时，背景使用全局背景色，精灵透明</p>
+<p>名称表<br>背景由8x8的图块组成，整个屏幕的图块有32x30个<br>每个图块用1字节表示（抠门）<br>为了屏幕滚动，实际上存在两块“屏幕”</p>
+<p>属性表<br>64字节分为了8x8的区域<br>每一个字节描述了4x4图块所使用的调色板（淦）<br>每四个图块共用2 bit，所以得到了调色盘索引中的两位</p>
+<p>图样表<br>映射自CHR-ROM<br>每一个图样16字节<br>前面8字节(平面0)表示2位中的低位, 后面8字节(平面1)表示两位中的高位. 这两位合在一起是索引需要的4位中的低两位</p>
+<p>简单来说，背景的构建，就是先通过名称表选取图样，再根据该位置的属性选取调色盘来实现的</p>
+<hr>
+<p>DMA直接存储器访问<br>因为精灵有独立的256b的内存，不在PPU的地址空间里，所以需要将指定地址的内存拷贝到精灵RAM上</p>
+<p>精灵的属性<br><img src="https://picb.zhimg.com/80/v2-fc36ef783125b108588b9622df2f1fcb_720w.jpg" alt="照搬"></p>
+<p>0号精灵命中<br>当开始渲染0号精灵时，会设置一个sprite0 的flag，一般用来分割屏幕</p>
+<hr>
+<p>PPU寄存器<br><img src="https://pic2.zhimg.com/80/v2-afe5cff6b3c88cb9d797b03d8b75fe61_720w.jpg" alt=""></p>
+<h3 id="成员和方法"><a href="#成员和方法" class="headerlink" title="成员和方法"></a>成员和方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PPU</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        PPU(PictureBus &amp;bus, VirtualScreen &amp;screen);</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">step</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setInterruptCallback</span><span class="params">(<span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">void</span>)&gt; cb)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">doDMA</span><span class="params">(<span class="keyword">const</span> Byte* page_ptr)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//提供给CPU用于操作PPU寄存器的回调函数</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">control</span><span class="params">(Byte ctrl)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setMask</span><span class="params">(Byte mask)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setOAMAddress</span><span class="params">(Byte addr)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setDataAddress</span><span class="params">(Byte addr)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setScroll</span><span class="params">(Byte scroll)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setData</span><span class="params">(Byte data)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function">Byte <span class="title">getStatus</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function">Byte <span class="title">getData</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function">Byte <span class="title">getOAMData</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setOAMData</span><span class="params">(Byte value)</span></span>;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="function">Byte <span class="title">readOAM</span><span class="params">(Byte addr)</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">writeOAM</span><span class="params">(Byte addr, Byte value)</span></span>;</span><br><span class="line">        <span class="function">Byte <span class="title">read</span><span class="params">(Address addr)</span></span>;</span><br><span class="line">        PictureBus &amp;m_bus;</span><br><span class="line">        VirtualScreen &amp;m_screen;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">void</span>)&gt; m_vblankCallback;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Byte&gt; m_spriteMemory;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Byte&gt; m_scanlineSprites;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">enum</span> State</span><br><span class="line">        &#123;</span><br><span class="line">            PreRender,</span><br><span class="line">            Render,</span><br><span class="line">            PostRender,</span><br><span class="line">            VerticalBlank</span><br><span class="line">        &#125; m_pipelineState;</span><br><span class="line">        <span class="keyword">int</span> m_cycle;<span class="comment">//x</span></span><br><span class="line">        <span class="keyword">int</span> m_scanline;<span class="comment">//y</span></span><br><span class="line">        <span class="keyword">bool</span> m_evenFrame;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">bool</span> m_vblank;</span><br><span class="line">        <span class="keyword">bool</span> m_sprZeroHit;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//寄存器</span></span><br><span class="line">        Address m_dataAddress;</span><br><span class="line">        Address m_tempAddress;</span><br><span class="line">        Byte m_fineXScroll;</span><br><span class="line">        <span class="keyword">bool</span> m_firstWrite;</span><br><span class="line">        Byte m_dataBuffer;</span><br><span class="line"></span><br><span class="line">        Byte m_spriteDataAddress;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//一些状态标志位</span></span><br><span class="line">        <span class="keyword">bool</span> m_longSprites;</span><br><span class="line">        <span class="keyword">bool</span> m_generateInterrupt;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">bool</span> m_greyscaleMode;</span><br><span class="line">        <span class="keyword">bool</span> m_showSprites;</span><br><span class="line">        <span class="keyword">bool</span> m_showBackground;</span><br><span class="line">        <span class="keyword">bool</span> m_hideEdgeSprites;</span><br><span class="line">        <span class="keyword">bool</span> m_hideEdgeBackground;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">enum</span> CharacterPage</span><br><span class="line">        &#123;</span><br><span class="line">            Low,</span><br><span class="line">            High,</span><br><span class="line">        &#125; m_bgPage,</span><br><span class="line">          m_sprPage;</span><br><span class="line"></span><br><span class="line">        Address m_dataAddrIncrement;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::Color&gt;&gt; m_pictureBuffer;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>构造函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PPU::PPU(PictureBus&amp; bus, VirtualScreen&amp; screen) :</span><br><span class="line">    m_bus(bus),</span><br><span class="line">    m_screen(screen),</span><br><span class="line">    m_spriteMemory(<span class="number">64</span> * <span class="number">4</span>),<span class="comment">//vector</span></span><br><span class="line">    m_pictureBuffer(ScanlineVisibleDots, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;sf::Color&gt;(VisibleScanlines, sf::Color::Magenta))</span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PPU重置</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::reset</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//寄存器和标志位重置</span></span><br><span class="line">    m_longSprites = m_generateInterrupt = m_greyscaleMode = m_vblank = <span class="literal">false</span>;</span><br><span class="line">    m_showBackground = m_showSprites = m_evenFrame = m_firstWrite = <span class="literal">true</span>;</span><br><span class="line">    m_bgPage = m_sprPage = Low;</span><br><span class="line">    m_dataAddress = m_cycle = m_scanline = m_spriteDataAddress = m_fineXScroll = m_tempAddress = <span class="number">0</span>;</span><br><span class="line">    m_dataAddrIncrement = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//渲染状态重置</span></span><br><span class="line">    m_pipelineState = PreRender;</span><br><span class="line">    m_scanlineSprites.reserve(<span class="number">8</span>);</span><br><span class="line">    m_scanlineSprites.resize(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置VBlank回调函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setInterruptCallback</span><span class="params">(<span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(<span class="keyword">void</span>)&gt; cb)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_vblankCallback = cb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提供给CPU的寄存器操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//操作精灵RAM</span></span><br><span class="line"><span class="function">Byte <span class="title">PPU::readOAM</span><span class="params">(Byte addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m_spriteMemory[addr];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::writeOAM</span><span class="params">(Byte addr, Byte value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_spriteMemory[addr] = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//上文提到的DMA</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::doDMA</span><span class="params">(<span class="keyword">const</span> Byte* page_ptr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">memcpy</span>(m_spriteMemory.data() + m_spriteDataAddress, page_ptr, <span class="number">256</span> - m_spriteDataAddress);</span><br><span class="line">    <span class="keyword">if</span> (m_spriteDataAddress)</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">memcpy</span>(m_spriteMemory.data(), page_ptr + (<span class="number">256</span> - m_spriteDataAddress), m_spriteDataAddress);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制寄存器</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::control</span><span class="params">(Byte ctrl)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_generateInterrupt = ctrl &amp; <span class="number">0x80</span>;</span><br><span class="line">    m_longSprites = ctrl &amp; <span class="number">0x20</span>;</span><br><span class="line">    m_bgPage = <span class="keyword">static_cast</span>&lt;CharacterPage&gt;(!!(ctrl &amp; <span class="number">0x10</span>));</span><br><span class="line">    m_sprPage = <span class="keyword">static_cast</span>&lt;CharacterPage&gt;(!!(ctrl &amp; <span class="number">0x8</span>));</span><br><span class="line">    <span class="keyword">if</span> (ctrl &amp; <span class="number">0x4</span>)</span><br><span class="line">        m_dataAddrIncrement = <span class="number">0x20</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        m_dataAddrIncrement = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//先把相关位置置零，再用或运算加进去</span></span><br><span class="line">    m_tempAddress &amp;= ~<span class="number">0xc00</span>;</span><br><span class="line">    m_tempAddress |= (ctrl &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//掩码寄存器</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setMask</span><span class="params">(Byte mask)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_greyscaleMode = mask &amp; <span class="number">0x1</span>;</span><br><span class="line">    m_hideEdgeBackground = !(mask &amp; <span class="number">0x2</span>);</span><br><span class="line">    m_hideEdgeSprites = !(mask &amp; <span class="number">0x4</span>);</span><br><span class="line">    m_showBackground = mask &amp; <span class="number">0x8</span>;</span><br><span class="line">    m_showSprites = mask &amp; <span class="number">0x10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//状态寄存器</span></span><br><span class="line"><span class="function">Byte <span class="title">PPU::getStatus</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Byte status = m_sprZeroHit &lt;&lt; <span class="number">6</span> |</span><br><span class="line">                  m_vblank &lt;&lt; <span class="number">7</span>;</span><br><span class="line">    m_vblank = <span class="literal">false</span>;</span><br><span class="line">    m_firstWrite = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setDataAddress</span><span class="params">(Byte addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//先写高地址，再写低地址</span></span><br><span class="line">    <span class="keyword">if</span> (m_firstWrite)</span><br><span class="line">    &#123;</span><br><span class="line">        m_tempAddress &amp;= ~<span class="number">0xff00</span>;</span><br><span class="line">        m_tempAddress |= (addr &amp; <span class="number">0x3f</span>) &lt;&lt; <span class="number">8</span>;</span><br><span class="line">        m_firstWrite = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        m_tempAddress &amp;= ~<span class="number">0xff</span>;</span><br><span class="line">        m_tempAddress |= addr;</span><br><span class="line">        m_dataAddress = m_tempAddress;</span><br><span class="line">        m_firstWrite = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Byte <span class="title">PPU::getData</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> data = m_bus.<span class="built_in">read</span>(m_dataAddress);</span><br><span class="line">    m_dataAddress += m_dataAddrIncrement;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_dataAddress &lt; <span class="number">0x3f00</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::swap(data, m_dataBuffer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Byte <span class="title">PPU::getOAMData</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> readOAM(m_spriteDataAddress);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setData</span><span class="params">(Byte data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_bus.<span class="built_in">write</span>(m_dataAddress, data);</span><br><span class="line">    m_dataAddress += m_dataAddrIncrement;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setOAMAddress</span><span class="params">(Byte addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m_spriteDataAddress = addr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setOAMData</span><span class="params">(Byte value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    writeOAM(m_spriteDataAddress++, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PPU::setScroll</span><span class="params">(Byte scroll)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (m_firstWrite)</span><br><span class="line">    &#123;</span><br><span class="line">        m_tempAddress &amp;= ~<span class="number">0x1f</span>;</span><br><span class="line">        m_tempAddress |= (scroll &gt;&gt; <span class="number">3</span>) &amp; <span class="number">0x1f</span>;</span><br><span class="line">        m_fineXScroll = scroll &amp; <span class="number">0x7</span>;</span><br><span class="line">        m_firstWrite = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        m_tempAddress &amp;= ~<span class="number">0x73e0</span>;</span><br><span class="line">        m_tempAddress |= ((scroll &amp; <span class="number">0x7</span>) &lt;&lt; <span class="number">12</span>) |</span><br><span class="line">                         ((scroll &amp; <span class="number">0xf8</span>) &lt;&lt; <span class="number">2</span>);</span><br><span class="line">        m_firstWrite = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>核心实现 PPU::step()<br>利用switch把不同阶段分开</p>
+<p>pre阶段</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> PreRender:</span><br><span class="line">    <span class="keyword">if</span> (m_cycle == <span class="number">1</span>)</span><br><span class="line">        m_vblank = m_sprZeroHit = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m_cycle == ScanlineVisibleDots + <span class="number">2</span> &amp;&amp; m_showBackground &amp;&amp; m_showSprites)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//水平</span></span><br><span class="line">        m_dataAddress &amp;= ~<span class="number">0x41f</span>;</span><br><span class="line">        m_dataAddress |= m_tempAddress &amp; <span class="number">0x41f</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m_cycle &gt; <span class="number">280</span> &amp;&amp; m_cycle &lt;= <span class="number">304</span> &amp;&amp; m_showBackground &amp;&amp; m_showSprites)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//垂直</span></span><br><span class="line">        m_dataAddress &amp;= ~<span class="number">0x7be0</span>;</span><br><span class="line">        m_dataAddress |= m_tempAddress &amp; <span class="number">0x7be0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//注意偶数帧x-1</span></span><br><span class="line">    <span class="keyword">if</span> (m_cycle &gt;= ScanlineEndCycle - (!m_evenFrame &amp;&amp; m_showBackground &amp;&amp; m_showSprites))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//切换状态</span></span><br><span class="line">        m_pipelineState = Render;</span><br><span class="line">        <span class="comment">//xy置零</span></span><br><span class="line">        m_cycle = m_scanline = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>render阶段<br>获取颜色填入缓冲区</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> Render:</span><br><span class="line">    <span class="keyword">if</span> (m_cycle &gt; <span class="number">0</span> &amp;&amp; m_cycle &lt;= ScanlineVisibleDots)<span class="comment">//可见区域</span></span><br><span class="line">    &#123;</span><br><span class="line">        Byte bgColor = <span class="number">0</span>, sprColor = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> bgOpaque = <span class="literal">false</span>, sprOpaque = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">bool</span> spriteForeground = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取坐标</span></span><br><span class="line">        <span class="keyword">int</span> x = m_cycle - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> y = m_scanline;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_showBackground) <span class="comment">//背景</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//找到背景的图样</span></span><br><span class="line">            <span class="keyword">auto</span> x_fine = (m_fineXScroll + x) % <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">if</span> (!m_hideEdgeBackground || x &gt;= <span class="number">8</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//得到12位tile</span></span><br><span class="line">                <span class="keyword">auto</span> addr = <span class="number">0x2000</span> | (m_dataAddress &amp; <span class="number">0x0FFF</span>);</span><br><span class="line">                Byte tile = <span class="built_in">read</span>(addr);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//tile中有16字节，所以乘16（&lt;&lt;5）,得到图样</span></span><br><span class="line">                addr = (tile &lt;&lt; <span class="number">5</span>) + ((m_dataAddress &gt;&gt; <span class="number">12</span>) &amp; <span class="number">0x7</span>);     <span class="comment">//加上低三位</span></span><br><span class="line">                addr |= m_bgPage &lt;&lt; <span class="number">12</span>;                                 <span class="comment">//图样表分为高页和低页，在这里确定</span></span><br><span class="line">                bgColor = (<span class="built_in">read</span>(addr) &gt;&gt; (<span class="number">7</span> ^ x_fine)) &amp; <span class="number">1</span>;             <span class="comment">//调色盘 两位</span></span><br><span class="line">                bgColor |= ((<span class="built_in">read</span>(addr + <span class="number">8</span>) &gt;&gt; (<span class="number">7</span> ^ x_fine)) &amp; <span class="number">1</span>) &lt;&lt; <span class="number">1</span>; <span class="comment">//调色盘</span></span><br><span class="line"></span><br><span class="line">                bgOpaque = bgColor; <span class="comment">//是否透明</span></span><br><span class="line"></span><br><span class="line">                <span class="comment">//确定属性</span></span><br><span class="line">                addr = <span class="number">0x23C0</span> | (m_dataAddress &amp; <span class="number">0x0C00</span>) | ((m_dataAddress &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x38</span>) | ((m_dataAddress &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0x07</span>);</span><br><span class="line">                <span class="keyword">auto</span> attribute = <span class="built_in">read</span>(addr);</span><br><span class="line">                <span class="keyword">int</span> shift = ((m_dataAddress &gt;&gt; <span class="number">4</span>) &amp; <span class="number">4</span>) | (m_dataAddress &amp; <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">                bgColor |= ((attribute &gt;&gt; shift) &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (x_fine == <span class="number">7</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> ((m_dataAddress &amp; <span class="number">0x001F</span>) == <span class="number">31</span>)<span class="comment">//垂直水平切换</span></span><br><span class="line">                &#123;</span><br><span class="line">                    m_dataAddress &amp;= ~<span class="number">0x001F</span>;</span><br><span class="line">                    m_dataAddress ^= <span class="number">0x0400</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    m_dataAddress += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (m_showSprites &amp;&amp; (!m_hideEdgeSprites || x &gt;= <span class="number">8</span>))<span class="comment">//精灵渲染</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> i : m_scanlineSprites)</span><br><span class="line">            &#123;</span><br><span class="line">                Byte spr_x = m_spriteMemory[i * <span class="number">4</span> + <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (<span class="number">0</span> &gt; x - spr_x || x - spr_x &gt;= <span class="number">8</span>)</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">                Byte spr_y = m_spriteMemory[i * <span class="number">4</span> + <span class="number">0</span>] + <span class="number">1</span>,</span><br><span class="line">                     tile = m_spriteMemory[i * <span class="number">4</span> + <span class="number">1</span>],</span><br><span class="line">                     attribute = m_spriteMemory[i * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">int</span> length = (m_longSprites) ? <span class="number">16</span> : <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">int</span> x_shift = (x - spr_x) % <span class="number">8</span>, y_offset = (y - spr_y) % length;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//判断水平垂直</span></span><br><span class="line">                <span class="keyword">if</span> ((attribute &amp; <span class="number">0x40</span>) == <span class="number">0</span>) </span><br><span class="line">                    x_shift ^= <span class="number">7</span>;</span><br><span class="line">                <span class="keyword">if</span> ((attribute &amp; <span class="number">0x80</span>) != <span class="number">0</span>) </span><br><span class="line">                    y_offset ^= (length - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">                Address addr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!m_longSprites)</span><br><span class="line">                &#123;</span><br><span class="line">                    addr = tile * <span class="number">16</span> + y_offset;</span><br><span class="line">                    <span class="keyword">if</span> (m_sprPage == High)</span><br><span class="line">                        addr += <span class="number">0x1000</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">//后3位模7</span></span><br><span class="line">                    y_offset = (y_offset &amp; <span class="number">7</span>) | ((y_offset &amp; <span class="number">8</span>) &lt;&lt; <span class="number">1</span>);</span><br><span class="line">                    addr = (tile &gt;&gt; <span class="number">1</span>) * <span class="number">32</span> + y_offset;</span><br><span class="line">                    addr |= (tile &amp; <span class="number">1</span>) &lt;&lt; <span class="number">12</span>; <span class="comment">//Bank 0x1000 if bit-0 is high</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                sprColor |= (<span class="built_in">read</span>(addr) &gt;&gt; (x_shift)) &amp; <span class="number">1</span>;            </span><br><span class="line">                sprColor |= ((<span class="built_in">read</span>(addr + <span class="number">8</span>) &gt;&gt; (x_shift)) &amp; <span class="number">1</span>) &lt;&lt; <span class="number">1</span>; </span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!(sprOpaque = sprColor))</span><br><span class="line">                &#123;</span><br><span class="line">                    sprColor = <span class="number">0</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                sprColor |= <span class="number">0x10</span>;                   </span><br><span class="line">                sprColor |= (attribute &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">2</span>; <span class="comment">//属性</span></span><br><span class="line"></span><br><span class="line">                spriteForeground = !(attribute &amp; <span class="number">0x20</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//ZeroHit</span></span><br><span class="line">                <span class="keyword">if</span> (!m_sprZeroHit &amp;&amp; m_showBackground &amp;&amp; i == <span class="number">0</span> &amp;&amp; sprOpaque &amp;&amp; bgOpaque)</span><br><span class="line">                &#123;</span><br><span class="line">                    m_sprZeroHit = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">break</span>; <span class="comment">//找到最高优先度的精灵后退出循环</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Byte paletteAddr = bgColor;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> ((!bgOpaque &amp;&amp; sprOpaque) ||</span><br><span class="line">            (bgOpaque &amp;&amp; sprOpaque &amp;&amp; spriteForeground))</span><br><span class="line">            paletteAddr = sprColor;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!bgOpaque &amp;&amp; !sprOpaque)</span><br><span class="line">            paletteAddr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//放进缓冲区</span></span><br><span class="line">        m_pictureBuffer[x][y] = sf::Color(colors[m_bus.readPalette(paletteAddr)]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m_cycle == ScanlineVisibleDots + <span class="number">1</span> &amp;&amp; m_showBackground)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ((m_dataAddress &amp; <span class="number">0x7000</span>) != <span class="number">0x7000</span>) </span><br><span class="line">            m_dataAddress += <span class="number">0x1000</span>;            </span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            m_dataAddress &amp;= ~<span class="number">0x7000</span>;              </span><br><span class="line">            <span class="keyword">int</span> y = (m_dataAddress &amp; <span class="number">0x03E0</span>) &gt;&gt; <span class="number">5</span>; </span><br><span class="line">            <span class="keyword">if</span> (y == <span class="number">29</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                y = <span class="number">0</span>;                   </span><br><span class="line">                m_dataAddress ^= <span class="number">0x0800</span>; </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (y == <span class="number">31</span>)</span><br><span class="line">                y = <span class="number">0</span>; </span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                y += <span class="number">1</span>; </span><br><span class="line">            m_dataAddress = (m_dataAddress &amp; ~<span class="number">0x03E0</span>) | (y &lt;&lt; <span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m_cycle == ScanlineVisibleDots + <span class="number">2</span> &amp;&amp; m_showBackground &amp;&amp; m_showSprites)</span><br><span class="line">    &#123;</span><br><span class="line">        m_dataAddress &amp;= ~<span class="number">0x41f</span>;</span><br><span class="line">        m_dataAddress |= m_tempAddress &amp; <span class="number">0x41f</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_cycle &gt;= ScanlineEndCycle)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//找到下一扫描行的精灵</span></span><br><span class="line">        m_scanlineSprites.resize(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> range = <span class="number">8</span>;</span><br><span class="line">        <span class="keyword">if</span> (m_longSprites)</span><br><span class="line">            range = <span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">std</span>::<span class="keyword">size_t</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">std</span>::<span class="keyword">size_t</span> i = m_spriteDataAddress / <span class="number">4</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">auto</span> diff = (m_scanline - m_spriteMemory[i * <span class="number">4</span>]);</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">0</span> &lt;= diff &amp;&amp; diff &lt; range)</span><br><span class="line">            &#123;</span><br><span class="line">                m_scanlineSprites.push_back(i);</span><br><span class="line">                ++j;</span><br><span class="line">                <span class="keyword">if</span> (j &gt;= <span class="number">8</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ++m_scanline;</span><br><span class="line">        m_cycle = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_scanline &gt;= VisibleScanlines)</span><br><span class="line">        m_pipelineState = PostRender;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>post阶段<br>将缓冲区内的信息渲染到屏幕上<br>准备垂直空白</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> PostRender:</span><br><span class="line">    <span class="keyword">if</span> (m_cycle &gt;= ScanlineEndCycle)</span><br><span class="line">    &#123;</span><br><span class="line">        ++m_scanline;</span><br><span class="line">        m_cycle = <span class="number">0</span>;</span><br><span class="line">        m_pipelineState = VerticalBlank;</span><br><span class="line">        <span class="comment">//准备垂直空白</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//开始渲染</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; m_pictureBuffer.<span class="built_in">size</span>(); ++x)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; m_pictureBuffer[<span class="number">0</span>].<span class="built_in">size</span>(); ++y)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//之前写好的接口直接用就是了</span></span><br><span class="line">                m_screen.setPixel(x, y, m_pictureBuffer[x][y]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>VBlank<br>调用垂直空白回调函数<br>恢复到pre render状态</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> VerticalBlank:</span><br><span class="line">    <span class="keyword">if</span> (m_cycle == <span class="number">1</span> &amp;&amp; m_scanline == VisibleScanlines + <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        m_vblank = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (m_generateInterrupt)</span><br><span class="line">            m_vblankCallback();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_cycle &gt;= ScanlineEndCycle)</span><br><span class="line">    &#123;</span><br><span class="line">        ++m_scanline;</span><br><span class="line">        m_cycle = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m_scanline &gt;= FrameEndScanline)</span><br><span class="line">    &#123;</span><br><span class="line">        m_pipelineState = PreRender;</span><br><span class="line">        m_scanline = <span class="number">0</span>;</span><br><span class="line">        m_evenFrame = !m_evenFrame;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>完啦！</p>
+<h2 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h2><p><a href="http://wiki.nesdev.com/w/index.php/PPU_scrolling" target="_blank" rel="noopener">Wiki</a><br><a href="http://www.dustmop.io/blog/2015/04/28/nes-graphics-part-1/" target="_blank" rel="noopener">NES Graphics I</a><br><a href="http://www.dustmop.io/blog/2015/06/08/nes-graphics-part-2/" target="_blank" rel="noopener">NES Graphics II</a><br><a href="http://www.dustmop.io/blog/2015/12/18/nes-graphics-part-3/" target="_blank" rel="noopener">NES Graphics III</a></p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:;" class="page-reward-btn tooltip-top">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -197,409 +376,89 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">瞎搞</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2020-04-22T06:48:42.356Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-22</time>
-</a>
+  
+    <a href="/2020/07/12/NES3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NeSimulator Step&lt;0x03&gt; 模拟外设</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">c语言 Windows 多线程学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#图形总线"><span class="toc-number">1.</span> <span class="toc-text">图形总线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图形处理器PPU"><span class="toc-number">2.</span> <span class="toc-text">图形处理器PPU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#放松一下，看会儿视频"><span class="toc-number">2.1.</span> <span class="toc-text">放松一下，看会儿视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一些基础知识"><span class="toc-number">2.2.</span> <span class="toc-text">一些基础知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#成员和方法"><span class="toc-number">2.3.</span> <span class="toc-text">成员和方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现"><span class="toc-number">2.4.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REF"><span class="toc-number">3.</span> <span class="toc-text">REF</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-  	<time datetime="2020-04-17T10:37:37.107Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/17/%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/">Hexo博客VPS部署教程</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">教程</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/09/QQBot%E5%BC%80%E5%8F%91/" class="archive-article-date">
-  	<time datetime="2020-04-09T12:08:27.239Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/09/QQBot%E5%BC%80%E5%8F%91/">基于酷Q HTTP + Flask 的Bot：QuneBot</a>
-    </h1>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">瞎搞</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      if (typeof LivereTower === 'function') { return; }
 
-          
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/08/README/" class="archive-article-date">
-  	<time datetime="2020-04-08T08:58:09.828Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/08/README/">冯氏CPU模拟器</a>
-    </h1>
-  
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.185Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E6%B3%A8%E9%87%8A%E8%BF%87%E6%BB%A4/">注释过滤</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">自动机</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/">链表匹配</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/">链表排序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.183Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/">链表交换</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/">链表归并</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -622,8 +481,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
