@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Navi&#39;s Blog</title>
+  <title>StyleGAN学习 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="代码仓库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StyleGAN学习">
+<meta property="og:url" content="http://yoursite.com/2020/08/08/styleGAN/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="代码仓库">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://math.jianshu.com/math?formula=%5Cbegin%7Baligned%7D%20%2526%20%5Cmin%20_%7B%5Cphi%7D-%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%7D%5By%20%5Clog%20p(y%253D1%20%7C%20%5Cmathbf%7Bx%7D)%252B(1-y)%20%5Clog%20p(y%253D0%20%7C%20%5Cmathbf%7Bx%7D)%5D%5Cright)%20%5C%5C%253D%2526%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%252C%20%5Cphi)%5D%252B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%20%5Csim%20p_%7B%5Ctheta%7D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%5Cright)%7D%5Cleft%5B%5Clog%20%5Cleft(1-D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%252C%20%5Cphi%5Cright)%5Cright)%5Cright%5D%5Cright)%20%5C%5C%253D%2526%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%252C%20%5Cphi)%5D%252B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bz%7D%20%5Csim%20p(%5Cmathbf%7Bz%7D)%7D%5B%5Clog%20(1-D(G(%5Cmathbf%7Bz%7D%252C%20%5Ctheta)%252C%20%5Cphi))%5D%5Cright)%20%5Cend%7Baligned%7D">
+<meta property="article:published_time" content="2020-08-08T07:08:21.828Z">
+<meta property="article:modified_time" content="2020-08-08T08:09:17.668Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://math.jianshu.com/math?formula=%5Cbegin%7Baligned%7D%20%2526%20%5Cmin%20_%7B%5Cphi%7D-%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%7D%5By%20%5Clog%20p(y%253D1%20%7C%20%5Cmathbf%7Bx%7D)%252B(1-y)%20%5Clog%20p(y%253D0%20%7C%20%5Cmathbf%7Bx%7D)%5D%5Cright)%20%5C%5C%253D%2526%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%252C%20%5Cphi)%5D%252B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%20%5Csim%20p_%7B%5Ctheta%7D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%5Cright)%7D%5Cleft%5B%5Clog%20%5Cleft(1-D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%252C%20%5Cphi%5Cright)%5Cright)%5Cright%5D%5Cright)%20%5C%5C%253D%2526%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%252C%20%5Cphi)%5D%252B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bz%7D%20%5Csim%20p(%5Cmathbf%7Bz%7D)%7D%5B%5Clog%20(1-D(G(%5Cmathbf%7Bz%7D%252C%20%5Ctheta)%252C%20%5Cphi))%5D%5Cright)%20%5Cend%7Baligned%7D">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
   
@@ -160,36 +167,47 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-styleGAN" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/08/styleGAN/" class="archive-article-date">
-  	<time datetime="2020-08-08T07:08:21.828Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/08/styleGAN/">StyleGAN学习</a>
+    <h1 class="article-title" itemprop="name">
+      StyleGAN学习
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+  
+  <a href="/2020/08/08/styleGAN/" class="archive-article-date">
+  	<time datetime="2020-08-08T07:08:21.828Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-08</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><a href="https://github.com/NaviHX/waifu-gen" target="_blank" rel="noopener">代码仓库</a></p>
+<a id="more"></a>
+
+<h2 id="GAN-生成对抗网络"><a href="#GAN-生成对抗网络" class="headerlink" title="GAN: 生成对抗网络"></a>GAN: 生成对抗网络</h2><p>通过对抗训练的方式使得生成网络的输出样本服从真实数据分布.<br>需要训练两个网络—-一个是判别网络,用来判断一个样本是真实数据还是由生成网络产生的样本.另一个是生成网络,目的是尽量生成可以欺骗判别网络的样本.<br>当最后收敛时,如果判别网络无法判断一个样本是真实的还是由生成网络产生的,就可以等价的认为生成网络产生了符合真实数据分布的样本.</p>
+<p><img src="https://math.jianshu.com/math?formula=%5Cbegin%7Baligned%7D%20%26%20%5Cmin%20_%7B%5Cphi%7D-%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%7D%5By%20%5Clog%20p(y%3D1%20%7C%20%5Cmathbf%7Bx%7D)%2B(1-y)%20%5Clog%20p(y%3D0%20%7C%20%5Cmathbf%7Bx%7D)%5D%5Cright)%20%5C%5C%3D%26%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%2C%20%5Cphi)%5D%2B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%20%5Csim%20p_%7B%5Ctheta%7D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%5Cright)%7D%5Cleft%5B%5Clog%20%5Cleft(1-D%5Cleft(%5Cmathbf%7Bx%7D%5E%7B%5Cprime%7D%2C%20%5Cphi%5Cright)%5Cright)%5Cright%5D%5Cright)%20%5C%5C%3D%26%20%5Cmax%20_%7B%5Cphi%7D%5Cleft(%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bx%7D%20%5Csim%20p_%7Br%7D(%5Cmathbf%7Bx%7D)%7D%5B%5Clog%20D(%5Cmathbf%7Bx%7D%2C%20%5Cphi)%5D%2B%5Cmathbb%7BE%7D_%7B%5Cmathbf%7Bz%7D%20%5Csim%20p(%5Cmathbf%7Bz%7D)%7D%5B%5Clog%20(1-D(G(%5Cmathbf%7Bz%7D%2C%20%5Ctheta)%2C%20%5Cphi))%5D%5Cright)%20%5Cend%7Baligned%7D" alt=""></p>
+<h2 id="StyleGAN-基于风格的生成对抗网络"><a href="#StyleGAN-基于风格的生成对抗网络" class="headerlink" title="StyleGAN: 基于风格的生成对抗网络"></a>StyleGAN: 基于风格的生成对抗网络</h2><p><a href="https://arxiv.org/abs/1812.04948" target="_blank" rel="noopener">参考</a></p>
+<p>1.移除了传统的输入<br>2.利用8个全连接层将输入向量 z 编码为中间向量 w ,减少特征纠缠<br>3.样式模块,将 w 通过AdaIN输入到生成器的每一层中<br>4.随机变化,生成器每一层添加随机噪声生成随机细节<br>5.混合正则化,减少每一层相关性.在某一层更换样式</p>
+<p><img src="" alt="对比图"></p>
+<p>量化纠缠的方式</p>
+<p>1.感知路径长度<br>2.线性可分性</p>
+<h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h2><p>自己训练的StyleGAN,生成 32 x 32 的图片,因为机器损坏导致无法对模型进一步优化,没有训练更高分辨率的生成器</p>
+<h3 id="训练过程样本变化"><a href="#训练过程样本变化" class="headerlink" title="训练过程样本变化"></a>训练过程样本变化</h3><p>固定噪声生成图片</p>
+<p>随机噪声生成图片</p>
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -201,354 +219,85 @@
 		</ul>
 	</div>
 
-          
+    
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/05/how-to-host-a-blog/" class="archive-article-date">
-  	<time datetime="2020-08-05T07:48:18.754Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-05</time>
-</a>
+  
+    <a href="/2020/08/05/how-to-host-a-blog/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用Hexo与Nginx搭建属于自己的博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/05/how-to-host-a-blog/">使用Hexo与Nginx搭建属于自己的博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GAN-生成对抗网络"><span class="toc-number">1.</span> <span class="toc-text">GAN: 生成对抗网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StyleGAN-基于风格的生成对抗网络"><span class="toc-number">2.</span> <span class="toc-text">StyleGAN: 基于风格的生成对抗网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#演示"><span class="toc-number">3.</span> <span class="toc-text">演示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#训练过程样本变化"><span class="toc-number">3.1.</span> <span class="toc-text">训练过程样本变化</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/28/helloworld/" class="archive-article-date">
-  	<time datetime="2020-07-28T03:43:13.989Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/28/helloworld/">helloworld</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/16/NES5/" class="archive-article-date">
-  	<time datetime="2020-07-16T07:48:31.758Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/16/NES5/">NeSimulator Step&lt;0x05&gt; Mapper介绍和最后组装</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-          
+      if (typeof LivereTower === 'function') { return; }
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/14/NES4/" class="archive-article-date">
-  	<time datetime="2020-07-14T03:43:15.251Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/14/NES4/">NeSimulator Step&lt;0x04&gt; 图形处理器</a>
-    </h1>
-  
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/12/NES3/" class="archive-article-date">
-  	<time datetime="2020-07-12T05:44:28.336Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/12/NES3/">NeSimulator Step&lt;0x03&gt; 模拟外设</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/04/NES2/" class="archive-article-date">
-  	<time datetime="2020-07-04T02:12:40.312Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/04/NES2/">NeSimulator Step&lt;0x02&gt; 核心</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/NES1/" class="archive-article-date">
-  	<time datetime="2020-07-03T06:41:25.397Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/NES1/">NeSimulator Step&lt;0x01&gt; 高速公路</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/03/NeSimulator/" class="archive-article-date">
-  	<time datetime="2020-07-03T03:01:16.151Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/03/NeSimulator/">NeSimulator Step&lt;0x00&gt; 盘古开天地</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/28/CPU%E6%A8%A1%E6%8B%9F/" class="archive-article-date">
-  	<time datetime="2020-05-28T12:23:17.543Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/28/CPU%E6%A8%A1%E6%8B%9F/">大作业 &lt;CPU模拟&gt; 文档</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -576,8 +325,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
