@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Navi&#39;s Blog</title>
+  <title>利用GAN生成古诗 | Navi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Navi&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+  <meta name="description" content="LSTM + GAN 生成古诗 脚本,数据集与模型下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用GAN生成古诗">
+<meta property="og:url" content="http://yoursite.com/2020/08/15/poetryGAN/index.html">
 <meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:description" content="LSTM + GAN 生成古诗 脚本,数据集与模型下载">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-15T10:41:11.203Z">
+<meta property="article:modified_time" content="2020-08-15T10:58:59.904Z">
 <meta property="article:author" content="Navi">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
@@ -160,32 +165,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-链表匹配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-poetryGAN" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class=" article-header">
   
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/">链表匹配</a>
+    <h1 class="article-title" itemprop="name">
+      利用GAN生成古诗
     </h1>
   
 
   
-  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
+  <a href="/2020/08/15/poetryGAN/" class="archive-article-date">
+  	<time datetime="2020-08-15T10:41:11.203Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
 </a>
   
   </header>
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知两个由正整数组成的无序序列A、B，每个序列的元素个数未知，但至少有一个元素。你的任务是判断序列B是否是序列A的连续子序列。假设B是“1 9 2 4 18”，A是“33 64 1 9 2 4 18 7”，B是A的连续子序列；假设B是“1 9 2 4 18”，A是“33 1 9 64 2 4 18 7”，B不是A的连续子序列。<br>要求：<br>建立两个单链表A、B用于存储两个正整数序列，然后按照题目的要求，判断链表B是否是链表A的连续子序列。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。在程序结束前要释放链表A、B中的所有节点。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/#more">more >></a>
-    
+    <p>LSTM + GAN 生成古诗</p>
+<p><a href="https://github.com/NaviHX/poetry-gen" target="_blank" rel="noopener">脚本,数据集与模型下载</a></p>
+<a id="more"></a>
+
+<h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>将爬取到的七言诗句进行预处理,计算字频后排序,获取特征值与汉字的对应关系</p>
+<blockquote>
+<p>采取Embedding效果更佳</p>
+</blockquote>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p>采用典型的生成对抗网络架构</p>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_gen</span><span class="params">(self)</span>:</span></span><br><span class="line">    inp = Input(shape=(<span class="number">32</span>))                         <span class="comment"># (32)</span></span><br><span class="line">    out = Dense(<span class="number">64</span>)(inp)                            <span class="comment"># (64)</span></span><br><span class="line">    out = Dense(<span class="number">56</span>)(out)                            <span class="comment"># (56)</span></span><br><span class="line">    out = Reshape((<span class="number">7</span>, <span class="number">8</span>))(out)                      <span class="comment"># (7,8)</span></span><br><span class="line">    out = LSTM(<span class="number">1024</span>, return_sequences=<span class="literal">True</span>)(out)    <span class="comment"># (7, 1024)</span></span><br><span class="line">    out = Dense(<span class="number">2048</span>)(out)                          <span class="comment"># (7,2048)</span></span><br><span class="line">    out = Dense(<span class="number">4096</span>)(out)                          <span class="comment"># (7, 4096)</span></span><br><span class="line">    out = Dense(<span class="number">1</span>)(out)                             <span class="comment"># (7, 1)</span></span><br><span class="line">    gen = Model(inputs=inp, outputs=out)</span><br><span class="line">    <span class="keyword">return</span> gen</span><br></pre></td></tr></table></figure>
+
+<h3 id="判别器"><a href="#判别器" class="headerlink" title="判别器"></a>判别器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_dis</span><span class="params">(self)</span>:</span></span><br><span class="line">    inp = Input(shape=(<span class="number">7</span>, <span class="number">1</span>))   <span class="comment"># (7, 1)</span></span><br><span class="line">    out = Dense(<span class="number">8</span>)(inp)         <span class="comment"># (7, 8)</span></span><br><span class="line">    out = Dense(<span class="number">64</span>)(out)        <span class="comment"># (7, 64)</span></span><br><span class="line">    out = Dense(<span class="number">512</span>)(out)       <span class="comment"># (7, 512)</span></span><br><span class="line">    out = LSTM(<span class="number">1024</span>)(out)       <span class="comment"># (1024)</span></span><br><span class="line">    out = Dense(<span class="number">1024</span>)(out)      <span class="comment"># (1024)</span></span><br><span class="line">    out = Dense(<span class="number">512</span>)(out)       <span class="comment"># (512)</span></span><br><span class="line">    out = Dropout(<span class="number">0.6</span>)(out)     <span class="comment"># (64)</span></span><br><span class="line">    out = Dense(<span class="number">1</span>)(out)         <span class="comment"># (1)</span></span><br><span class="line">    dis = Model(inputs=inp, outputs=out)</span><br><span class="line">    <span class="keyword">return</span> dis</span><br></pre></td></tr></table></figure>
+
+<h2 id="训练情况"><a href="#训练情况" class="headerlink" title="训练情况"></a>训练情况</h2><p>训练开始时的情况</p>
+<blockquote>
+<p>=== Epoch 0 ===<br>d loss: [73.79066467285156, 0.9936460256576538, 4.691771209763829e-06, 7.279701232910156]<br>g loss: 22.864032745361328<br>照床床温徊窟慈<br>悠囊囊悠悠胫胫<br>囊动伫日身翠截<br>凉恤瑙览泥缆皛<br>拙截团团团渚渚<br>凉菅八畏聚嫁荃<br>截览览皛皛览囊<br>团团团团良墉墉</p>
+</blockquote>
+<p>训练结束时</p>
+<blockquote>
+<p>=== Final Sample ===<br>叶双万路阳愁新<br>独几暮气大梦翠<br>世过池初方吹逢<br>晚鸟地似酒欲为<br>笑安文文忆复池<br>思少名叶问吟翠<br>衣只鸟问思黄今<br>同百歌思间叶少</p>
+</blockquote>
+
     
 
     
@@ -198,11 +219,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
@@ -211,16 +228,24 @@
     
 
     
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%8C%B9%E9%85%8D/">展开全文 >></a>
-    </p>
-    
 
     
     <div class="clearfix"></div>
   </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/08/styleGAN/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">StyleGAN学习</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -235,732 +260,50 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-链表排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/">链表排序</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.184Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知一个正整数组成的无序序列，个数未知，但至少有一个元素，你的任务是建立一个单链表，并使用该链表存储这个正整数序列，然后将这个链表进行排序，使得排序后的链表为递增序列。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。在排序的过程中，你可以自己选择排序算法（冒泡排序、选择排序等），但必须是通过修改结点的指针域来进行排序，而不是对结点的数据域进行修改。程序结束后要释放所有节点占据的空间。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据预处理"><span class="toc-number">1.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型架构"><span class="toc-number">2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-number">2.1.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判别器"><span class="toc-number">2.2.</span> <span class="toc-text">判别器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练情况"><span class="toc-number">3.</span> <span class="toc-text">训练情况</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-  
-    <article id="post-链表交换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/">链表交换</a>
-    </h1>
-  
+<!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC80OTE5MS8yNTY4NQ==">
+  <script type="text/javascript">
+    (function (d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
 
-  
-  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.183Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知一个正整数序列，序列元素个数未知，但至少有两个元素，你的任务是建立一个单链表用于存储这个正整数序列。然后实现交换此链表中任意指定的两段，第一段为[s1,t1]，第二段[s2,t2]。s1、t1、s2、t2代表链表的第几个节点，且满足s1&lt;=t1，s2&lt;=t2，t1 &lt; s2，s2一定小于等于链表节点的总个数。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。最后将链表的全部节点释放。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/#more">more >></a>
-    
-    
+      if (typeof LivereTower === 'function') { return; }
 
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
 
-    
+      e.parentNode.insertBefore(j, e);
+    })(document, 'script');
+  </script>
+  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
 
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E4%BA%A4%E6%8D%A2/">展开全文 >></a>
-    </p>
-    
 
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
 
 
 
-  
-    <article id="post-链表归并" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/">链表归并</a>
-    </h1>
-  
 
-  
-  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>已知有两个递增的正整数序列A和B，序列中元素个数未知，同一序列中不会有重复元素出现，有可能某个序列为空。现要求将序列B归并到序列A中，且归并后序列A的数据仍然按递增顺序排列。如果序列B中某些数据在序列A中也存在，则这些数据所在节点仍然留在序列B中，而不被归并到序列A中；否则这些数据所在节点将从序列B中删除，添加到序列A中。<br>要求：<br>建立两个单链表A、B用于存储两个正整数序列，然后按照题目的要求，将链表B中的元素归并到链表A中。在归并的过程中，不要释放B中的节点空间、然后建立新节点，而要改变指针的指向，使元素从B中删除并添加到A中。正整数序列按照递增顺序输入，用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。在程序结束前要释放链表A、B中的所有节点。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/#more">more >></a>
-    
-    
 
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E5%BD%92%E5%B9%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-链表拆分" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/">链表拆分</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.182Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知有一个乱序的字符序列L，序列中的字符可能是英文字母、数字字符或其它字符，字符的个数未知，每个字符之间用空格分开。字符序列用“-1”作为输入结束标志，这里你要把-1当做一个字符串对待，并且不算作字符序列中的元素。如下即为一个合法的字符序列：“a c 3 b a d 6 , &amp; j m 8 7 2 V -1”。你的任务是将这个字符序列拆分为三个独立的序列A、B和C，其中序列A存放序列L中的字母，序列B存放序列L中的数字，序列C存放序列L中的其他字符，然后，将序列A、B和C分别按照ASCII码的大小关系进行升序排序。最终序列L将变为空序列。<br>要求：<br>建立四个单链表，分别存储序列L、A、B、C中的元素。字符序列的输入用“-1”作为结束标志。建立链表L时，建议使用scanf(“%s”,s);来读取字符序列中的字符，即把单独的字符看做一个字符串读取。当L建立后，你要按照问题描述中所述，将L拆分为A、B、C三个链表，然后对每个链表都进行排序，这部分的操作都应该是对指针进行修改，而不是删除节点与建立新节点。在程序结束前要释放链表A、B、C中的所有节点。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E9%93%BE%E8%A1%A8%E6%8B%86%E5%88%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-和谐词库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">和谐词库</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.174Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>互联网中存在许多的不和谐词汇，在我们浏览互联网的时候，搜索引擎经常会出现提示信息“根据相关法律法规和政策，部分搜索结果未予显示”。小王同学也想制作一个自己的屏蔽词库，这样他就可以将自己不喜欢的词汇从文件中换成别的字符了。屏蔽词库是一个ASCII码文件，这个文件中只含有单词，每个单词占一行，每个单词中只可能有大小写字母与空格。题目中和谐词库的文件名为dict.dic。（屏蔽词库中每个词汇长度小于10，屏蔽词汇个数不超过10.）<br>你的任务是将输入中的所有和谐词库中的词语全部替换成“!@#$%^&amp;<em>”（按住键盘shift和数字1至8），然后输出。这里要注意，如果一个词语中包含屏蔽词汇，那么只将屏蔽词汇替换，例如“hehasAAA”被处理后将得到“he!@#$%^&amp;</em>AAA”，注意屏蔽词汇区分大小写，即aaa与AAA是两个不同的单词，为了使问题简化，屏蔽词汇中不会出现互相包含的情况，如“xabcx”与“abc”不会同时出现在同一个屏蔽词库中。由于小王同学很不擅长文件操作，所以他希望你能帮他制作这个屏蔽词汇程序。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E5%92%8C%E8%B0%90%E8%AF%8D%E5%BA%93/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-初识链表" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/">初识链表</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个正整数序列，个数未知，但至少有一个元素，你的任务是建立一个单链表，并使用该链表存储这个正整数序列，然后统计这个序列中元素的最大值与最小值，计算序列全部元素之和。正整数的输入用-1作为结束标志，注意-1不算这个正整数序列中的元素（不要统计-1）。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">链表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86%E9%93%BE%E8%A1%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-初识二进制文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">初识二进制文件</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.173Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>常用的数据类型有字符型(char 型)、短整型(short 型)、整型(int 型)、长整型(long 型)、拓展长整型(long long 型)、单精度浮点型(float 型)、双精度浮点型(double 型)。问题围绕着数据类型与二进制文件展开。现有一个二进制文件，文件名为dict.dic，生成这个文件的C语言代码大概是这样的：<br>变量如下：<br>    char a,aa[5];//注意这里数组aa为正常使用的字符串，所以会包含字符’\0’，它不需要输出<br>    short b,bb[5];<br>    int c,cc[5];<br>    long d,dd[5];<br>    long long e,ee[5];<br>    float g,gg[5];<br>    double h,hh[5];<br>    int i ;</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-初识ACSCII文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/">初识ASCII文件</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.172Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>已知一个ASCII码文件，文件名为dict.dic，该文件中只包含ASCII码中的字符，即可对应整数0—127。我们将ASCII码中的字符分为4类，第一类为大写字母“A—Z”、第二类为小写字母“a—z”、第三类为数字字符“0—9”、第四类为其他字符“!@#$%^&amp;*” 等等（不属于前三类的字符即为第四类）。<br>要求：<br>1.统计出这四类字符在该文件中的数量。<br>2.统计出该文件的行数、行最大长度、行最小长度。这里要注意，虽然文件的换行符确实为一个字符，ASCII码为10，但在统计行长度时，文件中的换行符并不统计在内。<br>3.输出具体的大小写字母的统计信息，每行一个字母。<br>4.处理完成后，关闭文件。<br>内容提示：在本题对文件的操作内容中，会用到三个新的C语言文件操作函数，一种新的打开文件的方式，如下：<br>1.FILE *fp=fopen(“file.txt”,”r”);//fp即为文件指针，”file.txt”为待打开的文件名，此时应与该程序在一个目录下，”r”为以只读方式打开ASCII码文件。<br>2.int ch=fgetc(fp);//从fp指向的文件中读取一个字节（字符），存入变量ch内。<br>3.fclose(fp);//关闭fp指向的文件。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/%E5%88%9D%E8%AF%86ACSCII%E6%96%87%E4%BB%B6/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-p2697" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/07/p2697/">P2697 宝石串</a>
-    </h1>
-  
-
-  
-  <a href="/2020/04/07/p2697/" class="archive-article-date">
-  	<time datetime="2020-04-07T12:31:49.171Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-07</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>有一种宝石串，由绿宝石和红宝石串成，仅当绿宝石和红宝石数目相同的时候，宝石串才最为稳定，不易断裂。安安想知道从给定的宝石串中，可以截取一段最长的稳定的宝石串，有多少颗宝石组成。请你帮助他。<br>绿宝石用’G’表示，红宝石用’R’表示。</p>
-    
-    <a class="article-more-a" href="/2020/04/07/p2697/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Code</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">暴力</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/04/07/p2697/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -987,8 +330,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
