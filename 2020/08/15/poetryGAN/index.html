@@ -16,7 +16,7 @@
 <meta property="og:description" content="LSTM + GAN 生成古诗 脚本,数据集与模型下载">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-15T10:41:11.203Z">
-<meta property="article:modified_time" content="2020-08-15T10:58:59.904Z">
+<meta property="article:modified_time" content="2020-08-17T14:10:07.286Z">
 <meta property="article:author" content="Navi">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
@@ -206,6 +206,16 @@
 <blockquote>
 <p>=== Final Sample ===<br>叶双万路阳愁新<br>独几暮气大梦翠<br>世过池初方吹逢<br>晚鸟地似酒欲为<br>笑安文文忆复池<br>思少名叶问吟翠<br>衣只鸟问思黄今<br>同百歌思间叶少</p>
 </blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><script>
+    function change(){
+        var text=document.getElementById("poem")
+        text.src="https://navihx.top/poemgen"
+    }
+</script>
+
+<iframe src="https://navihx.top/poemgen" id="poem"></iframe>
+<br>
+<button onclick="change()">戳我更换</button>
 
     
 
@@ -267,7 +277,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据预处理"><span class="toc-number">1.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型架构"><span class="toc-number">2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-number">2.1.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判别器"><span class="toc-number">2.2.</span> <span class="toc-text">判别器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练情况"><span class="toc-number">3.</span> <span class="toc-text">训练情况</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据预处理"><span class="toc-number">1.</span> <span class="toc-text">数据预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型架构"><span class="toc-number">2.</span> <span class="toc-text">模型架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#生成器"><span class="toc-number">2.1.</span> <span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判别器"><span class="toc-number">2.2.</span> <span class="toc-text">判别器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#训练情况"><span class="toc-number">3.</span> <span class="toc-text">训练情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text"></span></a></li></ol>
                     </div>
                 </span>
             </div>
