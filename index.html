@@ -162,6 +162,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-KMP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
+  
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/07/KMP/">KMP算法</a>
+    </h1>
+  
+
+  
+  <a href="/2020/10/07/KMP/" class="archive-article-date">
+  	<time datetime="2020-10-07T07:32:02.181Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-07</time>
+</a>
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h2 id="常规算法的不足"><a href="#常规算法的不足" class="headerlink" title="常规算法的不足"></a>常规算法的不足</h2><p>假设i指针遍历源文本,j指针遍历模式串,每次失配时,i都必须回溯到i-j+1的位置,浪费了很多时间.</p>
+<p>改进的思路是根据模式串的性质,得到一个nxt数组,其指示了在第i,j位失配时,第i位的文本接下来尝试去匹配模式串的第nxt[j]位,防止i回溯.</p>
+<p>通俗地说,就是在i,j位失配时,i不移动,而将j移动到nxt[j]继续进行匹配.</p>
+    
+    <a class="article-more-a" href="/2020/10/07/KMP/#more">more >></a>
+    
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/10/07/KMP/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
     <article id="post-poetryGAN" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -796,84 +873,6 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2020/07/03/NES1/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-    <article id="post-NeSimulator" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class=" article-header">
-  
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/03/NeSimulator/">NeSimulator Step&lt;0x00&gt; 盘古开天地</a>
-    </h1>
-  
-
-  
-  <a href="/2020/07/03/NeSimulator/" class="archive-article-date">
-  	<time datetime="2020-07-03T03:01:16.151Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
-</a>
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p><a href="https://navihx.github.io/2020/07/03/NeSimulator/" target="_blank" rel="noopener">Step&lt;0x00&gt; 盘古开天地</a><br><a href="https://navihx.github.io/2020/07/03/NES1/" target="_blank" rel="noopener">Step&lt;0x01&gt; 高速公路</a><br><a href="https://navihx.github.io/2020/07/04/NES2/" target="_blank" rel="noopener">Step&lt;0x02&gt; 核心</a><br><a href="https://navihx.github.io/2020/07/12/NES3/" target="_blank" rel="noopener">Step&lt;0x03&gt; 模拟外设</a><br><a href="https://navihx.github.io/2020/07/14/NES4/" target="_blank" rel="noopener">Step&lt;0x04&gt; 图形处理器</a><br><a href="https://navihx.github.io/2020/07/16/NES5/" target="_blank" rel="noopener">Step&lt;0x05&gt; Mapper介绍和最后组装</a></p>
-<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>之前做了一个简单的CPU模拟器，所以这个暑假给自己定一个小目标，完成一个NES仿真的任务<br>虽然写作simulator，实际上叫emulator应该更贴切一点</p>
-<p>使用语言: C++<br>预计时间: 暑假报废<br>(开局一个gcc，代码全靠编</p>
-<p>UI、控制、音效方面可能会用到SFML<br>(毕竟低技术力大学生</p>
-    
-    <a class="article-more-a" href="/2020/07/03/NeSimulator/#more">more >></a>
-    
-    
-
-    
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">开发</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/03/NeSimulator/">展开全文 >></a>
     </p>
     
 
