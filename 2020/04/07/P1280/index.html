@@ -54,11 +54,11 @@
 <div class="overlay" style="background: #4d4d4d"></div>
 <div class="intrude-less">
 	<header id="header" class="inner">
-		<a href="/blog/" class="profilepic">
+		<a href="" class="profilepic">
 			<img src="/img/avatar.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/blog/">Navi</a></h1>
+		  <h1 class="header-author"><a href="">Navi</a></h1>
 		</hgroup>
 		
 
@@ -212,6 +212,33 @@
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">work</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> start;</span><br><span class="line">    <span class="keyword">int</span> end;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">const</span> work &amp;a, <span class="keyword">const</span> work &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.start &gt; b.start;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n, k;</span><br><span class="line">work job[<span class="number">10001</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">10005</span>];</span><br><span class="line"><span class="keyword">bool</span> sum[<span class="number">10005</span>];</span><br><span class="line"><span class="keyword">int</span> ptr;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;job[i].start, &amp;job[i].end);</span><br><span class="line">        job[i].end = job[i].start + job[i].end - <span class="number">1</span>;</span><br><span class="line">        sum[job[i].start] = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(job + <span class="number">1</span>, job + k + <span class="number">1</span>, cmp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!sum[i])</span><br><span class="line">        &#123;</span><br><span class="line">            dp[i] = dp[i + <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span> (ptr += <span class="number">1</span>; job[ptr].start == i; ptr++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (dp[i] &lt; dp[job[ptr].end + <span class="number">1</span>])</span><br><span class="line">                &#123;</span><br><span class="line">                    dp[i] = dp[job[ptr].end + <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ptr--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     
 
+    
+    <div class="page-reward">
+      <a href="javascript:;" class="page-reward-btn tooltip-top">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            赏
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/alipay.jpg">
+                    <span class="reward-type">支付宝</span>
+                  </div>
+                  
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
     
   </div>
   <div class="article-info article-info-index">
