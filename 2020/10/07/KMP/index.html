@@ -6,13 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>KMP算法 | Navi&#39;s Blog</title>
+  <title>KMP算法 | Bebop号的冰箱</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="常规算法的不足假设i指针遍历源文本,j指针遍历模式串,每次失配时,i都必须回溯到i-j+1的位置,浪费了很多时间. 改进的思路是根据模式串的性质,得到一个nxt数组,其指示了在第i,j位失配时,第i位的文本接下来尝试去匹配模式串的第nxt[j]位,防止i回溯. 通俗地说,就是在i,j位失配时,i不移动,而将j移动到nxt[j]继续进行匹配.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KMP算法">
 <meta property="og:url" content="http://yoursite.com/2020/10/07/KMP/index.html">
-<meta property="og:site_name" content="Navi&#39;s Blog">
+<meta property="og:site_name" content="Bebop号的冰箱">
 <meta property="og:description" content="常规算法的不足假设i指针遍历源文本,j指针遍历模式串,每次失配时,i都必须回溯到i-j+1的位置,浪费了很多时间. 改进的思路是根据模式串的性质,得到一个nxt数组,其指示了在第i,j位失配时,第i位的文本接下来尝试去匹配模式串的第nxt[j]位,防止i回溯. 通俗地说,就是在i,j位失配时,i不移动,而将j移动到nxt[j]继续进行匹配.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-07T07:32:02.181Z">
@@ -21,7 +21,7 @@
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Navi&#39;s Blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="Bebop号的冰箱" type="application/atom+xml">
   
   
     <link rel="icon" href="/img/favicon.jpg">
