@@ -16,7 +16,7 @@
 <meta property="og:description" content="Description利用Code-Injection和ROP分别攻击二进制文件ctarget与rtarget 程序可以用栈来管理它的过程所需要的存储空间，栈和程序寄存器存放着传递控制和数据、分配内存所需要的信息。当过程需要的存储空间超出寄存器能够存放的大小时，就会在栈上分配空间，这个部分称为过程的栈帧。 当程序请求用户输入时,可以使用户输入超过缓冲区的大小,淹没返回地址,将指令计数器指引至恶意代">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-21T12:31:49.777Z">
-<meta property="article:modified_time" content="2020-11-21T14:09:17.038Z">
+<meta property="article:modified_time" content="2020-11-21T14:12:56.676Z">
 <meta property="article:author" content="Navi">
 <meta property="article:tag" content="CSAPP">
 <meta name="twitter:card" content="summary">
@@ -252,7 +252,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0x0114514 <span class="comment"># 第一个地址 &lt;= %rsp , 每次调用ret,会获取这里的地址并向下移</span></span><br><span class="line">0x1919810 <span class="comment"># 第二个地址</span></span><br><span class="line">...</span><br><span class="line">0x401986  <span class="comment"># 最后一个地址</span></span><br></pre></td></tr></table></figure>
 
 <p>当函数返回时,会从<code>%rsp</code>获取地址,同时<code>%rsp</code>指向下一个地址<br>每次恶意代码结束调用<code>ret</code>都可以接着执行下一条恶意代码,构成了一条控制流,同时也破解了栈代码不可执行的限制  </p>
-<h3 id="Phase-3-1"><a href="#Phase-3-1" class="headerlink" title="Phase 3"></a>Phase 3</h3><p>利用ROP攻击重新调用<code>touch2</code></p>
+<h3 id="Phase-4"><a href="#Phase-4" class="headerlink" title="Phase 4"></a>Phase 4</h3><p>利用ROP攻击重新调用<code>touch2</code></p>
 <p>需要完成给<code>%edi</code>赋值和压入函数地址的操作</p>
 <p>为了完成赋值,我们通常使用<code>mov 立即数, 寄存器</code>的指令,但是这个方法在这里不可行,因为几乎不可能直接在库中找到立即数完全一致的指令<br>为了解决这个困难,我们先来回顾一下<code>pop</code>指令</p>
 <blockquote>
@@ -362,7 +362,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparation"><span class="toc-number">2.</span> <span class="toc-text">Preparation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-I-Code-Injection-代码注入攻击"><span class="toc-number">3.</span> <span class="toc-text">Part I : Code-Injection 代码注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-1"><span class="toc-number">3.1.</span> <span class="toc-text">Phase 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-2"><span class="toc-number">3.2.</span> <span class="toc-text">Phase 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-3"><span class="toc-number">3.3.</span> <span class="toc-text">Phase 3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-II-ROP攻击"><span class="toc-number">4.</span> <span class="toc-text">Part II : ROP攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-3-1"><span class="toc-number">4.1.</span> <span class="toc-text">Phase 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-5"><span class="toc-number">4.2.</span> <span class="toc-text">Phase 5</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Preparation"><span class="toc-number">2.</span> <span class="toc-text">Preparation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-I-Code-Injection-代码注入攻击"><span class="toc-number">3.</span> <span class="toc-text">Part I : Code-Injection 代码注入攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-1"><span class="toc-number">3.1.</span> <span class="toc-text">Phase 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-2"><span class="toc-number">3.2.</span> <span class="toc-text">Phase 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-3"><span class="toc-number">3.3.</span> <span class="toc-text">Phase 3</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Part-II-ROP攻击"><span class="toc-number">4.</span> <span class="toc-text">Part II : ROP攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-4"><span class="toc-number">4.1.</span> <span class="toc-text">Phase 4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Phase-5"><span class="toc-number">4.2.</span> <span class="toc-text">Phase 5</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
